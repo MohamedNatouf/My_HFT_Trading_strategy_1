@@ -1,0 +1,1 @@
+{"allocation":  [ { "stock": "EWL", "weight": 0.451 }, { "stock": "HEWJ", "weight": 0.449 }, { "stock": "DXJ", "weight": 0.1 }  ]  }

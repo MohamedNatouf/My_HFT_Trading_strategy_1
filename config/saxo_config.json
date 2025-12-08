@@ -1,0 +1,47 @@
+{
+  "fix": {
+    "host": "fix.saxo.example.com",
+    "port": 1234,
+    "senderCompId": "YOUR_SENDER_COMP_ID",
+    "targetCompId": "SAXO_TARGET",
+    "username": "YOUR_FIX_USERNAME",
+    "password": "YOUR_FIX_PASSWORD",
+    "account": "YOUR_TRADING_ACCOUNT",
+    "dictionary": "FIX44"
+  },
+  "websocket": {
+    "url": "wss://streaming.saxobank.com/openapi/streamingws/connect",
+    "token": "eyJhbGciOiJFUzI1NiIsIng1dCI6IjY3NEM0MjFEMzZEMUE1OUNFNjFBRTIzMjMyOTVFRTAyRTc3MDMzNTkifQ.eyJvYWEiOiI3Nzc3NSIsImlzcyI6Im9hIiwiYWlkIjoiMTA5IiwidWlkIjoieC1IQkE3MnF6SDYzeDMzdUQyZEZudz09IiwiY2lkIjoieC1IQkE3MnF6SDYzeDMzdUQyZEZudz09IiwiaXNhIjoiRmFsc2UiLCJ0aWQiOiIyMDAyIiwic2lkIjoiMDE0NTgwYWI2MTBhNGMyZThmMjdlMGMwODkyZWMwMjUiLCJkZ2kiOiI4NCIsImV4cCI6IjE3NjUyMjgyODgiLCJvYWwiOiIxRiIsImlpZCI6IjFjNGQ4Yzk0ZmQwMDQ1NjZlMWJhMDhkZTMyNTA1NjI3In0.ogDWZTK3bkLq03Sp_E9xUemtCXj7mNvFPF1g4hcVYruFZ9OGxINxgUtP5D_AlC8AIGMJbjHCMx3LcCyOlDDcRQ",
+    "contextId": "ctx-1",
+    "restBaseUrl": "https://gateway.saxobank.com/openapi"
+  },
+  "instruments": [
+    { "uic": 21, "assetType": "FxSpot", "symbol": "EURUSD", "class": "FX", "subClass": "Major", "sector": "FX" },
+    { "uic": 31, "assetType": "FxSpot", "symbol": "USDJPY", "class": "FX", "subClass": "Major", "sector": "FX" }
+  ],
+  "universe": {
+    "models": ["EURUSD", "USDJPY"],
+    "emergency": ["EURUSD"],
+    "equitySignals": [],
+    "bondSignals": [],
+    "backupEmergency": [],
+    "referenceRiskFree": ["EURUSD"]
+  },
+  "strategy": {
+    "Number_of_Portfolio_Allocations": 3,
+    "Selected_method_of_Momuntum_Metric": "Metrics Combind",
+    "Method_Of_Wieghting": "Assets Inverse Volatility",
+    "Volatility_Measuring_Lookback_Period": 60,
+    "rebalance_minutes": 5,
+    "Emergency_Status_Input_Code": 1,
+    "Equity_Lookback_Period": 55,
+    "Bond_Lookback_Period": 110,
+    "Equity_Signal_Wait_Period": 3,
+    "Bond_Signal_Wait_Period": 1,
+    "Equity_N_Bond_Hold_Period_Status": true,
+    "Equity_N_Bond_Hold_Period": 3,
+    "Special_Filter_Status": false,
+    "Special_Filter_Type": "Sub_Classes",
+    "minutes_per_day": 390
+  }
+}

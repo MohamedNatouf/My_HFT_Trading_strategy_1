@@ -1,0 +1,2265 @@
+﻿Asset Symbol,Asset Class,Asset Sub-Class,Asset Sector
+VTI,Equity,US - Large Cap Growth Equities,
+VONE,Equity,US - Large Cap Growth Equities,
+VOO,Equity,US - Large Cap Growth Equities,
+VTV,Equity,US - Large Cap Value Equities,
+VUG,Equity,US - Large Cap Growth Equities,
+SCHA,Equity,US - Small Cap Growth Equities,
+VIOG,Equity,US - Small Cap Growth Equities,
+VBK,Equity,US - Small Cap Growth Equities,
+VEA,Equity,Global - Developed Markets Equities,
+VWO,Equity,Global - Emerging Markets Equities,
+VGT,Equity,US - All Cap Equities,Technology
+VCR,Equity,US - All Cap Equities,Consumer Discretionary
+VDC,Equity,US - All Cap Equities,Consumer Staples
+CLOU,Equity,Global - Global Equities,Technology
+WCLD,Equity,US - All Cap Equities,Technology
+SKYY,Equity,US - All Cap Equities,Technology
+BOTZ,Equity,Global - Developed Markets Equities,
+ROBO,Equity,Global - Developed Markets Equities,Technology
+QCLN,Equity,US - All Cap Equities,Energy
+ICLN,Equity,Global - Developed Markets Equities,Energy
+PBW,Equity,US - Small Cap Growth Equities,Energy
+BRK-B,-,-,
+BAM,-,-,
+MKL,-,-,
+VNQ,Real Estate,US - Real Estate,Real Estate
+PDBC,Commodities,Commodities,
+XLE,Equity,US - All Cap Equities,Energy
+MXI,Equity,Global - Global Equities,Materials
+IAU,Commodities,Commodities - Gold,
+CEF,Commodities,Commodities,
+FNV,Commodities,Commodities - Gold,
+GBTC,Currency,Currency,
+BND,Bond,US - Total Bond Market,
+EDV,Bond,US - Long Term Government Bonds,
+BLV,Bond,US - Long Term Government Bonds,
+VGLT,Bond,US - Long Term Government Bonds,
+BIV,Bond,US - Short Term Government Bonds,
+VGIT,Bond,US - Short Term Government Bonds,
+BSV,Bond,US - Short Term Government Bonds,
+SHV,Bond,US - Short Term Government Bonds,
+MUB,Bond,US - Municipal Bonds,
+VCLT,Bond,US - Long Term Government Bonds,
+BNDX,Bond,Global - Government Bonds,
+VOX,Equity,US - Large Cap Growth Equities,Telecom
+VDE,Equity,US - All Cap Equities,Energy
+VFH,Equity,US - All Cap Equities,Financials
+VHT,Equity,US - All Cap Equities,Healthcare
+VIS,Equity,US - All Cap Equities,Industrials
+VAW,Equity,US - All Cap Equities,Materials
+VPU,Equity,US - All Cap Equities,Utilities
+IEF,Bond,US - Short Term Government Bonds,
+VBMFX,Bond,US - Total Bond Market,
+SLV,Commodities,Commodities,
+SIVR,Commodities,Commodities,
+SLVP,Equity,Global - Global Equities,Materials
+SLVO,Commodities,Commodities,Materials
+SIL,Equity,Global - Global Equities,Materials
+ZSL,Inverse Commodities,Inverse Commodities,
+SPXV,Equity,US - Large Cap Growth Equities,Healthcare
+IJH,Equity,US - Mid Cap Growth Equities,
+VO,Equity,US - Mid Cap Growth Equities,
+VCIT,Bond,Global - Corporate Bonds,
+IBMM,Bond,US - Municipal Bonds,
+IBMN,Bond,US - Municipal Bonds,
+IBMO,Bond,US - Municipal Bonds,
+QQQ,Equity,US - Large Cap Growth Equities,Technology
+VYM,Equity,US - Large Cap Value Equities,
+PEJ,Equity,US - Small Cap Blend Equities,Consumer Discretionary
+GDX,Equity,Global - Global Equities,Materials
+VB,Equity,US - Small Cap Growth Equities,
+ARKG,Equity,US - All Cap Equities,Healthcare
+ARKK,Equity,US - All Cap Equities,Technology
+SPY,Equity,US - Large Cap Growth Equities,
+IVV,Equity,US - Large Cap Growth Equities,
+IWF,Equity,US - Large Cap Growth Equities,
+IWM,Equity,US - Small Cap Growth Equities,
+IJR,Equity,US - Small Cap Blend Equities,
+LQD,Bond,US - Corporate Bonds,
+VIG,Equity,US - Large Cap Growth Equities,
+IWD,Equity,US - Large Cap Value Equities,
+XLK,Equity,US - All Cap Equities,Technology
+VCSH,Bond,Global - Corporate Bonds,
+USMV,Equity,US - Large Cap Growth Equities,
+ITOT,Equity,US - Large Cap Growth Equities,
+IVW,Equity,US - Large Cap Growth Equities,
+TIP,Bond,US - Inflation-Protected Bonds,
+IWB,Equity,US - Large Cap Growth Equities,
+MBB,Bond,Mortgage Backed Securities,
+SCHX,Equity,US - Large Cap Growth Equities,
+XLV,Equity,US - All Cap Equities,Healthcare
+IWR,Equity,US - All Cap Equities,
+HYG,Bond,US - Corporate Bonds,
+XLF,Equity,US - All Cap Equities,Financials
+DIA,Equity,US - Large Cap Value Equities,Industrials
+IGSB,Bond,US - Corporate Bonds,
+QUAL,Equity,US - Large Cap Growth Equities,
+VV,Equity,US - Large Cap Growth Equities,
+SHY,Bond,US - Short Term Government Bonds,
+PFF,Preferred Stock,Preferred Stock/Convertible Bonds,
+TLT,Bond,US - Long Term Government Bonds,
+IVE,Equity,US - Large Cap Value Equities,
+XLY,Equity,US - All Cap Equities,Consumer Discretionary
+VBR,Equity,US - Small Cap Blend Equities,
+SCHB,Equity,US - Large Cap Growth Equities,
+RSP,Equity,US - Large Cap Blend Equities,
+MDY,Equity,US - Mid Cap Growth Equities,
+SDY,Equity,US - Large Cap Value Equities,
+SCHD,Equity,US - Large Cap Value Equities,
+XLI,Equity,US - All Cap Equities,Industrials
+IWP,Equity,US - All Cap Equities,
+JPST,Bond,Global - Corporate Bonds,
+GOVT,Bond,US - Long Term Government Bonds,
+DVY,Equity,US - Large Cap Value Equities,
+DGRO,Equity,US - Large Cap Value Equities,
+VGK,Equity,Global - Developed Markets Equities - Canada & Europe,
+SCHP,Bond,US - Inflation-Protected Bonds,
+VXF,Equity,US - All Cap Equities,
+XLP,Equity,US - All Cap Equities,Consumer Staples
+SCHG,Equity,US - Large Cap Growth Equities,
+MTUM,Equity,US - Large Cap Growth Equities,
+ESGU,Equity,US - Large Cap Growth Equities,
+VMBS,Bond,Mortgage Backed Securities,
+BIL,Bond,US - Short Term Government Bonds,
+JNK,Bond,US - Short Term Government Bonds,
+IWO,Equity,US - Small Cap Growth Equities,
+XLU,Equity,US - All Cap Equities,Utilities
+XLC,Equity,US - Large Cap Growth Equities,Consumer Discretionary
+IWN,Equity,US - Small Cap Blend Equities,
+IWS,Equity,US - All Cap Equities,
+GSLC,Equity,US - Large Cap Growth Equities,
+FDN,Equity,US - Large Cap Growth Equities,Technology
+IEI,Bond,US - Short Term Government Bonds,
+IGIB,Bond,US - Corporate Bonds,
+VOE,Equity,US - Mid Cap Value Equities,
+IBB,Equity,US - All Cap Equities,Healthcare
+IWV,Equity,US - Large Cap Growth Equities,
+IUSG,Equity,US - Large Cap Growth Equities,
+VOT,Equity,US - Large Cap Growth Equities,
+VTEB,Bond,US - Municipal Bonds,
+FVD,Equity,US - Large Cap Blend Equities,
+VTIP,Bond,US - Short Term Government Bonds,
+MGK,Equity,US - Large Cap Growth Equities,
+VGSH,Bond,US - Short Term Government Bonds,
+SPYG,Equity,US - Large Cap Growth Equities,
+TQQQ,Leveraged Equity,Leveraged Equities,
+VLUE,Equity,US - Large Cap Value Equities,
+IHI,Equity,US - All Cap Equities,Healthcare
+SCHZ,Bond,US - Total Bond Market,
+SPLV,Equity,US - Large Cap Blend Equities,
+SCHM,Equity,US - Mid Cap Growth Equities,
+IJK,Equity,US - Mid Cap Growth Equities,
+SCHV,Equity,US - Large Cap Value Equities,
+SPLG,Equity,US - Large Cap Blend Equities,
+SCHO,Bond,US - Short Term Government Bonds,
+IUSV,Equity,US - Large Cap Value Equities,
+SPYV,Equity,US - Large Cap Value Equities,
+HYLB,Bond,US - Corporate Bonds,
+USHY,Bond,US - Corporate Bonds,
+SPSB,Bond,US - Corporate Bonds,
+XBI,Equity,US - All Cap Equities,Healthcare
+OEF,Equity,US - Large Cap Growth Equities,
+PGX,Preferred Stock,Preferred Stock/Convertible Bonds,
+NOBL,Equity,US - Large Cap Blend Equities,
+FTCS,Equity,US - Large Cap Growth Equities,
+IYW,Equity,US - All Cap Equities,Technology
+CWB,Bond,Preferred Stock/Convertible Bonds,
+LMBS,Bond,Mortgage Backed Securities,
+IJS,Equity,US - Small Cap Value Equities,
+SPIB,Bond,US - Corporate Bonds,
+IGV,Equity,US - All Cap Equities,Technology
+IUSB,Bond,US - Total Bond Market,
+USIG,Bond,US - Corporate Bonds,
+FPE,Preferred Stock,Preferred Stock/Convertible Bonds,
+HDV,Equity,US - Large Cap Value Equities,
+SHYG,Bond,US - Short Term Government Bonds,
+SPAB,Bond,Global - Government Bonds,
+ARKW,Equity,US - Large Cap Growth Equities,Technology
+IJJ,Equity,US - Mid Cap Value Equities,
+VONG,Equity,US - Large Cap Growth Equities,
+FNDX,Equity,US - Large Cap Value Equities,
+IYR,Real Estate,US - Real Estate,Real Estate
+IJT,Equity,US - Small Cap Growth Equities,
+FTEC,Equity,US - All Cap Equities,Technology
+XLB,Equity,US - All Cap Equities,Materials
+FTSM,Bond,US - Short Term Government Bonds,
+DGRW,Equity,US - Large Cap Growth Equities,
+ICSH,Bond,Global - Government Bonds,
+IXN,Equity,Global - Global Equities,Technology
+SOXX,Equity,US - All Cap Equities,Technology
+VOOG,Equity,US - Large Cap Growth Equities,
+FIXD,Bond,US - Total Bond Market,
+BKLN,Bond,Global - Government Bonds,
+ISTB,Bond,US - Short Term Government Bonds,
+SCHH,Real Estate,US - Real Estate,Real Estate
+NEAR,Bond,Global - Government Bonds,
+SHM,Bond,US - Municipal Bonds,
+PRF,Equity,US - Large Cap Value Equities,
+AMLP,Equity,US - All Cap Equities,Energy
+SPTM,Equity,US - All Cap Equities,
+BOND,Bond,US - Total Bond Market,
+ANGL,Bond,Global - Government Bonds,
+SUB,Bond,US - Municipal Bonds,
+IEUR,Equity,Global - Developed Markets Equities - Canada & Europe,
+SCHR,Bond,US - Short Term Government Bonds,
+QLD,Leveraged Equity,Leveraged Equities,
+FNDA,Equity,US - Small Cap Blend Equities,
+SJNK,Bond,US - Short Term Government Bonds,
+ONEQ,Equity,US - Large Cap Growth Equities,
+MGV,Equity,US - Large Cap Value Equities,
+SPMD,Equity,US - Mid Cap Blend Equities,
+TFI,Bond,US - Municipal Bonds,
+IWY,Equity,US - Large Cap Growth Equities,
+QTEC,Equity,US - All Cap Equities,Technology
+VONV,Equity,US - Large Cap Value Equities,
+SPSM,Equity,US - Small Cap Blend Equities,
+MGC,Equity,US - Large Cap Growth Equities,
+VTWO,Equity,US - Small Cap Growth Equities,
+IGM,Equity,US - All Cap Equities,Technology
+CIBR,Equity,US - All Cap Equities,Technology
+HYD,Bond,US - Municipal Bonds,
+SSO,Leveraged Equity,Leveraged Equities,
+XT,Equity,US - Large Cap Growth Equities,Technology
+GSY,Bond,US - Corporate Bonds,
+SPTS,Bond,US - Short Term Government Bonds,
+STIP,Bond,US - Short Term Government Bonds,
+ITA,Equity,US - All Cap Equities,Industrials
+JETS,Equity,Global - Global Equities,Industrials
+VNLA,Bond,US - Corporate Bonds,
+ESGV,Equity,US - Large Cap Growth Equities,
+EWU,Equity,Global - Developed Markets Equities - Canada & Europe,
+SPTL,Bond,US - Long Term Government Bonds,
+USSG,Equity,US - Large Cap Growth Equities,
+SPMB,Bond,Mortgage Backed Securities,
+IOO,Equity,US - Large Cap Growth Equities,
+SUSL,Equity,US - Large Cap Growth Equities,
+SLYV,Equity,US - Small Cap Value Equities,
+RPG,Equity,US - Large Cap Growth Equities,
+DON,Equity,US - Mid Cap Blend Equities,
+FXL,Equity,US - All Cap Equities,Technology
+EWG,Equity,Global - Developed Markets Equities - Canada & Europe,
+GBIL,Bond,US - Short Term Government Bonds,
+DLN,Equity,US - Large Cap Value Equities,
+DSI,Equity,US - Large Cap Growth Equities,
+KBE,Equity,US - Large Cap Blend Equities,Financials
+SPHD,Equity,US - Large Cap Value Equities,
+IGLB,Bond,US - Corporate Bonds,
+SPTI,Bond,US - Short Term Government Bonds,
+IYH,Equity,US - All Cap Equities,Healthcare
+FHLC,Equity,US - All Cap Equities,Healthcare
+IXJ,Equity,Global - Global Equities,Healthcare
+REET,Real Estate,Global - Real Estate,Real Estate
+FV,Equity,US - Large Cap Growth Equities,
+SPYD,Equity,US - Large Cap Value Equities,
+SPHQ,Equity,US - Large Cap Growth Equities,
+XOP,Equity,US - All Cap Equities,Energy
+BAB,Bond,US - Municipal Bonds,
+RYT,Equity,US - Large Cap Blend Equities,Technology
+GVI,Bond,US - Total Bond Market,
+SUSA,Equity,US - Large Cap Growth Equities,
+HYLS,Bond,US - High Yield Bonds,
+SRLN,Bond,US - High Yield Bonds,
+XLRE,Real Estate,US - Real Estate,Real Estate
+PZA,Bond,US - Municipal Bonds,
+FBT,Equity,US - All Cap Equities,Healthcare
+SPIP,Bond,US - Inflation-Protected Bonds,
+ITB,Equity,US - All Cap Equities,Materials
+SLQD,Bond,US - Corporate Bonds,
+MDYG,Equity,US - Mid Cap Growth Equities,
+PDP,Equity,US - Large Cap Growth Equities,
+FPX,Equity,US - Large Cap Growth Equities,
+SLYG,Equity,US - Small Cap Growth Equities,
+TECL,Leveraged Equity,Leveraged Equities,Technology
+KRE,Equity,US - Large Cap Blend Equities,Financials
+JHMM,Equity,US - Mid Cap Growth Equities,
+ICF,Real Estate,US - Real Estate,Real Estate
+SH,Inverse Equity,Inverse Equities,
+PTLC,Multi-Asset,US - Large Cap Blend Equities,
+SOXL,Leveraged Equity,Leveraged Equities,Technology
+FEZ,Equity,Global - Developed Markets Equities - Canada & Europe,
+PGF,Preferred Stock,Preferred Stock/Convertible Bonds,
+FMB,Bond,US - Municipal Bonds,
+RDVY,Equity,US - Large Cap Value Equities,
+KOMP,Equity,US - All Cap Equities,
+HYS,Bond,US - Corporate Bonds,
+USMC,Equity,US - Large Cap Growth Equities,
+UPRO,Leveraged Equity,Leveraged Equities,
+PRFZ,Equity,US - Small Cap Blend Equities,
+XMLV,Equity,US - Mid Cap Blend Equities,
+ITM,Bond,US - Short Term Government Bonds,
+EMLP,Equity,US - All Cap Equities,Energy
+XLG,Equity,US - Large Cap Growth Equities,
+EWL,Equity,Global - Developed Markets Equities - Canada & Europe,
+AMJ,Equity,US - All Cap Equities,Energy
+CMF,Bond,US - Municipal Bonds,
+FBND,Bond,US - Total Bond Market,
+ARKQ,Equity,US - All Cap Equities,Technology
+SPXL,Leveraged Equity,Leveraged Equities,
+TNA,Leveraged Equity,Leveraged Equities,
+QYLD,Equity,US - Large Cap Growth Equities,
+IEV,Equity,Global - Developed Markets Equities - Canada & Europe,Consumer Staples
+AOR,Multi-Asset,Diversified Portfolio,
+VOOV,Equity,US - Large Cap Value Equities,
+FLCB,Bond,US - Total Bond Market,
+USRT,Real Estate,US - Real Estate,Real Estate
+DES,Equity,US - Small Cap Value Equities,
+MDYV,Equity,US - Mid Cap Value Equities,
+VRP,Multi-Asset,Preferred Stock/Convertible Bonds,
+IYT,Equity,US - All Cap Equities,Industrials
+XSLV,Equity,US - Small Cap Blend Equities,
+FLQL,Equity,US - Large Cap Growth Equities,
+IBUY,Equity,US - All Cap Equities,Consumer Discretionary
+AOM,Multi-Asset,Diversified Portfolio,
+FXH,Equity,US - All Cap Equities,Healthcare
+TLH,Bond,US - Long Term Government Bonds,
+IYF,Equity,US - All Cap Equities,Financials
+IYY,Equity,US - Large Cap Growth Equities,
+PSK,Preferred Stock,Preferred Stock/Convertible Bonds,
+QDF,Equity,US - Large Cap Value Equities,
+QLTA,Bond,US - Corporate Bonds,
+FDL,Equity,US - Large Cap Value Equities,
+SQQQ,Leveraged Equity,Leveraged Equities,
+TILT,Equity,US - All Cap Equities,
+SCHK,Equity,US - Large Cap Growth Equities,
+BBMC,Equity,US - Mid Cap Growth Equities,
+TDIV,Equity,US - All Cap Equities,Technology
+ICVT,Bond,Preferred Stock/Convertible Bonds,
+HYMB,Bond,US - Municipal Bonds,
+RWR,Real Estate,US - Real Estate,Real Estate
+FXD,Equity,US - All Cap Equities,Consumer Discretionary
+TDTT,Bond,US - Short Term Government Bonds,
+FTSL,Bond,US - Short Term Government Bonds,
+XHB,Equity,US - All Cap Equities,Materials
+REM,Real Estate,US - Real Estate,Real Estate
+KBWB,Equity,US - All Cap Equities,Financials
+PHO,Equity,US - All Cap Equities,Industrials
+FDIS,Equity,US - All Cap Equities,Consumer Discretionary
+XAR,Equity,US - All Cap Equities,Industrials
+USFR,Bond,US - Short Term Government Bonds,
+IYJ,Equity,US - All Cap Equities,Industrials
+IYC,Equity,US - Large Cap Growth Equities,Consumer Discretionary
+BSCO,Bond,US - Corporate Bonds,
+OMFL,Equity,US - Mid Cap Value Equities,
+AGGY,Bond,US - Total Bond Market,
+IYG,Equity,US - All Cap Equities,Financials
+FREL,Real Estate,US - Real Estate,Real Estate
+QQEW,Equity,US - Large Cap Growth Equities,
+URTH,Equity,US - Large Cap Growth Equities,
+IBDP,Bond,US - Corporate Bonds,
+FTC,Equity,US - Large Cap Growth Equities,
+IHF,Equity,US - All Cap Equities,Healthcare
+FUTY,Equity,US - All Cap Equities,Utilities
+RPV,Equity,US - Large Cap Value Equities,
+SRVR,Real Estate,US - Real Estate,Real Estate
+FLCO,Bond,US - Corporate Bonds,
+SIZE,Equity,US - All Cap Equities,
+EUFN,Equity,Global - Developed Markets Equities - Canada & Europe,Financials
+PNQI,Equity,US - Large Cap Growth Equities,Technology
+IPAY,Equity,US - All Cap Equities,Technology
+FINX,Equity,US - Large Cap Growth Equities,Financials
+PFFD,Preferred Stock,Preferred Stock/Convertible Bonds,
+FEX,Equity,US - Large Cap Blend Equities,
+IWC,Equity,US - Small Cap Blend Equities,
+SDOG,Equity,US - Large Cap Value Equities,
+SPLB,Bond,US - Corporate Bonds,
+MJ,Equity,US - Small Cap Blend Equities,
+JHML,Equity,US - Large Cap Growth Equities,
+BBRE,Real Estate,US - Real Estate,Real Estate
+ONLN,Equity,US - All Cap Equities,Consumer Discretionary
+IVOL,Bond,US - Inflation-Protected Bonds,
+AGZ,Bond,US - Total Bond Market,
+VXX,Volatility,Volatility,
+IWL,Equity,US - Large Cap Growth Equities,
+IWX,Equity,US - Large Cap Value Equities,
+FSTA,Equity,US - All Cap Equities,Consumer Staples
+SMMV,Equity,US - Small Cap Growth Equities,
+SPYX,Equity,US - Large Cap Growth Equities,Energy
+EWQ,Equity,Global - Developed Markets Equities - Canada & Europe,
+IYM,Equity,US - All Cap Equities,Materials
+XME,Equity,US - All Cap Equities,Materials
+SGOV,Bond,US - Short Term Government Bonds,
+FIVG,Equity,US - All Cap Equities,Technology
+LRGF,Equity,US - Large Cap Value Equities,
+PSC,Equity,US - Small Cap Blend Equities,
+FNCL,Equity,US - All Cap Equities,Financials
+XMMO,Equity,US - Mid Cap Growth Equities,
+CLTL,Bond,US - Short Term Government Bonds,
+AOK,Multi-Asset,Diversified Portfolio,
+JAGG,Bond,US - Total Bond Market,
+VTHR,Equity,US - Large Cap Growth Equities,
+REGL,Equity,US - Small Cap Blend Equities,
+HTRB,Bond,US - Total Bond Market,
+CORP,Bond,US - Corporate Bonds,
+RWL,Equity,US - Large Cap Value Equities,
+QUS,Equity,US - Large Cap Growth Equities,
+PFXF,Preferred Stock,Preferred Stock/Convertible Bonds,
+QAI,Alternatives,Long-Short,
+CGW,Equity,US - Large Cap Blend Equities,Industrials
+FTXR,Equity,US - All Cap Equities,Industrials
+PTNQ,Multi-Asset,US - Large Cap Growth Equities,
+DTD,Equity,US - Large Cap Value Equities,
+BSCP,Bond,US - Corporate Bonds,
+SDS,Inverse Equity,Inverse Equities,
+XSD,Equity,US - All Cap Equities,Technology
+PCEF,Bond,US - Total Bond Market,
+PHB,Bond,US - Corporate Bonds,
+IPO,Equity,US - Large Cap Growth Equities,
+ACES,Equity,US - All Cap Equities,Energy
+DIAL,Bond,US - Total Bond Market,
+SWAN,Multi-Asset,Diversified Portfolio,
+PAVE,Equity,Global - Global Equities,Utilities
+RYH,Equity,US - Large Cap Blend Equities,Healthcare
+FTA,Equity,US - Large Cap Value Equities,
+PWB,Equity,US - Large Cap Growth Equities,
+DHS,Equity,US - Large Cap Value Equities,
+LTPZ,Bond,US - Long Term Government Bonds,
+UDOW,Leveraged Equity,Leveraged Equities,
+IDU,Equity,US - All Cap Equities,Utilities
+MNA,Alternatives,Hedge Fund,
+LDUR,Bond,US - Total Bond Market,
+CFO,Equity,US - Large Cap Growth Equities,
+PKW,Equity,US - Large Cap Value Equities,
+FNX,Equity,US - Mid Cap Growth Equities,
+ROM,Leveraged Equity,Leveraged Equities,Technology
+PTH,Equity,US - All Cap Equities,Healthcare
+PEY,Equity,US - All Cap Equities,
+OIH,Equity,US - All Cap Equities,Energy
+EAGG,Bond,US - Total Bond Market,
+IYK,Equity,US - Large Cap Growth Equities,Consumer Staples
+PPA,Equity,US - All Cap Equities,Industrials
+GIGB,Bond,US - Corporate Bonds,
+XHE,Equity,US - Large Cap Blend Equities,Healthcare
+SUSC,Bond,US - Corporate Bonds,
+VTC,Bond,US - Corporate Bonds,
+LVHD,Equity,US - Large Cap Value Equities,
+SPXU,Inverse Equity,Inverse Equities,
+FIW,Equity,US - All Cap Equities,Industrials
+CFA,Equity,US - Large Cap Growth Equities,
+FXO,Equity,US - All Cap Equities,Financials
+SMDV,Equity,US - Small Cap Blend Equities,
+PSJ,Equity,US - All Cap Equities,Technology
+STPZ,Bond,US - Short Term Government Bonds,
+FCOM,Equity,US - Large Cap Growth Equities,Telecom
+XNTK,Equity,US - All Cap Equities,Technology
+PWV,Equity,US - Large Cap Value Equities,
+SMLF,Equity,US - Small Cap Blend Equities,
+MLPA,Equity,Global - Global Equities,Energy
+XRT,Equity,US - All Cap Equities,Consumer Discretionary
+NULV,Equity,US - Large Cap Value Equities,
+FDVV,Equity,US - Large Cap Value Equities,
+SECT,Equity,US - Large Cap Growth Equities,
+UITB,Bond,US - Total Bond Market,
+CDC,Equity,US - Large Cap Value Equities,
+JMBS,Bond,Mortgage Backed Securities,
+FYX,Equity,US - Small Cap Blend Equities,
+RDIV,Equity,US - Large Cap Value Equities,
+EZM,Equity,US - Small Cap Blend Equities,
+IGBH,Bond,US - Corporate Bonds,
+KSA,Equity,Global - Emerging Markets Equities - Others,
+JPUS,Equity,US - Large Cap Blend Equities,
+OUSA,Equity,US - Large Cap Growth Equities,
+FENY,Equity,US - All Cap Equities,Energy
+KXI,Equity,Global - Global Equities,Consumer Staples
+TDTF,Bond,US - Short Term Government Bonds,
+LGLV,Equity,US - Large Cap Blend Equities,
+IBDR,Bond,US - Corporate Bonds,
+MLPX,Equity,Global - Global Equities,Energy
+MUNI,Bond,US - Municipal Bonds,
+UYG,Leveraged Equity,Leveraged Equities,Financials
+AVUS,Equity,US - Large Cap Growth Equities,
+SPXS,Inverse Equity,Inverse Equities,
+JHSC,Equity,US - Small Cap Growth Equities,
+FIDU,Equity,US - All Cap Equities,Industrials
+EQAL,Equity,US - All Cap Equities,
+EWP,Equity,Global - Developed Markets Equities - Canada & Europe,
+EDOC,Equity,Global - Global Equities,Healthcare
+AVUV,Equity,US - Small Cap Value Equities,
+VTWG,Equity,US - Small Cap Growth Equities,
+FTSD,Bond,US - Short Term Government Bonds,
+PSQ,Inverse Equity,Inverse Equities,
+GTO,Bond,US - Total Bond Market,
+VTWV,Equity,US - Small Cap Value Equities,
+DRSK,Multi-Asset,Diversified Portfolio,
+GSEW,Equity,US - Large Cap Growth Equities,
+GUSH,Leveraged Equity,Leveraged Equities,Energy
+SPHB,Equity,US - All Cap Equities,
+TIPX,Bond,US - Short Term Government Bonds,
+NUSC,Equity,US - Small Cap Growth Equities,
+TBT,Inverse Debt,Inverse Bonds,
+ESML,Equity,US - Small Cap Growth Equities,
+IYE,Equity,US - All Cap Equities,Energy
+SDOW,Inverse Equity,Inverse Equities,
+GNMA,Bond,Mortgage Backed Securities,
+ULVM,Equity,US - Large Cap Value Equities,
+PFM,Equity,US - Large Cap Value Equities,
+DIV,Equity,Global - Global Equities,
+BBH,Equity,US - All Cap Equities,Healthcare
+RHS,Equity,US - Large Cap Blend Equities,Consumer Staples
+NYF,Bond,US - Municipal Bonds,
+JPHY,Bond,US - High Yield Bonds,
+FNY,Equity,US - All Cap Equities,
+PSCH,Equity,US - Small Cap Blend Equities,Healthcare
+EES,Equity,US - Small Cap Blend Equities,
+CMBS,Bond,Mortgage Backed Securities,
+MDIV,Multi-Asset,Diversified Portfolio,
+PWZ,Bond,US - Municipal Bonds,
+IGHG,Bond,US - Corporate Bonds,
+ONEY,Equity,US - All Cap Equities,
+ONEV,Equity,US - All Cap Equities,
+LQDH,Bond,US - Corporate Bonds,
+EPS,Equity,US - Large Cap Growth Equities,
+VRIG,Bond,US - Total Bond Market,
+QDEF,Equity,US - Large Cap Value Equities,
+CATH,Equity,US - Large Cap Growth Equities,
+DFEB,Equity,US - Large Cap Blend Equities,
+RAVI,Bond,US - Corporate Bonds,
+ILTB,Bond,US - Long Term Government Bonds,
+DBEU,Equity,Global - Developed Markets Equities - Canada & Europe,
+ERX,Leveraged Equity,Leveraged Equities,Energy
+XTN,Equity,US - All Cap Equities,Industrials
+RTM,Equity,US - Large Cap Blend Equities,Materials
+PTMC,Multi-Asset,US - Mid Cap Blend Equities,
+JQUA,Equity,US - Large Cap Growth Equities,
+PTBD,Bond,US - High Yield Bonds,
+EZA,Equity,Global - Emerging Markets Equities - Others,
+XITK,Equity,US - All Cap Equities,Technology
+CSM,Equity,Long-Short,
+IYZ,Equity,US - All Cap Equities,Telecom
+NULG,Equity,US - Large Cap Growth Equities,
+LABU,Leveraged Equity,Leveraged Equities,Healthcare
+FLGV,Bond,US - Short Term Government Bonds,
+FALN,Bond,US - High Yield Bonds,
+IBDS,Bond,US - Corporate Bonds,
+ZROZ,Bond,US - Long Term Government Bonds,
+KRMA,Equity,US - Large Cap Growth Equities,
+NTSX,Multi-Asset,Preferred Stock/Convertible Bonds,
+SNPE,Equity,US - Large Cap Growth Equities,
+TZA,Inverse Equity,Inverse Equities,
+VBND,Bond,US - Total Bond Market,
+REZ,Real Estate,US - Real Estate,Real Estate
+FDLO,Equity,US - All Cap Equities,
+TFLO,Bond,US - Short Term Government Bonds,
+SVXY,Volatility,Leveraged Volatility,
+EWD,Equity,Global - Developed Markets Equities - Canada & Europe,
+TMFC,Equity,US - Large Cap Growth Equities,
+RFG,Equity,US - Mid Cap Growth Equities,
+PSCT,Equity,US - Small Cap Blend Equities,Technology
+TAIL,Multi-Asset,Diversified Portfolio,
+DWAS,Equity,US - Small Cap Growth Equities,
+TPYP,Equity,US - All Cap Equities,Energy
+UUP,Currency,Currency,
+NAIL,Leveraged Equity,Leveraged Equities,Materials
+XSW,Equity,US - All Cap Equities,Technology
+QQQE,Equity,US - Large Cap Growth Equities,
+TDSB,Multi-Asset,Diversified Portfolio,
+PSI,Equity,US - All Cap Equities,Technology
+PTF,Equity,US - All Cap Equities,Technology
+VUSE,Equity,US - All Cap Equities,
+KIE,Equity,US - Large Cap Blend Equities,Financials
+FXR,Equity,US - All Cap Equities,Industrials
+BSCQ,Bond,US - Corporate Bonds,
+TECB,Equity,US - All Cap Equities,Technology
+PJP,Equity,US - All Cap Equities,Healthcare
+URTY,Leveraged Equity,Leveraged Equities,
+QQQM,Equity,US - Large Cap Growth Equities,
+IG,Bond,US - Corporate Bonds,
+DOG,Inverse Equity,Inverse Equities,
+IGE,Equity,US - Large Cap Blend Equities,Materials
+IQSU,Equity,US - Large Cap Growth Equities,
+IXP,Equity,US - Large Cap Growth Equities,Telecom
+ULST,Bond,US - Short Term Government Bonds,
+PSEP,Equity,US - Large Cap Blend Equities,
+FTLS,Alternatives,Long-Short,
+TUR,Equity,Global - Emerging Markets Equities - Others,
+VSDA,Equity,US - Large Cap Growth Equities,
+DFEN,Leveraged Equity,Leveraged Equities,Industrials
+SPBO,Bond,US - Corporate Bonds,
+DUSA,Equity,US - Large Cap Blend Equities,
+FDRR,Equity,US - Large Cap Value Equities,
+RCD,Equity,US - Large Cap Blend Equities,Consumer Discretionary
+SPGP,Equity,US - Large Cap Growth Equities,
+IAT,Equity,US - All Cap Equities,Financials
+FCVT,Bond,Preferred Stock/Convertible Bonds,
+KBWD,Equity,US - Small Cap Blend Equities,Financials
+RWJ,Equity,US - Small Cap Value Equities,
+DFE,Equity,Global - Developed Markets Equities - Canada & Europe,
+EPOL,Equity,Global - Developed Markets Equities - Canada & Europe,
+USVM,Equity,US - Small Cap Blend Equities,
+BIZD,Equity,US - All Cap Equities,Financials
+EUSA,Equity,US - Large Cap Blend Equities,
+SMMU,Bond,US - Municipal Bonds,
+GSUS,Equity,US - Large Cap Growth Equities,
+TBF,Inverse Debt,Inverse Bonds,
+MEAR,Bond,US - Municipal Bonds,
+MMIN,Bond,US - Municipal Bonds,
+XPH,Equity,US - All Cap Equities,Healthcare
+SBIO,Equity,US - All Cap Equities,Healthcare
+CAPE,Equity,Global - Global Equities,
+PBE,Equity,US - All Cap Equities,Healthcare
+BSCR,Bond,US - Corporate Bonds,
+BBUS,Equity,US - Large Cap Growth Equities,
+SKOR,Bond,US - Corporate Bonds,
+KBWP,Equity,US - All Cap Equities,Financials
+TMF,Leveraged Debt,Leveraged Bonds,
+FNDB,Equity,US - Large Cap Value Equities,
+YYY,Multi-Asset,Diversified Portfolio,
+FVAL,Equity,US - Large Cap Value Equities,
+CLIX,Alternatives,Long-Short,Consumer Staples
+RWK,Equity,US - Small Cap Blend Equities,
+IBND,Bond,Global - Corporate Bonds,
+FCOR,Bond,US - Corporate Bonds,
+IDNA,Equity,US - All Cap Equities,Healthcare
+GAL,Multi-Asset,Diversified Portfolio,
+DEF,Equity,US - Large Cap Growth Equities,
+JPME,Equity,US - Mid Cap Blend Equities,
+NUMG,Equity,US - Mid Cap Growth Equities,
+BIB,Leveraged Equity,Leveraged Equities,Healthcare
+BIBL,Equity,US - Large Cap Growth Equities,
+FXG,Equity,US - All Cap Equities,Consumer Staples
+ROUS,Equity,US - Large Cap Value Equities,
+RWM,Inverse Equity,Inverse Equities,
+ONEO,Equity,US - All Cap Equities,
+USTB,Bond,US - Total Bond Market,
+FMAT,Equity,US - All Cap Equities,Materials
+GSSC,Equity,US - Small Cap Growth Equities,
+COWZ,Equity,US - Large Cap Value Equities,
+FYC,Equity,US - Small Cap Growth Equities,
+PREF,Preferred Stock,Preferred Stock/Convertible Bonds,
+SHYD,Bond,US - Municipal Bonds,
+IHAK,Equity,US - All Cap Equities,Technology
+MORT,Real Estate,US - Real Estate,Real Estate
+UCON,Bond,US - High Yield Bonds,
+FLEE,Equity,Global - Developed Markets Equities - Canada & Europe,
+ULTR,Bond,US - Short Term Government Bonds,
+SMB,Bond,US - Municipal Bonds,
+MLN,Bond,US - Municipal Bonds,
+PIO,Equity,Global - Global Equities,Industrials
+YLD,Bond,US - High Yield Bonds,
+QGRO,Equity,US - Large Cap Growth Equities,
+QID,Inverse Equity,Inverse Equities,
+CZA,Equity,US - Mid Cap Blend Equities,
+FLHY,Bond,US - Corporate Bonds,
+FVC,Multi-Asset,Hedge Fund,
+PFFA,Preferred Stock,Preferred Stock/Convertible Bonds,
+FLTB,Bond,US - Total Bond Market,
+PJAN,Equity,US - Large Cap Blend Equities,
+FFEB,Equity,US - Large Cap Blend Equities,
+FDD,Equity,Global - Developed Markets Equities - Canada & Europe,
+NRGU,Leveraged Equity,Leveraged Equities,Energy
+FDG,Equity,Global - Global Equities,
+RYU,Equity,US - Large Cap Blend Equities,Utilities
+COMT,Commodities,Commodities,
+BSJO,Bond,US - Corporate Bonds,
+SMLV,Equity,US - Small Cap Blend Equities,
+IBDT,Bond,US - Corporate Bonds,
+PAWZ,Equity,Global - Global Equities,Consumer Discretionary
+POCT,Equity,US - Large Cap Blend Equities,
+FAD,Equity,US - All Cap Equities,
+BYLD,Bond,US - Total Bond Market,
+FFTY,Equity,US - All Cap Equities,
+GSST,Bond,Mortgage Backed Securities,
+FAZ,Inverse Equity,Inverse Equities,Financials
+DSTL,Equity,US - Large Cap Growth Equities,
+SIXH,Multi-Asset,US - All Cap Equities,
+CACG,Equity,US - Large Cap Growth Equities,
+KBWY,Real Estate,US - Real Estate,Real Estate
+ADME,Multi-Asset,Hedge Fund,
+RTH,Equity,US - All Cap Equities,Consumer Discretionary
+SPFF,Preferred Stock,Preferred Stock/Convertible Bonds,
+EWI,Equity,Global - Developed Markets Equities - Canada & Europe,
+HYGV,Bond,US - High Yield Bonds,
+FXU,Equity,US - All Cap Equities,Utilities
+JUST,Equity,US - Large Cap Growth Equities,
+FBCG,Equity,US - Large Cap Growth Equities,
+GHYG,Bond,US - Corporate Bonds,
+PSP,Equity,Global - Global Equities,Financials
+TTAC,Equity,US - Large Cap Growth Equities,
+NUBD,Bond,US - Total Bond Market,
+SCHI,Bond,US - Corporate Bonds,
+CDL,Equity,US - Large Cap Value Equities,
+FXZ,Equity,US - All Cap Equities,Materials
+HUSV,Equity,US - All Cap Equities,
+SPHY,Bond,US - High Yield Bonds,
+FNGO,Leveraged Equity,Leveraged Equities,
+PKB,Equity,US - All Cap Equities,Materials
+SHE,Equity,US - Large Cap Growth Equities,
+ACIO,Multi-Asset,Diversified Portfolio,
+MLPB,Equity,US - Large Cap Blend Equities,Energy
+IEO,Equity,US - All Cap Equities,Energy
+WFH,Equity,US - All Cap Equities,Technology
+GBF,Bond,US - Total Bond Market,
+JPSE,Equity,US - Small Cap Growth Equities,
+TOK,Equity,US - Large Cap Growth Equities,
+FDHY,Bond,US - High Yield Bonds,
+DTEC,Equity,US - Large Cap Growth Equities,Technology
+BSJP,Bond,US - Corporate Bonds,
+SMMD,Equity,US - Small Cap Growth Equities,
+HNDL,Multi-Asset,Diversified Portfolio,
+CSML,Equity,US - Small Cap Blend Equities,
+RYF,Equity,US - Large Cap Blend Equities,Financials
+DEUS,Equity,US - All Cap Equities,
+IBD,Bond,US - Corporate Bonds,
+PBP,Multi-Asset,US - Large Cap Blend Equities,
+PAPR,Equity,US - Large Cap Blend Equities,
+FLV,Equity,Global - Global Equities,
+EPRF,Preferred Stock,Preferred Stock/Convertible Bonds,
+USD,Leveraged Equity,Leveraged Equities,Technology
+VALQ,Equity,US - Large Cap Value Equities,
+GHYB,Bond,US - Corporate Bonds,
+JEPI,Equity,US - Large Cap Blend Equities,
+EDEN,Equity,Global - Developed Markets Equities - Canada & Europe,
+RZV,Equity,US - Small Cap Value Equities,
+FQAL,Equity,US - Large Cap Growth Equities,
+CURE,Leveraged Equity,Leveraged Equities,Healthcare
+FCTR,Equity,US - Large Cap Growth Equities,
+HMOP,Bond,US - Municipal Bonds,
+XES,Equity,US - All Cap Equities,Energy
+BTAL,Alternatives,Long-Short,
+PRNT,Equity,US - All Cap Equities,Technology
+RFDA,Equity,US - Large Cap Growth Equities,
+XSMO,Equity,US - Small Cap Growth Equities,
+KORP,Bond,US - Corporate Bonds,
+LRGE,Equity,US - Large Cap Growth Equities,
+LGH,Multi-Asset,US - Large Cap Blend Equities,
+PHDG,Equity,Hedge Fund,Financials
+ESGG,Equity,US - Large Cap Growth Equities,
+INKM,Multi-Asset,Global - Global Equities,
+MILN,Equity,US - Large Cap Growth Equities,
+XYLD,Multi-Asset,Long-Short,
+PTIN,Multi-Asset,Global - Developed Markets Equities,
+HCRB,Bond,US - Total Bond Market,
+HTEC,Equity,Global - Global Equities,Healthcare
+OVB,Bond,US - Total Bond Market,
+PWC,Equity,US - All Cap Equities,
+OUSM,Equity,US - Small Cap Blend Equities,
+RYJ,Equity,US - Small Cap Blend Equities,
+RZG,Equity,US - Small Cap Growth Equities,
+OVL,Equity,US - Large Cap Growth Equities,
+OVLH,Equity,US - Large Cap Blend Equities,
+IMTB,Bond,US - Short Term Government Bonds,
+FLLV,Equity,US - All Cap Equities,
+FDM,Equity,US - Small Cap Blend Equities,
+FYT,Equity,US - Small Cap Value Equities,
+BFOR,Equity,US - All Cap Equities,
+DJD,Equity,US - Large Cap Value Equities,Industrials
+DIG,Leveraged Equity,Leveraged Equities,Energy
+QLV,Equity,US - All Cap Equities,
+DVOL,Equity,US - All Cap Equities,
+FIBR,Bond,US - Total Bond Market,
+QARP,Equity,US - Large Cap Growth Equities,
+VRAI,Real Estate,US - Real Estate,Real Estate
+CVY,Equity,US - All Cap Equities,
+FLGB,Equity,Global - Developed Markets Equities - Canada & Europe,
+TPHD,Equity,US - All Cap Equities,
+TIPZ,Bond,US - Inflation-Protected Bonds,
+OCIO,Multi-Asset,Diversified Portfolio,
+RVNU,Bond,US - Municipal Bonds,
+SIXA,Equity,US - Large Cap Blend Equities,
+PLW,Bond,US - Long Term Government Bonds,
+HTAB,Bond,US - Total Bond Market,
+RIGS,Bond,US - High Yield Bonds,
+GNOM,Equity,Global - Global Equities,Healthcare
+RXL,Leveraged Equity,Leveraged Equities,Healthcare
+SCHJ,Bond,US - Corporate Bonds,
+TMV,Inverse Debt,Inverse Bonds,
+QQQN,Equity,US - Mid Cap Growth Equities,
+AFIF,Bond,US - Total Bond Market,
+HYZD,Bond,US - High Yield Bonds,
+BLES,Equity,US - Large Cap Blend Equities,
+ESG,Equity,US - Large Cap Growth Equities,
+ESGA,Equity,US - Large Cap Growth Equities,
+WFHY,Bond,US - Corporate Bonds,
+WTMF,Alternatives,Hedge Fund,
+XSVM,Equity,US - Small Cap Value Equities,
+PPTY,Real Estate,US - Real Estate,Real Estate
+FDMO,Equity,US - Large Cap Growth Equities,
+BNDC,Bond,US - Total Bond Market,
+PJUL,Equity,US - Large Cap Blend Equities,
+FCG,Equity,US - All Cap Equities,Energy
+PZT,Bond,US - Municipal Bonds,
+BSEP,Equity,US - Large Cap Blend Equities,
+PSL,Equity,US - All Cap Equities,Consumer Staples
+RFCI,Bond,US - Total Bond Market,
+FUMB,Bond,US - Municipal Bonds,
+HSRT,Bond,US - Short Term Government Bonds,
+PUTW,Multi-Asset,Hedge Fund,
+SRTY,Inverse Equity,Inverse Equities,
+FTXO,Equity,US - All Cap Equities,Financials
+QMOM,Equity,US - All Cap Equities,
+MBSD,Bond,Mortgage Backed Securities,
+XMHQ,Equity,US - Mid Cap Growth Equities,
+BJAN,Equity,US - Large Cap Blend Equities,
+IETC,Equity,US - All Cap Equities,Technology
+XLSR,Equity,US - Large Cap Growth Equities,
+FLMB,Bond,US - Total Bond Market,
+CSB,Equity,US - Small Cap Value Equities,
+SIXL,Equity,US - All Cap Equities,
+FCAL,Bond,US - Municipal Bonds,
+XOUT,Equity,US - Large Cap Growth Equities,
+SOXS,Inverse Equity,Inverse Equities,Technology
+PJUN,Equity,US - Large Cap Blend Equities,
+GDMA,Multi-Asset,Hedge Fund,
+SCHQ,Bond,US - Long Term Government Bonds,
+FGM,Equity,Global - Developed Markets Equities - Canada & Europe,
+ISMD,Equity,US - Small Cap Blend Equities,
+UDN,Currency,Currency,
+UOCT,Equity,US - Large Cap Blend Equities,
+FSZ,Equity,Global - Developed Markets Equities - Canada & Europe,
+IFRA,Equity,US - All Cap Equities,Utilities
+EFIV,Equity,US - Large Cap Growth Equities,
+DYNF,Equity,US - Large Cap Growth Equities,
+AGZD,Bond,US - Total Bond Market,
+IIGD,Bond,US - Corporate Bonds,
+TDV,Equity,US - All Cap Equities,Technology
+TDVG,Equity,US - Large Cap Growth Equities,
+IBDU,Bond,US - Corporate Bonds,
+QLC,Equity,US - Large Cap Growth Equities,
+UJAN,Equity,US - Large Cap Blend Equities,
+EWMC,Equity,US - Small Cap Blend Equities,
+KNG,Equity,US - Large Cap Blend Equities,
+QABA,Equity,US - All Cap Equities,Financials
+SPVU,Equity,US - Large Cap Value Equities,
+MMTM,Equity,US - Large Cap Growth Equities,
+RESP,Equity,US - Large Cap Growth Equities,
+LSAF,Equity,US - All Cap Equities,
+BOCT,Equity,US - Large Cap Blend Equities,
+NUAG,Bond,US - Total Bond Market,
+RECS,Equity,US - Large Cap Growth Equities,
+SYLD,Equity,US - All Cap Equities,
+PSR,Real Estate,US - Real Estate,Real Estate
+URE,Real Estate,Leveraged Real Estate,Real Estate
+TAXF,Bond,US - Municipal Bonds,
+FFIU,Bond,US - Corporate Bonds,
+HYHG,Bond,US - High Yield Bonds,
+IEZ,Equity,US - All Cap Equities,Energy
+USDU,Currency,Currency,
+AMUB,Equity,US - Large Cap Blend Equities,Energy
+FDIV,Multi-Asset,US - All Cap Equities,
+TWM,Inverse Equity,Inverse Equities,
+VCEB,Bond,US - Corporate Bonds,
+USXF,Equity,US - Large Cap Growth Equities,
+MIDU,Leveraged Equity,Leveraged Equities,
+JVAL,Equity,US - Large Cap Value Equities,
+VIXM,Volatility,Volatility,
+RFFC,Equity,US - Large Cap Growth Equities,
+RISN,Multi-Asset,Diversified Portfolio,
+FSMB,Bond,US - Municipal Bonds,
+FRI,Real Estate,US - Real Estate,Real Estate
+JSML,Equity,US - Small Cap Growth Equities,
+FAB,Equity,US - All Cap Equities,
+BJUL,Equity,US - Large Cap Blend Equities,
+EDOW,Equity,US - Large Cap Blend Equities,
+DWUS,Equity,Diversified Portfolio,
+MMIT,Bond,US - Short Term Government Bonds,
+NUHY,Bond,US - Corporate Bonds,
+AIRR,Equity,US - All Cap Equities,Industrials
+OSCV,Equity,US - Small Cap Growth Equities,
+EQWL,Equity,US - Large Cap Blend Equities,
+PBJ,Equity,US - All Cap Equities,Consumer Staples
+XWEB,Equity,US - All Cap Equities,Technology
+SPMO,Equity,US - Large Cap Growth Equities,
+DRIP,Inverse Equity,Inverse Equities,Energy
+TECS,Inverse Equity,Inverse Equities,Technology
+ACSI,Equity,US - Large Cap Growth Equities,
+USEP,Equity,US - Large Cap Blend Equities,
+CSD,Equity,US - All Cap Equities,
+MFUS,Equity,US - Large Cap Growth Equities,
+FTXL,Equity,US - All Cap Equities,Technology
+NOCT,Equity,Global - Global Equities,
+GURU,Equity,US - Large Cap Growth Equities,
+RFV,Equity,US - Mid Cap Value Equities,
+HLAL,Equity,US - Large Cap Growth Equities,
+DALT,Multi-Asset,Diversified Portfolio,
+EWUS,Equity,Global - Developed Markets Equities - Canada & Europe,
+VFMO,Equity,US - All Cap Equities,
+BKMC,Equity,US - Mid Cap Growth Equities,
+FNGS,Equity,US - Large Cap Growth Equities,
+BSCT,Bond,US - Corporate Bonds,
+HYGH,Bond,US - High Yield Bonds,
+MUST,Bond,Money Market,
+OMFS,Equity,US - Small Cap Value Equities,
+SQEW,Equity,Global - Global Equities,
+BKSE,Equity,US - Small Cap Growth Equities,
+HDGE,Inverse Equity,Inverse Equities,Industrials
+DEW,Equity,US - Large Cap Value Equities,
+BSJQ,Bond,US - Corporate Bonds,
+IAK,Equity,US - All Cap Equities,Financials
+VFMF,Equity,US - All Cap Equities,
+DRN,Leveraged Real Estate,Leveraged Real Estate,Real Estate
+RYE,Equity,US - Large Cap Blend Equities,Energy
+SJB,Inverse Debt,Inverse Bonds,
+SPYC,Equity,US - Large Cap Growth Equities,
+FTHI,Equity,US - Large Cap Growth Equities,
+TCHP,Equity,US - Large Cap Growth Equities,
+CALF,Equity,US - Small Cap Value Equities,
+HEWG,Equity,Global - Developed Markets Equities - Canada & Europe,
+BAPR,Equity,US - Large Cap Blend Equities,
+UTRN,Equity,US - Large Cap Blend Equities,
+GMOM,Multi-Asset,Hedge Fund,
+PSCI,Equity,US - Small Cap Blend Equities,Industrials
+PYZ,Equity,US - All Cap Equities,Materials
+SZNE,Equity,US - Large Cap Growth Equities,
+PFFR,Preferred Stock,Preferred Stock/Convertible Bonds,
+FISR,Bond,US - Total Bond Market,
+CEFS,Multi-Asset,Diversified Portfolio,
+VFQY,Equity,US - All Cap Equities,
+JIGB,Bond,US - Corporate Bonds,
+FLBL,Bond,US - High Yield Bonds,
+IBMQ,Bond,US - Short Term Government Bonds,
+PTEU,Multi-Asset,Global - Developed Markets Equities - Canada & Europe,
+XMVM,Equity,US - Mid Cap Value Equities,
+TPOR,Leveraged Equity,Leveraged Equities,Industrials
+VFMV,Equity,US - All Cap Equities,
+XTL,Equity,US - All Cap Equities,Telecom
+BKAG,Bond,US - Total Bond Market,
+WFIG,Bond,US - Corporate Bonds,
+DALI,Equity,US - All Cap Equities,
+PXQ,Equity,US - All Cap Equities,Technology
+PFIG,Bond,US - Corporate Bonds,
+IBDV,Bond,US - Corporate Bonds,
+HIBL,Leveraged Equity,Leveraged Equities,
+PUI,Equity,US - All Cap Equities,Utilities
+KOCT,Equity,Global - Global Equities,
+EWO,Equity,Global - Developed Markets Equities - Canada & Europe,
+PWS,Multi-Asset,Diversified Portfolio,
+FNGD,Inverse Equity,Inverse Equities,
+BBSA,Bond,US - Short Term Government Bonds,
+XRLV,Equity,US - Large Cap Blend Equities,
+WBIG,Equity,US - Large Cap Blend Equities,
+DFND,Equity,Long-Short,
+ARCM,Bond,Global - Corporate Bonds,
+BBC,Equity,US - Small Cap Growth Equities,Healthcare
+AESR,Equity,US - Large Cap Growth Equities,
+CNCR,Equity,Global - Global Equities,Healthcare
+PBS,Equity,US - All Cap Equities,Consumer Discretionary
+PEZ,Equity,US - All Cap Equities,Consumer Discretionary
+LKOR,Bond,US - Corporate Bonds,
+PHYL,Bond,US - High Yield Bonds,
+NETL,Real Estate,US - Real Estate,Real Estate
+RETL,Leveraged Equity,Leveraged Equities,Consumer Discretionary
+DBLV,Equity,US - Large Cap Blend Equities,
+WEBL,Leveraged Equity,Leveraged Equities,
+CSF,Equity,US - Small Cap Blend Equities,
+KLDW,Equity,Global - Developed Markets Equities,
+VMOT,Equity,Global - Global Equities,Healthcare
+KCE,Equity,US - All Cap Equities,Financials
+PVI,Bond,US - Municipal Bonds,
+BDCZ,Equity,US - All Cap Equities,Financials
+WBIL,Equity,US - Large Cap Blend Equities,Consumer Staples
+HYDB,Bond,US - High Yield Bonds,
+WBIY,Equity,US - All Cap Equities,
+NUSA,Bond,US - Short Term Government Bonds,
+ROOF,Real Estate,US - Real Estate,Real Estate
+UBT,Leveraged Debt,Leveraged Bonds,
+UYM,Leveraged Equity,Leveraged Equities,Materials
+HOMZ,Equity,US - All Cap Equities,Materials
+IBMP,Bond,US - Municipal Bonds,
+SPUS,Equity,US - Large Cap Growth Equities,
+FBCV,Equity,US - Large Cap Blend Equities,
+CIZ,Equity,Global - Developed Markets Equities,
+UMDD,Leveraged Equity,Leveraged Equities,
+THY,Bond,US - High Yield Bonds,
+SSPY,Equity,US - Large Cap Blend Equities,
+EUDG,Equity,Global - Developed Markets Equities - Canada & Europe,
+TRND,Equity,US - Large Cap Blend Equities,
+FMF,Alternatives,Hedge Fund,
+SHYL,Bond,US - Short Term Government Bonds,
+DURA,Equity,US - Large Cap Blend Equities,
+ROMO,Multi-Asset,Hedge Fund,
+DIVB,Equity,US - Large Cap Blend Equities,
+UJUL,Equity,US - Large Cap Blend Equities,
+DBMF,Alternatives,Hedge Fund,
+NORW,Equity,Global - Developed Markets Equities - Canada & Europe,
+KBWR,Equity,US - All Cap Equities,Financials
+EVX,Equity,US - All Cap Equities,Industrials
+EWK,Equity,Global - Developed Markets Equities - Canada & Europe,
+LEAD,Equity,US - Large Cap Growth Equities,
+UFO,Equity,Global - Global Equities,
+VXZ,Volatility,Volatility,
+GTIP,Bond,US - Inflation-Protected Bonds,
+DUSL,Leveraged Equity,Leveraged Equities,Industrials
+BNKU,Leveraged Equity,Leveraged Equities,Financials
+WBIF,Equity,US - Large Cap Blend Equities,Telecom
+SPVM,Equity,US - Large Cap Value Equities,
+MTGP,Bond,Mortgage Backed Securities,
+FNK,Equity,US - Mid Cap Value Equities,
+SIXS,Equity,US - Small Cap Blend Equities,
+SPXB,Bond,US - Corporate Bonds,
+FSMD,Equity,US - Small Cap Growth Equities,
+PFI,Equity,US - All Cap Equities,Financials
+ERY,Inverse Equity,Inverse Equities,Energy
+VEGN,Equity,US - Large Cap Growth Equities,
+BKHY,Bond,US - High Yield Bonds,
+FCEF,Multi-Asset,Diversified Portfolio,
+PSCC,Equity,US - Small Cap Blend Equities,Consumer Staples
+UST,Leveraged Debt,Leveraged Bonds,
+FLMI,Bond,US - Municipal Bonds,
+HYDW,Bond,US - High Yield Bonds,
+CHGX,Equity,US - Large Cap Growth Equities,Energy
+VLU,Equity,US - Large Cap Blend Equities,
+RYLD,Multi-Asset,Hedge Fund,
+FOVL,Equity,US - All Cap Equities,
+BJUN,Equity,US - Large Cap Blend Equities,
+TPSC,Equity,US - Small Cap Blend Equities,
+OVM,Bond,US - Municipal Bonds,
+SFIG,Bond,US - Corporate Bonds,
+BBP,Equity,US - All Cap Equities,Healthcare
+DEEP,Equity,US - All Cap Equities,
+LFEQ,Equity,US - Large Cap Growth Equities,
+PSET,Equity,US - Large Cap Growth Equities,
+DRV,Inverse Real Estate,Leveraged Real Estate,Real Estate
+HDG,Alternatives,Long-Short,
+FLQM,Equity,US - All Cap Equities,
+PSCE,Equity,US - Small Cap Blend Equities,Energy
+SRS,Inverse Real Estate,Leveraged Real Estate,Real Estate
+UTES,Equity,US - All Cap Equities,Utilities
+TTT,Leveraged Debt,Leveraged Bonds,
+EFNL,Equity,Global - Developed Markets Equities - Canada & Europe,
+UAPR,Equity,US - Large Cap Blend Equities,
+GSIG,Bond,US - Corporate Bonds,
+LGOV,Bond,Mortgage Backed Securities,
+UCC,Leveraged Equity,Leveraged Equities,Consumer Discretionary
+PSCF,Equity,US - Small Cap Blend Equities,Financials
+DDIV,Equity,US - All Cap Equities,
+PSCD,Equity,US - Small Cap Blend Equities,Consumer Discretionary
+LRNZ,Equity,US - Large Cap Growth Equities,Technology
+SAA,Leveraged Equity,Leveraged Equities,
+RDOG,Real Estate,US - Real Estate,Real Estate
+TGRW,Equity,US - Large Cap Growth Equities,
+XSHQ,Equity,US - Small Cap Growth Equities,
+SPDV,Equity,US - Large Cap Value Equities,
+HTUS,Alternatives,Long-Short,
+PST,Leveraged Debt,Leveraged Bonds,
+XSHD,Equity,US - Small Cap Blend Equities,
+IEDI,Equity,US - All Cap Equities,Consumer Discretionary
+FLSW,Equity,Global - Developed Markets Equities - Canada & Europe,
+SMCP,Equity,US - Small Cap Blend Equities,
+NURE,Real Estate,US - Real Estate,Real Estate
+IBTJ,Bond,US - Short Term Government Bonds,
+QRFT,Equity,US - Large Cap Growth Equities,
+DEED,Bond,Mortgage Backed Securities,
+SKF,Inverse Equity,Inverse Equities,Financials
+EWCO,Equity,US - Large Cap Blend Equities,Telecom
+RNLC,Equity,US - Large Cap Blend Equities,
+ZIG,Equity,US - Large Cap Blend Equities,Financials
+TMDV,Equity,US - All Cap Equities,
+LSST,Bond,US - Total Bond Market,
+FTXH,Equity,US - All Cap Equities,Healthcare
+TEQI,Equity,US - Large Cap Value Equities,
+CWS,Equity,US - Large Cap Growth Equities,
+UXI,Leveraged Equity,Leveraged Equities,Industrials
+IBTG,Bond,US - Long Term Government Bonds,
+ENOR,Equity,Global - Developed Markets Equities - Canada & Europe,
+HIPS,Multi-Asset,Diversified Portfolio,
+FMIL,Equity,US - Large Cap Blend Equities,
+RORO,Equity,US - Large Cap Growth Equities,
+CSA,Equity,US - Small Cap Blend Equities,
+VPC,Equity,US - Small Cap Blend Equities,Financials
+OEUR,Equity,Global - Developed Markets Equities - Canada & Europe,
+SIMS,Equity,Global - Global Equities,Materials
+EWRE,Real Estate,US - Real Estate,Real Estate
+BSMQ,Bond,US - Municipal Bonds,
+DBEH,Multi-Asset,Long-Short,
+PXI,Equity,US - All Cap Equities,Energy
+SPXE,Equity,US - Large Cap Growth Equities,Energy
+BSMO,Bond,US - Municipal Bonds,
+SPUU,Leveraged Equity,Leveraged Equities,
+ALTY,Multi-Asset,US - Small Cap Blend Equities,
+PSCU,Equity,US - Small Cap Growth Equities,Utilities
+LQDI,Bond,US - Inflation-Protected Bonds,
+PEX,Equity,US - All Cap Equities,Financials
+MYY,Inverse Equity,Inverse Equities,
+PBUS,Equity,US - Large Cap Growth Equities,
+KOIN,Equity,US - All Cap Equities,Technology
+BETZ,Equity,US - All Cap Equities,Consumer Discretionary
+NACP,Equity,US - Large Cap Growth Equities,
+WANT,Leveraged Equity,Leveraged Equities,Consumer Discretionary
+NULC,Equity,US - Large Cap Growth Equities,
+FKU,Equity,Global - Developed Markets Equities - Canada & Europe,
+SFYX,Equity,US - Small Cap Growth Equities,
+TBX,Inverse Debt,Inverse Bonds,
+BSMP,Bond,US - Municipal Bonds,
+FTXN,Equity,US - All Cap Equities,Energy
+PILL,Leveraged Equity,Leveraged Equities,Healthcare
+BSMR,Bond,US - Municipal Bonds,
+NFLT,Bond,US - Total Bond Market,
+DUG,Inverse Equity,Inverse Equities,Energy
+PXE,Equity,US - All Cap Equities,Energy
+TYD,Leveraged Debt,Leveraged Bonds,
+FITE,Equity,US - Small Cap Growth Equities,Industrials
+PAMC,Equity,US - Mid Cap Growth Equities,
+UTSL,Leveraged Equity,Leveraged Equities,Utilities
+IBHE,Bond,US - High Yield Bonds,
+SSLY,Equity,US - Small Cap Blend Equities,
+PY,Equity,US - All Cap Equities,
+TUSA,Equity,US - All Cap Equities,
+REK,Real Estate,US - Real Estate,Real Estate
+PALC,Equity,US - Large Cap Growth Equities,
+DVLU,Equity,US - All Cap Equities,
+ESHY,Bond,US - Corporate Bonds,
+IBTF,Bond,US - Long Term Government Bonds,
+BSJR,Bond,US - Corporate Bonds,
+SEF,Inverse Equity,Inverse Equities,Financials
+GOVZ,Bond,US - Long Term Government Bonds,
+BILS,Bond,US - Short Term Government Bonds,
+UJUN,Equity,US - Large Cap Blend Equities,
+RAAX,Multi-Asset,Diversified Portfolio,
+RNMC,Equity,US - Small Cap Blend Equities,
+IBTI,Bond,US - Long Term Government Bonds,
+IBTH,Bond,US - Long Term Government Bonds,
+YLDE,Equity,US - Large Cap Growth Equities,
+HSMV,Equity,US - Small Cap Blend Equities,
+SQLV,Equity,US - Small Cap Blend Equities,
+UJB,Leveraged Debt,Leveraged Bonds,
+DBGR,Equity,Global - Developed Markets Equities - Canada & Europe,
+IBTE,Bond,US - Long Term Government Bonds,
+PBTP,Bond,US - Short Term Government Bonds,
+WOMN,Equity,US - Large Cap Growth Equities,
+VEGA,Multi-Asset,Global - Global Equities,
+FLQS,Equity,US - Small Cap Growth Equities,
+MARB,Alternatives,Long-Short,
+HYTR,Bond,US - High Yield Bonds,
+UPW,Leveraged Equity,Leveraged Equities,Utilities
+BSCU,Bond,US - Corporate Bonds,
+IBHD,Bond,US - High Yield Bonds,
+RAFE,Multi-Asset,US - Large Cap Blend Equities,
+VAMO,Alternatives,US - Small Cap Blend Equities,
+ROKT,Equity,US - All Cap Equities,Industrials
+UGE,Leveraged Equity,Leveraged Equities,Consumer Staples
+SDVY,Equity,US - Small Cap Blend Equities,
+PSMD,Equity,US - Large Cap Blend Equities,
+SEPZ,Equity,US - Large Cap Blend Equities,
+BIS,Inverse Equity,Inverse Equities,Healthcare
+MAGA,Equity,US - Large Cap Blend Equities,
+RNSC,Equity,US - Small Cap Blend Equities,
+PSCM,Equity,US - Small Cap Blend Equities,Materials
+XJH,Equity,US - Mid Cap Growth Equities,
+HYUP,Bond,US - High Yield Bonds,
+FLEH,Equity,Global - Developed Markets Equities - Canada & Europe,
+BOUT,Equity,US - All Cap Equities,
+HELX,Equity,US - All Cap Equities,Healthcare
+AUGZ,Equity,US - Large Cap Blend Equities,
+PFLD,Multi-Asset,Preferred Stock/Convertible Bonds,
+PXJ,Equity,US - All Cap Equities,Energy
+EUDV,Equity,Global - Developed Markets Equities - Canada & Europe,
+ROSC,Equity,US - Small Cap Blend Equities,
+MRGR,Alternatives,Hedge Fund,
+BSMS,Bond,US - Municipal Bonds,
+SMDD,Inverse Equity,Inverse Equities,
+VNMC,Equity,US - Mid Cap Blend Equities,
+BSJS,Bond,US - Corporate Bonds,
+FLGR,Equity,Global - Developed Markets Equities - Canada & Europe,
+SBB,Inverse Equity,Inverse Equities,
+RINF,Bond,US - Inflation-Protected Bonds,
+XVV,Equity,US - Large Cap Growth Equities,
+SFYF,Equity,US - Large Cap Growth Equities,
+TYO,Inverse Debt,Leveraged Bonds,
+XJR,Equity,US - Small Cap Blend Equities,
+JULZ,Equity,US - Large Cap Blend Equities,
+QDIV,Equity,US - Large Cap Blend Equities,
+ARB,Alternatives,Hedge Fund,
+MID,Equity,US - Large Cap Growth Equities,
+BOSS,Equity,Global - Global Equities,
+RNDV,Equity,US - Large Cap Blend Equities,
+REW,Inverse Equity,Inverse Equities,Technology
+ARMR,Equity,US - Large Cap Growth Equities,Technology
+SPXN,Equity,US - Large Cap Growth Equities,Financials
+AMOM,Equity,US - Large Cap Growth Equities,
+ESGS,Equity,US - All Cap Equities,
+RTAI,Bond,US - Municipal Bonds,
+VIRS,Equity,US - Large Cap Growth Equities,Healthcare
+BSMT,Bond,US - Municipal Bonds,
+BSMU,Bond,US - Municipal Bonds,
+SPXT,Equity,US - Large Cap Growth Equities,Technology
+STLG,Equity,US - Large Cap Growth Equities,
+AFLG,Equity,US - Large Cap Growth Equities,
+QYLG,Equity,US - Large Cap Growth Equities,
+SPMV,Equity,US - Large Cap Growth Equities,
+IQM,Equity,US - Large Cap Growth Equities,Technology
+FLRG,Equity,US - Large Cap Growth Equities,
+EAOM,Multi-Asset,Diversified Portfolio,
+EAOK,Multi-Asset,Diversified Portfolio,
+ADFI,Bond,US - Total Bond Market,
+SSG,Inverse Equity,Inverse Equities,Technology
+FCPI,Equity,US - Large Cap Growth Equities,
+OVS,Equity,US - Small Cap Blend Equities,
+DWAT,Multi-Asset,Diversified Portfolio,
+SDD,Inverse Equity,Inverse Equities,
+ECLN,Equity,US - All Cap Equities,Utilities
+BUL,Equity,US - All Cap Equities,
+MZZ,Inverse Equity,Inverse Equities,
+CBLS,Alternatives,Long-Short,
+INDF,Equity,Global - Emerging Markets Equities - Asia,Financials
+XYLG,Multi-Asset,Global - Global Equities,
+FLUD,Bond,US - Corporate Bonds,
+IBTK,Bond,US - Long Term Government Bonds,
+MMLG,Equity,US - Large Cap Growth Equities,
+FTXG,Equity,US - All Cap Equities,Consumer Staples
+SMN,Inverse Equity,Inverse Equities,Materials
+AFSM,Equity,US - Small Cap Growth Equities,
+AFMC,Equity,US - Small Cap Blend Equities,
+CBSE,Equity,US - All Cap Equities,
+SDP,Inverse Equity,Inverse Equities,Utilities
+BNKD,Inverse Equity,Inverse Equities,Financials
+PEXL,Equity,US - All Cap Equities,
+RXD,Inverse Equity,Inverse Equities,Healthcare
+EQRR,Equity,US - All Cap Equities,
+PFFV,Preferred Stock,Preferred Stock/Convertible Bonds,
+SIJ,Inverse Equity,Inverse Equities,Industrials
+LTL,Leveraged Equity,Leveraged Equities,Telecom
+BUYZ,Equity,US - Large Cap Growth Equities,Consumer Discretionary
+SZK,Inverse Equity,Inverse Equities,Consumer Staples
+REVS,Equity,US - Large Cap Blend Equities,
+IEUS,Equity,Global - Developed Markets Equities - Canada & Europe,Technology
+XHS,Equity,US - All Cap Equities,Healthcare
+TOTL,Bond,US - Total Bond Market,
+FAS,Leveraged Equity,Leveraged Equities,Financials
+DXD,Inverse Equity,Inverse Equities,
+EQL,Equity,US - Large Cap Blend Equities,
+XMPT,Bond,US - Total Bond Market,
+PRN,Equity,US - All Cap Equities,Industrials
+JXI,Equity,Global - Global Equities,Utilities
+FXN,Equity,US - All Cap Equities,Energy
+IBDQ,Bond,US - Corporate Bonds,
+MVV,Leveraged Equity,Leveraged Equities,
+IAI,Equity,US - All Cap Equities,Financials
+FBGX,Leveraged Equity,Leveraged Equities,
+QVAL,Equity,US - All Cap Equities,
+QQXT,Equity,US - Large Cap Growth Equities,Technology
+DIVO,Equity,US - Large Cap Blend Equities,
+TPLC,Equity,US - Mid Cap Growth Equities,
+BSCS,Bond,US - Corporate Bonds,
+IGEB,Bond,US - Corporate Bonds,
+BTEC,Equity,US - All Cap Equities,Healthcare
+ENTR,Equity,US - Large Cap Growth Equities,
+VFVA,Equity,US - All Cap Equities,
+SPDN,Inverse Equity,Inverse Equities,
+EMNT,Bond,US - Short Term Government Bonds,
+USMF,Equity,US - All Cap Equities,
+DFNL,Equity,US - All Cap Equities,Financials
+GVIP,Real Estate,US - Large Cap Growth Equities,
+IUS,Equity,US - Large Cap Blend Equities,
+NUSI,Equity,US - Large Cap Growth Equities,
+JSMD,Equity,US - All Cap Equities,
+ATMP,Equity,US - All Cap Equities,Energy
+AMZA,Equity,US - All Cap Equities,Energy
+QQH,Equity,US - All Cap Equities,Technology
+AUSF,Equity,US - All Cap Equities,
+SHAG,Bond,US - Short Term Government Bonds,
+NUMV,Equity,US - Mid Cap Blend Equities,
+JMOM,Equity,US - Large Cap Growth Equities,
+STOT,Bond,US - Short Term Government Bonds,
+EUSB,Bond,US - Total Bond Market,
+LDSF,Bond,US - Corporate Bonds,
+BUG,Equity,Global - Global Equities,Technology
+VSMV,Equity,US - Large Cap Value Equities,
+BKLC,Equity,US - Large Cap Growth Equities,
+SFY,Equity,US - Large Cap Growth Equities,
+FMHI,Bond,US - Municipal Bonds,
+INDS,Real Estate,US - Real Estate,Real Estate
+CCOR,Equity,US - Large Cap Growth Equities,
+DGRS,Equity,US - Small Cap Blend Equities,
+DWAW,Equity,US - Large Cap Growth Equities,
+SSUS,Equity,US - Large Cap Growth Equities,
+LABD,Inverse Equity,Inverse Equities,Healthcare
+TAN,Equity,Global - Global Equities,Energy
+PBD,Equity,Global - Global Equities,Energy
+FAN,Equity,Global - Global Equities,Energy
+NLR,Equity,US - All Cap Equities,Energy
+VICE,Equity,US - All Cap Equities,
+BJK,Equity,US - All Cap Equities,Consumer Discretionary
+URA,Equity,Global - Global Equities,Materials
+KOLD,Inverse Commodities,Inverse Commodities,
+IDRV,Equity,Global - Developed Markets Equities,Technology
+CARZ,Equity,Global - Global Equities,Consumer Discretionary
+GII,Equity,Global - Global Equities,Utilities
+COPX,Equity,Global - Global Equities,Materials
+SLX,Equity,US - All Cap Equities,Materials
+WOOD,Equity,Global - Developed Markets Equities,Materials
+HAP,Equity,US - All Cap Equities,Materials
+GDXJ,Equity,Global - Global Equities,Materials
+BLOK,Equity,Global - Developed Markets Equities,Technology
+SOCL,Equity,Global - Global Equities,Technology
+ESPO,Equity,Global - Developed Markets Equities,Consumer Discretionary
+NXTG,Equity,Global - Developed Markets Equities,Telecom
+GRID,Equity,Global - Developed Markets Equities,Materials
+IPKW,Equity,Global - Emerging Markets Equities,
+FPXE,Equity,Global - Developed Markets Equities - Canada & Europe,
+FPXI,Equity,Global - Global Equities,
+PIE,Equity,Global - Emerging Markets Equities,
+PIZ,Equity,Global - Developed Markets Equities,
+GCEC,Equity,-,
+HEDJ,Equity,Global - Developed Markets Equities - Canada & Europe,
+PDN,Equity,Global - Developed Markets Equities,
+PXF,Equity,Global - Developed Markets Equities,
+PXH,Equity,Global - Emerging Markets Equities,
+AOA,Equity,Global - Developed Markets Equities,
+DBC,Commodities,Commodities,
+EWY,Equity,Global - Developed Markets Equities - Asia,
+EIRL,Equity,Global - Developed Markets Equities - Canada & Europe,
+EWN,Equity,Global - Developed Markets Equities - Canada & Europe,
+PIN,Equity,Global - Emerging Markets Equities - Others,
+EWT,Equity,Global - Developed Markets Equities - Asia,
+EWW,Equity,Global - Emerging Markets Equities - South America,
+GREK,Equity,Global - Developed Markets Equities - Canada & Europe,Financials
+EWC,Equity,Global - Developed Markets Equities - Canada & Europe,
+EWA,Equity,Global - Developed Markets Equities - Asia,
+EWZ,Equity,Global - Emerging Markets Equities - Others,
+UAE,Equity,Global - Emerging Markets Equities - Others,
+VNM,Equity,Global - Emerging Markets Equities - Asia,
+ARGT,Equity,Global - Emerging Markets Equities - South America,
+PGAL,Equity,Global - Developed Markets Equities - Canada & Europe,
+EIS,Equity,Global - Developed Markets Equities - Canada & Europe,
+EWH,Equity,Global - Developed Markets Equities - Asia,
+GXC,Equity,Global - Emerging Markets Equities - Asia,
+PAK,Equity,Global - Emerging Markets Equities - Others,
+EWJ,Equity,Global - Developed Markets Equities - Asia,
+EWS,Equity,Global - Developed Markets Equities,
+IDX,Equity,Global - Emerging Markets Equities - Asia,
+ENZL,Equity,Global - Developed Markets Equities - Asia,
+GXG,Equity,Global - Emerging Markets Equities - South America,
+QAT,Equity,Global - Emerging Markets Equities - Others,
+NGE,Equity,Global - Emerging Markets Equities - Others,
+EPU,Equity,Global - Emerging Markets Equities - South America,
+EPHE,Equity,Global - Emerging Markets Equities - Asia,
+EGPT,Equity,Global - Emerging Markets Equities - Others,
+ECH,Equity,Global - Emerging Markets Equities - South America,
+THD,Equity,Global - Emerging Markets Equities - Asia,
+EWM,Equity,Global - Emerging Markets Equities - Asia,
+EFA,Equity,Global - Developed Markets Equities,
+EEM,Equity,Global - Emerging Markets Equities,
+GLD,Commodities,Commodities - Gold,
+IVLU,Equity,Global - Developed Markets Equities,
+EFV,Equity,Global - Developed Markets Equities,
+IXC,Equity,Global - Global Equities,Energy
+AVDV,Equity,Global - Global Equities,
+HDEF,Equity,Global - Developed Markets Equities,
+ILCV,Equity,US - Large Cap Value Equities,
+FGD,Equity,Global - Global Equities,
+IMCV,Equity,US - Mid Cap Value Equities,
+IQIN,Equity,Global - Developed Markets Equities,
+IDOG,Equity,Global - Developed Markets Equities,
+DTH,Equity,Global - Developed Markets Equities,
+IVAL,Equity,Global - Global Equities,
+GVAL,Equity,Global - Developed Markets Equities - Canada & Europe,
+FIDI,Equity,Global - Global Equities,
+FLKR,Equity,Global - Developed Markets Equities - Asia,
+LVHI,Equity,Global - Developed Markets Equities,
+KORU,Leveraged Equity,Leveraged Equities,
+EWJV,Equity,Global - Developed Markets Equities - Asia,
+EUSC,Equity,Global - Developed Markets Equities - Canada & Europe,
+KVLE,Equity,US - Large Cap Value Equities,
+IWDL,Leveraged Equity,Leveraged Equities,
+FIVA,Equity,Global - Global Equities,
+ICOW,Equity,Global - Developed Markets Equities,
+DIVS,Equity,US - All Cap Equities,
+CID,Equity,Global - Global Equities,
+EFAS,Equity,Global - Global Equities,
+LOPP,Equity,US - All Cap Equities,
+ESGN,Equity,Global - Developed Markets Equities,
+CFCV,Equity,US - All Cap Equities,
+DMDV,Equity,Global - Developed Markets Equities,
+SCZ,Equity,Global - Developed Markets Equities,
+SCHF,Equity,Global - Developed Markets Equities,
+IEFA,Equity,Global - Developed Markets Equities,
+IGOV,Bond,Global - Government Bonds,
+ISHG,Bond,Global - Government Bonds,
+LEMB,Bond,Global - Government Bonds,
+PCY,Bond,Global - Government Bonds,
+PGHY,Bond,Global - Government Bonds,
+PICB,Bond,Global - Corporate Bonds,
+WIP,Bond,Global - Government Bonds,
+BWX,Bond,Global - Government Bonds,
+HYEM,Bond,Global - Corporate Bonds,
+CEMB,Bond,Global - Corporate Bonds,
+FEMB,Bond,Global - Government Bonds,
+BWZ,Bond,Global - Government Bonds,
+CBON,Equity,Global - Emerging Markets Equities - Asia,
+IHY,Bond,Global - Corporate Bonds,
+HYXU,Bond,Global - Corporate Bonds,
+EMCB,Bond,Global - Corporate Bonds,
+EBND,Bond,Global - Government Bonds,
+ELD,Bond,Global - Government Bonds,
+EMB,Bond,Global - Government Bonds,
+ESEB,Bond,Global - Government Bonds,
+EMLC,Bond,Global - Government Bonds,
+EMHY,Bond,Global - Government Bonds,
+IAGG,Bond,Global - Government Bonds,
+GLDM,Commodities,Commodities - Gold,
+USO,Commodities,Commodities,
+SGOL,Commodities,Commodities - Gold,
+PPLT,Commodities,Commodities,
+FTGC,Commodities,Commodities,
+GSG,Commodities,Commodities,
+BAR,Commodities,Commodities - Gold,
+UCO,Commodities,Commodities,
+GLTR,Commodities,Commodities,
+DBA,Commodities,Commodities,
+AGQ,Commodities,Commodities,
+DJP,Commodities,Commodities,
+BCI,Commodities,Commodities,
+DBO,Commodities,Commodities,
+OUNZ,Commodities,Commodities - Gold,
+PALL,Commodities,Commodities,
+KRBN,Commodities,Commodities,
+DBB,Commodities,Commodities,
+AAAU,Commodities,Commodities - Gold,
+CPER,Commodities,Commodities,
+BNO,Commodities,Commodities,
+UGL,Commodities,Commodities - Gold,
+UNG,Commodities,Commodities,
+COMB,Commodities,Commodities,
+COM,Commodities,Commodities,
+USCI,Commodities,Commodities,
+GCC,Commodities,Commodities,
+USL,Commodities,Commodities,
+CORN,Commodities,Commodities,
+DBP,Commodities,Commodities,
+UGA,Commodities,Commodities,
+DGP,Commodities,Commodities,
+BDRY,Commodities,Commodities,Industrials
+FAAR,Commodities,Commodities,
+DJCB,Commodities,Commodities,
+DBE,Commodities,Commodities,Energy
+SOYB,Commodities,Commodities,
+CMDY,Commodities,Commodities,
+WEAT,Commodities,Commodities,
+OILK,Commodities,Commodities,
+GRN,Commodities,Commodities,
+UCIB,Commodities,Commodities,
+PLTM,Commodities,Commodities,
+BCM,Commodities,Commodities,
+CCRV,Commodities,Commodities,
+BCD,Commodities,Commodities,
+GLL,Inverse Commodities,Inverse Commodities,
+IAUF,Commodities,Commodities,
+CANE,Commodities,Commodities,
+JJM,Commodities,Commodities,
+JJE,Commodities,Commodities,
+TAGS,Commodities,Commodities,
+UNL,Commodities,Commodities,
+SDCI,Commodities,Commodities,
+BGLD,Commodities,Commodities,
+JJP,Commodities,Commodities,
+DZZ,Inverse Commodities,Inverse Commodities,
+JJS,Commodities,Commodities,
+DGZ,Inverse Commodities,Inverse Commodities,
+LD,Commodities,Commodities,
+VNQI,Real Estate,US - Real Estate,Real Estate
+RWO,Real Estate,Global - Real Estate,Real Estate
+RWX,Real Estate,Global - Real Estate,Real Estate
+HAUZ,Real Estate,Global - Real Estate,Real Estate
+GQRE,Real Estate,Global - Real Estate,Real Estate
+IFGL,Real Estate,Global - Real Estate,Real Estate
+WPS,Real Estate,Global - Real Estate,Real Estate
+DRW,Real Estate,Global - Real Estate,Real Estate
+VPN,Real Estate,Global - Real Estate,Real Estate
+BLDG,Real Estate,Global - Real Estate,Real Estate
+SPRE,Real Estate,Global - Real Estate,Real Estate
+FPRO,Real Estate,Global - Real Estate,Real Estate
+KWEB,Equity,Global - Emerging Markets Equities - Asia,Technology
+EMQQ,Equity,Global - Emerging Markets Equities,Technology
+OGIG,Equity,Global - Global Equities,Technology
+SNSR,Equity,Global - Global Equities,Technology
+IRBO,Equity,US - All Cap Equities,Technology
+BLCN,Equity,US - All Cap Equities,Technology
+IZRL,Equity,Global - Global Equities,Technology
+BUZZ,Equity,US - All Cap Equities,Technology
+ITEQ,Equity,Global - Global Equities,Technology
+MOON,Equity,US - All Cap Equities,Technology
+CWEB,Leveraged Equity,Leveraged Equities,Technology
+GAMR,Equity,US - All Cap Equities,Technology
+QTUM,Equity,US - All Cap Equities,Technology
+LEGR,Equity,US - All Cap Equities,Technology
+KEMQ,Equity,Global - Emerging Markets Equities,Technology
+LOUP,Equity,US - All Cap Equities,Technology
+ISRA,Equity,Global - Global Equities,Technology
+IVES,Equity,Global - Global Equities,Technology
+WUGI,Equity,US - All Cap Equities,Technology
+CHIK,Equity,Global - Emerging Markets Equities - Asia,Technology
+THNQ,Equity,Global - Global Equities,Technology
+DAPP,Equity,US - All Cap Equities,Technology
+CLDL,Leveraged Equity,Leveraged Equities,Technology
+UCYB,Equity,US - All Cap Equities,Technology
+MRAD,Equity,US - All Cap Equities,Technology
+YOLO,Equity,US - All Cap Equities,Healthcare
+KURE,Equity,Global - Emerging Markets Equities - Asia,Healthcare
+PPH,Equity,Global - Global Equities,Healthcare
+POTX,Equity,Global - Global Equities,Healthcare
+CNBS,Equity,Global - Global Equities,Healthcare
+CHIH,Equity,Global - Emerging Markets Equities - Asia,Healthcare
+BMED,Equity,Global - Global Equities,Healthcare
+KMED,Equity,Global - Emerging Markets Equities,Healthcare
+IXG,Equity,Global - Global Equities,Financials
+CHIX,Equity,Global - Emerging Markets Equities - Asia,Financials
+REIT,Real Estate,US - Real Estate,Real Estate
+ERTH,Equity,US - All Cap Equities,Energy
+CNRG,Equity,US - All Cap Equities,Energy
+SMOG,Equity,US - All Cap Equities,Energy
+RNRG,Equity,Global - Global Equities,Energy
+FILL,Equity,Global - Global Equities,Energy
+AMNA,Equity,US - All Cap Equities,Energy
+ENFR,Equity,US - All Cap Equities,Energy
+EINC,Equity,US - All Cap Equities,Energy
+USAI,Equity,US - All Cap Equities,Energy
+CRAK,Equity,US - All Cap Equities,Energy
+KWT,Equity,Global - Global Equities,Energy
+CHIE,Equity,Global - Emerging Markets Equities - Asia,Energy
+GUNR,Equity,Global - Global Equities,Materials
+LIT,Equity,Global - Global Equities,Materials
+GNR,Equity,Global - Global Equities,Materials
+PICK,Equity,Global - Global Equities,Materials
+MOO,Equity,US - All Cap Equities,Materials
+SILJ,Equity,US - All Cap Equities,Materials
+NUGT,Leveraged Equity,Leveraged Equities,Materials
+REMX,Equity,Global - Emerging Markets Equities - Asia,Materials
+JNUG,Leveraged Equity,Leveraged Equities,Materials
+RING,Equity,Global - Global Equities,Materials
+NANR,Equity,US - All Cap Equities,Materials
+SGDM,Equity,US - All Cap Equities,Materials
+BATT,Equity,US - All Cap Equities,Materials
+SGDJ,Equity,US - All Cap Equities,Materials
+GOAU,Equity,Global - Global Equities,Materials
+DUST,Inverse Equity,Inverse Equities,Materials
+CUT,Equity,Global - Global Equities,Materials
+JDST,Inverse Equity,Inverse Equities,Materials
+VEGI,Equity,Global - Global Equities,Materials
+GOEX,Equity,Global - Global Equities,Materials
+FTRI,Equity,Global - Global Equities,Materials
+FLM,Equity,Global - Global Equities,Materials
+FTAG,Equity,Global - Global Equities,Materials
+CHIM,Equity,Global - Emerging Markets Equities - Asia,Materials
+CHIQ,Equity,Global - Emerging Markets Equities - Asia,Consumer Discretionary
+HERO,Equity,US - All Cap Equities,Consumer Discretionary
+RXI,Equity,Global - Global Equities,Consumer Discretionary
+EBIZ,Equity,Global - Global Equities,Consumer Discretionary
+NERD,Equity,US - All Cap Equities,Consumer Discretionary
+INCO,Equity,Global - Global Equities,Consumer Discretionary
+BFIT,Equity,Global - Global Equities,Consumer Discretionary
+VCAR,Equity,US - All Cap Equities,Consumer Discretionary
+ARKX,Equity,US - All Cap Equities,Industrials
+EXI,Equity,Global - Global Equities,Industrials
+AWAY,Equity,US - All Cap Equities,Industrials
+HAIL,Equity,US - All Cap Equities,Industrials
+EBLU,Equity,Global - Global Equities,Industrials
+RFEU,Equity,Global - Developed Markets Equities - Canada & Europe,Industrials
+MOTO,Equity,US - All Cap Equities,Industrials
+CHII,Equity,Global - Emerging Markets Equities - Asia,Industrials
+IGF,Equity,Global - Global Equities,Utilities
+NFRA,Equity,Global - Global Equities,Utilities
+TOLZ,Equity,Global - Global Equities,Utilities
+EMIF,Equity,Global - Emerging Markets Equities,Utilities
+GLIF,Equity,Global - Global Equities,Utilities
+CHIU,Equity,Global - Emerging Markets Equities - Asia,Utilities
+ECON,Equity,Global - Emerging Markets Equities,Consumer Staples
+CHIS,Equity,Global - Emerging Markets Equities - Asia,Consumer Staples
+EMTY,Equity,US - All Cap Equities,Consumer Staples
+MCHI,Equity,Global - Emerging Markets Equities - Asia,
+FXI,Equity,Global - Emerging Markets Equities - Asia,
+ASHR,Equity,Global - Emerging Markets Equities - Asia,
+CQQQ,Equity,Global - Emerging Markets Equities - Asia,Technology
+CXSE,Equity,Global - Emerging Markets Equities - Asia,
+KBA,Equity,Global - Emerging Markets Equities - Asia,
+CNYA,Equity,Global - Emerging Markets Equities - Asia,
+YINN,Leveraged Equity,Leveraged Equities,
+PGJ,Equity,Global - Emerging Markets Equities - Asia,
+KGRN,Equity,Global - Emerging Markets Equities - Asia,Technology
+CHAU,Leveraged Equity,Leveraged Equities,
+KFVG,Equity,Global - Emerging Markets Equities - Asia,Technology
+FLCH,Equity,Global - Emerging Markets Equities - Asia,
+KSTR,Equity,Global - Emerging Markets Equities - Asia,
+ECNS,Equity,Global - Emerging Markets Equities - Asia,
+KBUY,Equity,Global - Emerging Markets Equities - Asia,
+CNXT,Equity,Global - Emerging Markets Equities - Asia,
+ASHS,Equity,Global - Emerging Markets Equities - Asia,
+RAYC,Equity,Global - Emerging Markets Equities - Asia,
+CN,Equity,Global - Emerging Markets Equities - Asia,
+YANG,Inverse Equity,Inverse Equities,
+XPP,Equity,Global - Emerging Markets Equities - Asia,
+KALL,Equity,Global - Emerging Markets Equities - Asia,
+FXP,Equity,Global - Emerging Markets Equities - Asia,
+CHIC,Equity,Global - Emerging Markets Equities - Asia,
+FCA,Equity,Global - Emerging Markets Equities - Asia,
+ASHX,Equity,Global - Emerging Markets Equities - Asia,
+KFYP,Equity,Global - Emerging Markets Equities - Asia,
+KBND,Bond,Global - Government Bonds,
+AFTY,Equity,Global - Emerging Markets Equities - Asia,
+YXI,Equity,Global - Emerging Markets Equities - Asia,
+IEMG,Equity,Global - Emerging Markets Equities,
+VXUS,Equity,Global - Global Equities,
+VEU,Equity,Global - Global Equities,
+AAXJ,Equity,Global - Emerging Markets Equities - Asia,
+ACWX,Equity,Global - Global Equities,
+VIGI,Equity,Global - Global Equities,
+VSGX,Equity,Global - Emerging Markets Equities - Asia,
+CWI,Equity,Global - Global Equities,
+IHDG,Equity,Global - Emerging Markets Equities - Asia,
+EMGF,Equity,Global - Emerging Markets Equities,
+DNL,Equity,Global - Global Equities,
+UEVM,Equity,Global - Emerging Markets Equities,
+HEEM,Equity,Global - Emerging Markets Equities,
+DDWM,Equity,Global - Global Equities,
+FDNI,Equity,Global - Global Equities,
+QEMM,Equity,Global - Emerging Markets Equities,
+IQDE,Equity,Global - Global Equities,
+MOTI,Equity,Global - Global Equities,
+IQDY,Equity,Global - Global Equities,
+EYLD,Equity,Global - Emerging Markets Equities,
+RESE,Equity,Global - Emerging Markets Equities - Asia,
+FLAX,Equity,Global - Emerging Markets Equities - Asia,
+IPOS,Equity,Global - Emerging Markets Equities - Asia,
+ASEA,Equity,Global - Emerging Markets Equities - Asia,
+AZBA,Equity,Global - Emerging Markets Equities - Asia,
+QLVE,Equity,Global - Emerging Markets Equities - Asia,
+EATZ,Equity,Global - Emerging Markets Equities - Asia,
+ADIV,Equity,Global - Emerging Markets Equities - Asia,
+INDA,Equity,Global - Emerging Markets Equities - Asia,
+VPL,Equity,Global - Developed Markets Equities - Asia,
+BBAX,Equity,Global - Developed Markets Equities - Asia,
+EEMV,Equity,Global - Emerging Markets Equities,
+AIA,Equity,Global - Emerging Markets Equities - Asia,
+EPP,Equity,Global - Developed Markets Equities - Asia,
+IPAC,Equity,Global - Developed Markets Equities - Asia,
+EEMA,Equity,Global - Emerging Markets Equities - Asia,
+EPI,Equity,Global - Emerging Markets Equities - Asia,
+GMF,Equity,Global - Emerging Markets Equities - Asia,
+INDY,Equity,Global - Emerging Markets Equities - Asia,
+EIDO,Equity,Global - Emerging Markets Equities - Asia,
+SMIN,Equity,Global - Emerging Markets Equities - Asia,
+EEMX,Equity,Global - Emerging Markets Equities,
+BKF,Equity,Global - Emerging Markets Equities,
+NFTY,Equity,Global - Emerging Markets Equities - Asia,
+GLIN,Equity,Global - Emerging Markets Equities - Asia,
+DVYA,Equity,Global - Emerging Markets Equities - Asia,
+FLTW,Equity,Global - Emerging Markets Equities - Asia,
+BKEM,Equity,Global - Emerging Markets Equities - Asia,
+GSEE,Equity,Global - Emerging Markets Equities - Asia,
+FLIN,Equity,Global - Emerging Markets Equities - Asia,
+FLAU,Equity,Global - Emerging Markets Equities - Asia,
+FLHK,Equity,Global - Emerging Markets Equities - Asia,
+EMMF,Equity,Global - Emerging Markets Equities - Asia,
+EELV,Equity,Global - Emerging Markets Equities,
+EDOG,Equity,Global - Emerging Markets Equities,
+EMFM,Equity,Global - Emerging Markets Equities,
+FEMS,Equity,Global - Emerging Markets Equities,
+OBOR,Equity,Global - Emerging Markets Equities,
+EWX,Equity,Global - Emerging Markets Equities,
+ROAM,Equity,Global - Emerging Markets Equities,
+FDEM,Equity,Global - Emerging Markets Equities,
+EDIV,Equity,Global - Emerging Markets Equities,
+DGS,Equity,Global - Emerging Markets Equities,
+XCEM,Equity,Global - Emerging Markets Equities,
+EEMS,Equity,Global - Emerging Markets Equities,
+LDEM,Equity,Global - Emerging Markets Equities,
+EMXC,Equity,Global - Emerging Markets Equities,
+DGRE,Equity,Global - Emerging Markets Equities,
+DVYE,Equity,Global - Emerging Markets Equities,
+RODE,Equity,Global - Emerging Markets Equities,
+KEMX,Equity,Global - Emerging Markets Equities,
+JHEM,Equity,Global - Emerging Markets Equities,
+FEM,Equity,Global - Emerging Markets Equities,
+EMSG,Equity,Global - Emerging Markets Equities,
+SPEM,Equity,Global - Emerging Markets Equities,
+XSOE,Equity,Global - Emerging Markets Equities,
+NUEM,Equity,Global - Emerging Markets Equities,
+AVEM,Equity,Global - Emerging Markets Equities,
+RNEM,Equity,Global - Emerging Markets Equities,
+SCHE,Equity,Global - Emerging Markets Equities,
+WWJD,Equity,Global - Emerging Markets Equities,
+ESGE,Equity,Global - Emerging Markets Equities,
+EEMD,Equity,Global - Emerging Markets Equities,
+VIDI,Equity,Global - Emerging Markets Equities,
+EEMO,Equity,Global - Emerging Markets Equities,
+DBEM,Equity,Global - Emerging Markets Equities,
+FLQE,Equity,Global - Emerging Markets Equities,
+EJUL,Equity,Global - Emerging Markets Equities,
+FNDE,Equity,Global - Emerging Markets Equities,
+MFEM,Equity,Global - Emerging Markets Equities,
+DEM,Equity,Global - Emerging Markets Equities,
+EMDV,Equity,Global - Emerging Markets Equities,
+TLTE,Equity,Global - Emerging Markets Equities,
+ERSX,Equity,Global - Emerging Markets Equities,
+ECOW,Equity,Global - Emerging Markets Equities,
+DWX,Equity,Global - Emerging Markets Equities,
+VSS,Equity,Global - Emerging Markets Equities,
+OVF,Equity,Global - Emerging Markets Equities,
+VYMI,Equity,Global - Emerging Markets Equities,
+HDAW,Equity,Global - Developed Markets Equities,
+DBAW,Equity,Global - Developed Markets Equities,
+ACWV,Equity,Global - Developed Markets Equities,
+IXUS,Equity,Global - Developed Markets Equities,
+HAWX,Equity,Global - Developed Markets Equities,
+GEM,Equity,Global - Emerging Markets Equities,
+DWMF,Equity,Global - Developed Markets Equities,
+DLS,Equity,Global - Developed Markets Equities,
+IGRO,Equity,Global - Developed Markets Equities,
+DDLS,Equity,Global - Developed Markets Equities,
+VT,Equity,Global - Developed Markets Equities,
+DIM,Equity,Global - Developed Markets Equities,
+CRBN,Equity,Global - Developed Markets Equities,
+ACWI,Equity,Global - Developed Markets Equities,
+IQDF,Equity,Global - Developed Markets Equities,
+FLQG,Equity,Global - Developed Markets Equities,
+GWX,Equity,Global - Developed Markets Equities,
+FNDC,Equity,Global - Developed Markets Equities,
+SPGM,Equity,Global - Developed Markets Equities,
+DWM,Equity,Global - Developed Markets Equities,
+RESD,Equity,Global - Developed Markets Equities,
+ISZE,Equity,Global - Developed Markets Equities,
+SCHC,Equity,Global - Developed Markets Equities,
+QINT,Equity,Global - Developed Markets Equities,
+HSCZ,Equity,Global - Developed Markets Equities,
+DEEF,Equity,Global - Developed Markets Equities,
+IDHQ,Equity,Global - Developed Markets Equities,
+JPIN,Equity,Global - Developed Markets Equities,
+SDG,Equity,Global - Developed Markets Equities,
+EFG,Equity,Global - Developed Markets Equities,
+HFXI,Equity,Global - Developed Markets Equities,
+ACWF,Equity,Global - Developed Markets Equities,
+IDEV,Equity,Global - Developed Markets Equities,
+CEFA,Equity,Global - Developed Markets Equities,
+DBEF,Equity,Global - Developed Markets Equities,
+HEFA,Equity,Global - Developed Markets Equities,
+EFAX,Equity,Global - Developed Markets Equities,
+JHMD,Equity,Global - Developed Markets Equities,
+IJUL,Equity,Global - Developed Markets Equities,
+BBIN,Equity,Global - Global Equities,
+BKIE,Equity,Global - Global Equities,
+GSID,Equity,Global - Global Equities,
+KOKU,Equity,Global - Global Equities,
+SPSK,Equity,Global - Global Equities,
+JPEM,Equity,Global - Emerging Markets Equities,
+RFEM,Equity,Global - Emerging Markets Equities,
+SCO,Inverse Commodities,Inverse Commodities,
+EDC,Leveraged Equity,Leveraged Equities,
+EET,Leveraged Equity,Leveraged Equities,
+INDL,Leveraged Equity,Leveraged Equities,
+EDZ,Inverse Equity,Inverse Equities,
+VWOB,Bond,Global - Emerging Markets Bonds,
+DFAE,Equity,Global - Emerging Markets Equities,
+EMBD,Bond,Global - Emerging Markets Bonds,
+EMTL,Bond,Global - Emerging Markets Bonds,
+EJAN,Equity,Global - Emerging Markets Equities,
+JEMA,Equity,Global - Emerging Markets Equities,
+JPMB,Bond,Global - Emerging Markets Bonds,
+EAPR,Equity,Global - Emerging Markets Equities,
+EUM,Inverse Equity,Inverse Equities,
+EFIX,Bond,Global - Emerging Markets Bonds,
+CEW,Currency,Currency,
+EMXF,Equity,Global - Emerging Markets Equities,
+FAIL,Equity,Global - Emerging Markets Equities,
+EEV,Inverse Equity,Inverse Equities,
+NTSE,Equity,Global - Emerging Markets Equities,
+EZU,Equity,Global - Developed Markets Equities - Canada & Europe,
+HEZU,Currency,Currency,
+FEP,Equity,Global - Developed Markets Equities - Canada & Europe,
+SPEU,Equity,Global - Developed Markets Equities - Canada & Europe,
+FXE,Currency,Currency,
+FXF,Currency,Currency,
+GSEU,Equity,Global - Developed Markets Equities - Canada & Europe,
+DBEZ,Equity,Global - Developed Markets Equities - Canada & Europe,
+EPV,Inverse Equity,Inverse Equities,
+UPV,Leveraged Equity,Leveraged Equities,
+ULE,Leveraged Equity,Leveraged Equities,
+BBJP,Equity,Global - Developed Markets Equities - Asia,
+GSIE,Equity,Global - Developed Markets Equities,
+DXJ,Equity,Global - Developed Markets Equities - Asia,
+FLJP,Equity,Global - Developed Markets Equities - Asia,
+HEWJ,Currency,Global - Developed Markets Equities - Asia,
+FDT,Equity,Global - Developed Markets Equities,
+DOL,Equity,Global - Developed Markets Equities,
+UIVM,Equity,Global - Developed Markets Equities,
+IQDG,Equity,Global - Developed Markets Equities,
+RFDI,Equity,Global - Developed Markets Equities,
+FXA,Currency,Global - Developed Markets Equities - Asia,
+MFDX,Equity,Global - Developed Markets Equities,
+HDMV,Equity,Global - Developed Markets Equities,
+DXJS,Equity,Global - Developed Markets Equities - Asia,
+GSJY,Equity,Global - Developed Markets Equities - Asia,
+EWV,Inverse Equity,Inverse Equities,
+EFAV,Equity,US - All Cap Equities,
+QEFA,Multi-Asset,Global - Developed Markets Equities,
+IDLV,Equity,Global - Developed Markets Equities,
+SCHY,Equity,Global - Developed Markets Equities,
+MSTB,Equity,US - All Cap Equities,
+IMFL,Equity,US - All Cap Equities,
+BUFF,Equity,US - All Cap Equities,
+DYLD,Equity,US - All Cap Equities,
+TPIF,Equity,Global - Developed Markets Equities,
+QLVD,Multi-Asset,US - All Cap Equities,
+QWLD,Multi-Asset,US - All Cap Equities,
+HYRM,Equity,Currency,
+AZBO,Equity,US - Large Cap Blend Equities,
+AZAO,Equity,US - Large Cap Blend Equities,
+FICS,Equity,Global - Developed Markets Equities,
+ASPY,Equity,US - All Cap Equities,
+BKUI,Bond,US - Short Term Government Bonds,
+AZBL,Equity,US - Large Cap Blend Equities,
+KONG,Equity,US - All Cap Equities,
+PSMO,Equity,Diversified Portfolio,
+HDLB,Leveraged Equity,Leveraged Equity,
+AZAL,Equity,US - Large Cap Blend Equities,
+TFJL,Equity,US - Long Term Government Bonds,
+LVOL,Equity,Diversified Portfolio,
+TBJL,Equity,US - Long Term Government Bonds,
+PSCQ,Equity,Diversified Portfolio,
+PFIX,Equity,Diversified Portfolio,
+UPAR,Equity,Diversified Portfolio,
+FORH,Equity,Diversified Portfolio,
+FLSP,Equity,Diversified Portfolio,
+KMLM,Equity,Diversified Portfolio,
+MSVX,Equity,Diversified Portfolio,
+LBAY,Equity,Long-Short,
+CLSE,Equity,Long-Short,
+EVNT,Equity,Diversified Portfolio,
+GLDI,Equity,Commodities - Gold,
+CLSM,Equity,Diversified Portfolio,
+GAA,Equity,Diversified Portfolio,
+ASET,Equity,Diversified Portfolio,
+LCR,Equity,Diversified Portfolio,
+FPEI,Equity,Diversified Portfolio,
+IYLD,Equity,Diversified Portfolio,
+SPBC,Equity,Diversified Portfolio,
+CYA,Equity,Diversified Portfolio,
+FID,Equity,Diversified Portfolio,
+AMAX,Equity,Diversified Portfolio,
+GYLD,Equity,Diversified Portfolio,
+MVRL,Equity,Diversified Portfolio,Real Estate
+RIET,Multi-Asset,Diversified Portfolio,
+PQDI,Equity,Diversified Portfolio,
+PFFL,Equity,Diversified Portfolio,
+HYIN,Equity,Diversified Portfolio,
+AGOX,Equity,Diversified Portfolio,
+DUDE,Equity,Diversified Portfolio,
+NTSI,Equity,Diversified Portfolio,
+LEXI,Equity,Diversified Portfolio,
+BFIX,Bond,US - Total Bond Market,
+MRSK,Equity,Diversified Portfolio,
+CEFD,Leveraged Equity,Leveraged Equity,
+OPPX,Equity,Diversified Portfolio,
+CLSA,Equity,Diversified Portfolio,
+TDSE,Equity,Diversified Portfolio,
+EAOA,Equity,Diversified Portfolio,
+EAOR,Equity,Diversified Portfolio,
+TRTY,Equity,Diversified Portfolio,
+CLSC,Equity,Diversified Portfolio,
+AGG,Bond,US - Total Bond Market,
+SPDW,Equity,Global - Developed Markets Equities,
+BBEU,Equity,Global - Developed Markets Equities - Canada & Europe,
+FNDF,Equity,Global - Developed Markets Equities - Canada & Europe,
+ESGD,Equity,Global - Developed Markets Equities,
+BBCA,Equity,Global - Developed Markets Equities - Canada & Europe,
+IDV,Equity,Global - Global Equities,
+IQLT,Equity,Diversified Portfolio,
+ILCG,Equity,US - Large Cap Growth Equities,
+RODM,Equity,Global - Developed Markets Equities,
+SUSB,Equity,US - Corporate Bonds,
+INTF,Equity,Global - Global Equities,
+IMTM,Equity,Global - Global Equities,
+ILCB,Equity,US - All Cap Equities,
+PID,Equity,Global - Global Equities,
+BNDW,Bond,Global - Government Bonds,
+TLTD,Equity,Global - Developed Markets Equities,
+DDM,Leveraged Equity,Leveraged Equity,
+GCOW,Equity,Global - Global Equities,
+RLY,Multi-Asset,Diversified Portfolio,
+DMXF,Equity,Global - Developed Markets Equities,
+JPIB,Equity,Global - Government Bonds,
+BGRN,Bond,US - Corporate Bonds,
+WDIV,Equity,Global - Developed Markets Equities,
+NUDM,Equity,Global - Developed Markets Equities,
+FLIA,Bond,Global - Government Bonds,
+ROBT,Multi-Asset,US - Large Cap Growth Equities,Technology
+IQSI,Equity,Global - Global Equities,
+JSCP,Equity,US - Short Term Government Bonds,
+DBJP,Equity,Global - Developed Markets Equities - Asia,
+HYXF,Equity,US - High Yield Bonds,
+ESGB,Equity,US - Total Bond Market,
+JPIE,Equity,Diversified Portfolio,
+KEUA,Equity,Global - Developed Markets Equities - Canada & Europe,
+EFAD,Equity,Global - Developed Markets Equities - Canada & Europe,
+HKND,Equity,Diversified Portfolio,
+UCRD,Bond,US - Corporate Bonds,
+DGT,Equity,Global - Global Equities,
+CTEC,Equity,Global - Global Equities,Technology
+CIL,Volatility,Global - Global Equities,
+OWNS,Equity,US - Real Estate,Real Estate
+JSTC,Equity,Global - Global Equities,
+JPXN,Equity,Global - Developed Markets Equities - Asia,
+FYLD,Equity,Global - Global Equities,
+IMOM,Equity,Diversified Portfolio,
+TTAI,Equity,Global - Global Equities,
+AGNG,Equity,Global - Global Equities,
+HIBS,Equity,Leveraged Equity,
+HSUN,Equity,Diversified Portfolio,
+FEIG,Equity,US - Corporate Bonds,
+PINK,Equity,US - All Cap Equities,Healthcare
+FLCA,Equity,Global - Developed Markets Equities - Canada & Europe,
+JAVA,Equity,US - All Cap Equities,
+JIB,Equity,US - Total Bond Market,
+WLDR,Equity,Global - Global Equities,
+SCRD,Equity,US - Corporate Bonds,
+FJP,Equity,Global - Developed Markets Equities - Asia,
+DAX,Equity,Global - Developed Markets Equities - Canada & Europe,
+KCCA,Equity,US - All Cap Equities,
+FLQD,Equity,Global - Global Equities,
+SXUS,Equity,Global - Global Equities,
+FEUZ,Equity,Global - Developed Markets Equities - Canada & Europe,
+EASG,Equity,Global - Developed Markets Equities - Canada & Europe,
+GLRY,Equity,US - Mid Cap Blend Equities,
+FLJH,Equity,US - All Cap Equities,
+JCTR,Equity,US - All Cap Equities,
+EURL,Equity,Leveraged Equity,
+DEMZ,Equity,US - Large Cap Blend Equities,
+ELQD,Bond,US - Corporate Bonds,
+FLQH,Equity,Global - Global Equities,
+FDEV,Equity,Diversified Portfolio,
+UBOT,Leveraged Equity,Leveraged Equity,Technology
+SMI,Equity,Diversified Portfolio,
+DWCR,Equity,Diversified Portfolio,
+MIDE,Equity,US - Mid Cap Blend Equities,
+FSYD,Bond,US - All Cap Equities,
+SMLE,Equity,US - Small Cap Blend Equities,
+BKUS,Equity,US - All Cap Equities,
+BKIS,Equity,Global - Global Equities,
+BKES,Equity,Global - Emerging Markets Equities,
+ESCR,Equity,US - Corporate Bonds,
+HART,Equity,Diversified Portfolio,Healthcare
+BNE,Equity,Diversified Portfolio,
+VWID,Equity,Global - Global Equities,
+IDMO,Equity,Global - Global Equities,
+AQWA,Equity,Global - Global Equities,Technology
+GDVD,Equity,Global - Global Equities,
+FLDZ,Equity,Diversified Portfolio,
+BSEA,Equity,Diversified Portfolio,Technology
+SHFT,Equity,Diversified Portfolio,Energy
+DWLD,Equity,Global - Global Equities,
+DWSH,Equity,Inverse Equities,
+DFAC,Equity,US - All Cap Equities,
+DFAT,Equity,US - All Cap Equities,
+DFUS,Equity,US - All Cap Equities,
+DFAS,Equity,US - Small Cap Blend Equities,
+VUSB,Bond,Inverse Equities,
+DFAU,Equity,US - All Cap Equities,
+LCTU,Equity,US - All Cap Equities,
+IMCG,Equity,US - Mid Cap Growth Equities,
+QQQJ,Multi-Asset,US - All Cap Equities,
+IMCB,Equity,US - Mid Cap Blend Equities,
+QVML,Multi-Asset,Diversified Portfolio,
+ALTL,Equity,US - Large Cap Blend Equities,
+BBSC,Equity,US - Small Cap Blend Equities,
+AIVL,Equity,US - All Cap Equities,
+BUFD,Equity,Diversified Portfolio,
+SPD,Equity,US - All Cap Equities,
+IHE,Equity,US - All Cap Equities,Healthcare
+ISCV,Equity,US - Small Cap Value Equities,
+PFEB,Equity,US - All Cap Equities,
+VOTE,Equity,Diversified Portfolio,
+PMAY,Equity,US - All Cap Equities,
+ISCG,Equity,US - Small Cap Growth Equities,
+FDEC,Equity,US - All Cap Equities,
+PMAR,Equity,US - All Cap Equities,
+AVLV,Equity,US - Large Cap Value Equities,
+DFNM,Bond,US - Municipal Bonds,
+PDEC,Equity,US - All Cap Equities,
+FAPR,Equity,US - All Cap Equities,
+FMAR,Equity,US - All Cap Equities,
+PNOV,Equity,US - All Cap Equities,
+FJAN,Equity,US - All Cap Equities,
+ISCB,Equity,US - Small Cap Blend Equities,
+DFIP,Equity,US - All Cap Equities,
+QVMM,Multi-Asset,US - Mid Cap Blend Equities,
+HEGD,Equity,US - Large Cap Blend Equities,
+CGCP,Equity,US - All Cap Equities,
+PAUG,Equity,US - All Cap Equities,
+DAPR,Equity,US - All Cap Equities,
+DMAR,Equity,US - All Cap Equities,
+HYBB,Equity,US - Corporate Bonds,
+FOCT,Equity,US - All Cap Equities,
+UWM,Equity,Leveraged Equities,
+UMI,Equity,US - All Cap Equities,
+SVAL,Equity,US - Small Cap Value Equities,
+FJUL,Equity,US - All Cap Equities,
+DDEC,Equity,US - All Cap Equities,
+AIQ,Equity,Global - Global Equities,Technology
+LSAT,Equity,Diversified Portfolio,
+PIFI,Equity,Diversified Portfolio,
+AZBJ,Equity,US - Large Cap Blend Equities,
+FSEP,Equity,US - All Cap Equities,
+DOCT,Equity,US - All Cap Equities,
+HYBL,Equity,Diversified Portfolio,
+NJAN,Equity,US - All Cap Equities,
+BFEB,Equity,US - All Cap Equities,
+JMUB,Equity,US - Municipal Bonds,
+BMAY,Equity,US - All Cap Equities,
+BAUG,Equity,US - All Cap Equities,
+BALT,Equity,Diversified Portfolio,
+PSFF,Equity,Diversified Portfolio,
+SVOL,Equity,Volatility,
+BNDD,Equity,Diversified Portfolio,
+RISR,Multi-Asset,Diversified Portfolio,
+JOET,Equity,US - All Cap Equities,
+XVOL,Bond,US - All Cap Equities,
+BDEC,Equity,US - All Cap Equities,
+BMAR,Equity,US - All Cap Equities,
+DFNV,Equity,Diversified Portfolio,
+QDEC,Multi-Asset,US - All Cap Equities,
+ONOF,Equity,US - All Cap Equities,
+IBDW,Equity,US - Corporate Bonds,
+DJUL,Equity,US - All Cap Equities,
+SMIG,Equity,US - All Cap Equities,
+BNOV,Equity,US - All Cap Equities,
+DSEP,Equity,US - All Cap Equities,
+TPLE,Equity,US - All Cap Equities,
+AZAJ,Equity,US - Large Cap Blend Equities,
+NAPR,Equity,US - All Cap Equities,
+OVT,Equity,US - Short Term Government Bonds,
+QPX,Multi-Asset,Diversified Portfolio,
+SOXQ,Equity,US - All Cap Equities,Technology
+LQDB,Equity,US - Corporate Bonds,
+MGMT,Equity,US - All Cap Equities,
+SENT,Equity,Diversified Portfolio,
+NJUL,Equity,US - All Cap Equities,
+AMTR,Equity,Diversified Portfolio,Energy
+TPHE,Equity,Diversified Portfolio,
+QDPL,Multi-Asset,US - Large Cap Value Equities,
+IFED,Equity,Diversified Portfolio,
+SBND,Equity,US - Short Term Government Bonds,
+QMAR,Multi-Asset,US - All Cap Equities,
+UDEC,Equity,US - All Cap Equities,
+SHUS,Equity,US - Total Bond Market,
+UFEB,Equity,US - All Cap Equities,
+UMAR,Equity,US - All Cap Equities,
+PAB,Equity,US - Total Bond Market,
+QVMS,Multi-Asset,US - Small Cap Blend Equities,
+MMCA,Equity,US - Municipal Bonds,
+IGLD,Equity,Diversified Portfolio,
+MINO,Equity,US - Municipal Bonds,
+OBND,Equity,US - Total Bond Market,
+TYA,Equity,Diversified Portfolio,
+MBOX,Equity,Diversified Portfolio,
+UMAY,Equity,US - All Cap Equities,
+IHYF,Equity,US - High Yield Bonds,
+STNC,Equity,US - Large Cap Blend Equities,
+TAGG,Equity,US - Total Bond Market,
+DFHY,Bond,US - High Yield Bonds,
+SSPX,Equity,US - All Cap Equities,
+MBND,Equity,US - Municipal Bonds,
+TBUX,Equity,US - Short Term Government Bonds,
+FHYS,Bond,US - High Yield Bonds,
+SCDL,Equity,Leveraged Equities,
+SIHY,Equity,Diversified Portfolio,
+GFGF,Equity,Diversified Portfolio,
+ACVF,Equity,Diversified Portfolio,
+QJUN,Multi-Asset,US - All Cap Equities,
+AVMU,Equity,US - Municipal Bonds,
+SOGU,Equity,Diversified Portfolio,
+USML,Equity,Leveraged Equities,
+PVAL,Equity,US - Large Cap Value Equities,
+FRTY,Equity,US - Mid Cap Blend Equities,
+FEDL,Equity,Leveraged Equities,
+QSPT,Multi-Asset,US - All Cap Equities,
+SXQG,Equity,US - All Cap Equities,
+JHMB,Equity,Mortgage Backed Securities,
+FCSH,Bond,US - Corporate Bonds,
+QCON,Multi-Asset,Diversified Portfolio,
+CDX,Bond,US - High Yield Bonds,
+QULL,Multi-Asset,Leveraged Equities,
+UAUG,Equity,US - All Cap Equities,
+INMU,Equity,US - Total Bond Market,
+IBHF,Equity,US - High Yield Bonds,
+BSCV,Bond,US - Corporate Bonds,
+SPAX,Equity,Diversified Portfolio,
+HLGE,Equity,Diversified Portfolio,
+XBAP,Equity,US - All Cap Equities,
+HYMU,Equity,US - High Yield Bonds,
+XRMI,Bond,Global - Global Equities,
+IBBQ,Equity,US - All Cap Equities,Healthcare
+TGIF,Equity,Diversified Portfolio,
+TSPA,Equity,US - All Cap Equities,
+TOTR,Equity,Diversified Portfolio,
+QQQA,Multi-Asset,US - All Cap Equities,
+IWFL,Equity,Leveraged Equities,
+JHCB,Equity,US - Corporate Bonds,
+ESUS,Leveraged Equity,Leveraged Equities,
+USBF,Equity,US - Total Bond Market,
+FTDS,Equity,US - Total Bond Market,
+GK,Equity,Diversified Portfolio,
+PSMJ,Equity,Diversified Portfolio,
+MINN,Equity,US - Municipal Bonds,
+PSMR,Equity,Diversified Portfolio,
+VABS,Equity,Diversified Portfolio,
+XBJL,Equity,Diversified Portfolio,
+MTUL,Equity,Leveraged Equities,
+IWML,Equity,Leveraged Equities,
+JHPI,Equity,Diversified Portfolio,
+FSIG,Equity,US - Corporate Bonds,
+XTJL,Bond,US - All Cap Equities,
+XPND,Bond,Diversified Portfolio,Technology
+QTJL,Multi-Asset,Diversified Portfolio,
+XTAP,Bond,US - All Cap Equities,
+FTQI,Equity,Diversified Portfolio,
+MIG,Equity,US - Corporate Bonds,
+BERZ,Leveraged Equity,Leveraged Equities,
+ZECP,Bond,Diversified Portfolio,
+FEUS,Equity,US - Large Cap Blend Equities,
+QRMI,Multi-Asset,Diversified Portfolio,
+XJUN,Bond,Diversified Portfolio,
+PSFM,Equity,Diversified Portfolio,
+DBJA,Equity,Diversified Portfolio,
+IBHG,Equity,US - High Yield Bonds,
+BSJT,Bond,US - High Yield Bonds,
+FMNY,Bond,US - Municipal Bonds,
+SPUC,Equity,Diversified Portfolio,
+TSJA,Equity,Diversified Portfolio,
+JRE,Equity,US - Real Estate,
+XDQQ,Equity,Diversified Portfolio,
+QTAP,Multi-Asset,Diversified Portfolio,
+AAA,Bond,US - Total Bond Market,
+FFND,Others,Diversified Portfolio,
+SYUS,Equity,US - All Cap Equities,
+XDSQ,Equity,US - All Cap Equities,
+MBBB,Equity,US - Corporate Bonds,
+SMDY,Equity,US - Mid Cap Blend Equities,
+BSMV,Equity,US - Municipal Bonds,
+FLTN,Inflation,Diversified Portfolio,
+JOJO,Equity,Diversified Portfolio,
+AVSC,Equity,US - Small Cap Blend Equities,
+PGRO,Equity,Diversified Portfolio,
+DECZ,Others,Diversified Portfolio,
+PSFJ,Equity,Diversified Portfolio,
+APRZ,Others,Diversified Portfolio,
+OCTZ,Equity,Diversified Portfolio,
+XDAP,Equity,US - All Cap Equities,
+PSCW,Equity,Diversified Portfolio,
+PFUT,Equity,Diversified Portfolio,
+ESGY,Equity,US - All Cap Equities,
+BEDZ,Others,Diversified Portfolio,
+PLDR,Equity,Diversified Portfolio,
+MARZ,Equity,Diversified Portfolio,
+NVQ,Equity,Diversified Portfolio,
+PSFO,Equity,Diversified Portfolio,
+FSST,Equity,US - All Cap Equities,
+NSCS,Equity,US - Small Cap Blend Equities,
+XDJL,Equity,US - All Cap Equities,
+MAYZ,Equity,Diversified Portfolio,
+NWLG,Equity,US - Large Cap Growth Equities,
+JANZ,Equity,Diversified Portfolio,
+USVT,Equity,Diversified Portfolio,
+PSCJ,Equity,Diversified Portfolio,
+IBTL,Equity,US - Total Bond Market,
+DSJA,Others,Diversified Portfolio,
+ITAN,Equity,Diversified Portfolio,
+QCLR,Equity,Global - Global Equities,
+XCLR,Equity,Global - Global Equities,
+JUNZ,Equity,Diversified Portfolio,
+OOTO,Equity,Leveraged Equities,Consumer Discretionary
+SCC,Equity,Inverse Equities,
+FEBZ,Others,Diversified Portfolio,
+XTR,Bond,Global - Global Equities,
+JFWD,Equity,Diversified Portfolio,
+MJUS,Equity,Diversified Portfolio,
+GGRW,Equity,Diversified Portfolio,
+SKYU,Equity,Leveraged Equities,Technology
+WEIX,Equity,Volatility,
+QTR,Multi-Asset,Global - Global Equities,
+TRPL,Equity,US - Large Cap Value Equities,
+AGGH,Bond,US - Total Bond Market,
+XHYC,Bond,US - High Yield Bonds,
+XHYH,Bond,US - High Yield Bonds,
+XHYT,Bond,US - High Yield Bonds,
+XHYD,Bond,US - High Yield Bonds,
+BITO,Cryptocurrency,Cryptocurrency,
+BTF,Cryptocurrency,Cryptocurrency,
+XBTF,Cryptocurrency,Cryptocurrency,
+SATO,Cryptocurrency,Cryptocurrency,
+BLKC,Cryptocurrency,Cryptocurrency,
+BITQ,Cryptocurrency,Cryptocurrency,
+FLRN,Bond,Bond,
+FDTS,Equity,Global - Developed Markets Equities - Canada & Europe,
+FXC,Currency,Global - Developed Markets Equities - Canada & Europe,
+FXY,Currency,Currency,
+DFJ,Equity,Global - Developed Markets Equities - Asia,
+SCJ,Equity,Global - Developed Markets Equities - Asia,
+YCS,Currency,Currency,
+YCL,Currency,Currency,
+EZJ,Equity,Global - Developed Markets Equities - Asia,
+DGIN,Equity,Global - Emerging Markets Equities - Asia,
+INQQ,Equity,Global - Emerging Markets Equities - Asia,
+FLBR,Equity,Global - Emerging Markets Equities - South America,
+BRZU,Equity,Global - Emerging Markets Equities - South America,
+EWZS,Equity,Global - Emerging Markets Equities - South America,
+BRF,Equity,Global - Emerging Markets Equities - South America,
+BZQ,Equity,Global - Emerging Markets Equities - South America,
+FBZ,Equity,Global - Emerging Markets Equities - South America,
+UBR,Equity,Global - Emerging Markets Equities - South America,
+TCHI,Equity,Global - Emerging Markets Equities - Asia,
+KTEC,Equity,Global - Developed Markets Equities - Asia,Technology
+CHIR,Equity,Global - Emerging Markets Equities - Asia, Real Estate
+BABX,Equity,Global - Emerging Markets Equities - Asia,
+KGRO,Equity,Global - Emerging Markets Equities - Asia,Technology
+FXB,Currency,Currency,
+FLMX,Equity,Global - Emerging Markets Equities - South America,
+MEXX,Equity,Global - Emerging Markets Equities - South America,
+ILF,Equity,Global - Emerging Markets Equities - South America,
+FLN,Equity,Global - Emerging Markets Equities - South America,
+FLLA,Equity,Global - Emerging Markets Equities - South America,
+FLSA,Equity,Global - Emerging Markets Equities - Asia,
+FM,Equity,Global - Emerging Markets Equities,
+FMQQ,Equity,Global - Emerging Markets Equities,
+VNAM,Equity,Global - Emerging Markets Equities - Asia,
+AFK,Equity,Global - Emerging Markets Equities - Others,
+MINT,,,
+FLOT,,,
+DFAX,,,
+PSLV,,,
+DFIV,,,
+ARKF,,,
+JMST,,,
+PULS,,,
+RPAR,,,
+FNGU,,,
+DRIV,,,
+MSOS,,,
+AVDE,,,
+URNM,,,
+SDIV,,,
+INFL,,,
+TDSC,,,
+IAUM,,,
+DFAI,,,
+FLTR,,,
+LCTD,,,
+GINN,,,
+EMCR,,,
+BUFR,,,
+SRET,,,
+KARS,,,
+BULZ,,,
+TDSD,,,
+IFV,,,
+DINT,,,
+GTEK,,,
+JAAA,,,
+GCOR,,,
+FLDR,,,
+FAUG,,,
+ISCF,,,
+EMHC,,,
+OPER,,,
+JCPB,,,
+DAUG,,,
+FNOV,,,
+WBND,,,
+FJUN,,,
+GXTG,,,
+FMAY,,,
+FUNL,,,
+FRDM,,,
+GENY,,,
+THCX,,,
+GDXU,,,
+MUSI,,,
+GSFP,,,
+GSPY,,,

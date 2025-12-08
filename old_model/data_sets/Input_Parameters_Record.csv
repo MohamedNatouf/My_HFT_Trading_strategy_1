@@ -1,0 +1,14 @@
+Parameter,Value of Parameter
+Start Date:,2003-01-31 00:00:00
+End Date:,2024-11-11 00:00:00
+Method of Assets Selection:,Price Momuntum Strategy
+Type of Momentum Method:,Cross_Sectional Momuntum
+Selected method of Momuntum Metric:,Metrics Combind
+Number of Portfolio Allocations:,3
+Rebalancing Method:,2
+Initial Invesment Value:,100
+Method Of Wieghting:,Assets Inverse Volatility
+Volatility Weight Strength:,1
+Volume Weight Strength:,0
+Volatility Measuring Lookback Period:,12
+Lookback Period:,66
