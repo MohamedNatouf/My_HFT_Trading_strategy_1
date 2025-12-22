@@ -32,6 +32,8 @@ class Strategy:
             "hold_days": 0
         }
         self.minutes_per_day = int(self.params.get("minutes_per_day", 390))
+        # Allow direct minute-based rebalancing override
+        self.rebalance_minutes = int(self.params.get("rebalance_minutes", 5))
 
     # --- Old model metric equivalents on minute data with windows mapped from days to minutes ---
     def _days(self, d: int) -> int:
@@ -282,7 +284,7 @@ class Backtester:
     def run(self, strategy: Strategy, minute_df: pd.DataFrame, rebalancing: Optional[str] = None) -> List[Allocation]:
         allocs: List[Allocation] = []
         method = rebalancing or strategy.params.get("Rebalancing_Method", "active")
-        step = int(strategy.params.get('rebalance_minutes', 5))
+        step = int(strategy.params.get('rebalance_minutes', strategy.rebalance_minutes))
         for i in range(len(minute_df)):
             window = minute_df.iloc[:i+1]
             if len(window) < max(strategy._days(3), strategy._days(int(strategy.params.get("Volatility_Measuring_Lookback_Period",60)))):
@@ -290,11 +292,14 @@ class Backtester:
             ts = window.index[-1]
             do_rebalance = False
             if method == '1':
+                # weekly at Friday close (16:00)
                 do_rebalance = ts.isoweekday() == 5 and ts.hour == 16 and ts.minute == 0
             elif method == '2':
+                # monthly at month end close (16:00)
                 next_ts = ts + pd.Timedelta(minutes=1)
                 do_rebalance = next_ts.month != ts.month and ts.hour == 16 and ts.minute == 0
-            elif method == '3' or method == 'active':
+            elif method == 'active' or method == '3':
+                # frequent rebalancing every N minutes
                 do_rebalance = (i % step) == 0
             if not do_rebalance:
                 continue

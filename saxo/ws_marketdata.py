@@ -3,8 +3,10 @@ import asyncio
 import json
 import aiohttp
 import websockets
-from typing import Callable, Dict, Any, List, Optional
-from datetime import datetime
+from typing import Callable, Dict, Any, List, Optional, Tuple
+from datetime import datetime, timezone
+import pandas as pd
+import numpy as np
 
 CONTROL_HEARTBEAT = "_heartbeat"
 CONTROL_DISCONNECT = "_disconnect"
@@ -48,7 +50,8 @@ class SaxoWSClient:
             payload = {
                 "Arguments": {
                     "AssetType": inst["assetType"],
-                    "Uic": int(inst["uic"])
+                    "Uic": int(inst["uic"]) ,
+                    # "FieldGroups": ["Quote"],
                 },
                 "ContextId": self.context_id,
                 "ReferenceId": ref_id,
@@ -123,3 +126,102 @@ class SaxoWSClient:
             await self._conn.close()
         if self._session:
             await self._session.close()
+
+
+class MinuteAggregator:
+    """
+    Build 1-minute OHLCV bars per ReferenceId from Saxo price updates.
+    Output DataFrame index by minute (UTC), columns as MultiIndex (PriceType, ReferenceId).
+    PriceType in [Open, High, Low, Close, Volume]. Volume is synthetic (count of ticks) if not provided.
+    """
+    def __init__(self):
+        self.current_minute: Optional[pd.Timestamp] = None
+        # state: ref_id -> [open, high, low, close, volume]
+        self.state: Dict[str, List[float]] = {}
+        self.frames: List[pd.DataFrame] = []
+
+    @staticmethod
+    def _extract_price(msg: Dict[str, Any]) -> Tuple[str, Optional[float], pd.Timestamp]:
+        # Expect message with keys: ReferenceId, Body, Timestamp (optional)
+        ref = msg.get("ReferenceId")
+        body = msg.get("Body", msg)
+        # Saxo FX price body typically has Bid and Ask; take mid
+        price = None
+        if isinstance(body, dict):
+            if "Mid" in body and isinstance(body["Mid"], (int, float)):
+                price = float(body["Mid"])
+            elif "LastTraded" in body and isinstance(body["LastTraded"], (int, float)):
+                price = float(body["LastTraded"])
+            elif "Bid" in body and "Ask" in body and all(isinstance(body[k], (int, float)) for k in ("Bid", "Ask")):
+                price = (float(body["Bid"]) + float(body["Ask"])) / 2.0
+            elif "Price" in body and isinstance(body["Price"], (int, float)):
+                price = float(body["Price"]) 
+        ts_raw = body.get("Time") if isinstance(body, dict) else None
+        if ts_raw:
+            try:
+                ts = pd.to_datetime(ts_raw, utc=True)
+            except Exception:
+                ts = pd.Timestamp.utcnow().tz_localize("UTC")
+        else:
+            ts = pd.Timestamp.utcnow().tz_localize("UTC")
+        # Truncate to minute
+        ts_min = ts.floor('T')
+        return ref, price, ts_min
+
+    def _ensure_minute(self, ts_min: pd.Timestamp):
+        if self.current_minute is None:
+            self.current_minute = ts_min
+            return
+        if ts_min > self.current_minute:
+            # finalize current minute frame
+            if self.state:
+                cols = []
+                data_open = []; data_high = []; data_low = []; data_close = []; data_vol = []
+                for ref_id, ohlcv in self.state.items():
+                    cols.append(ref_id)
+                    o, h, l, c, v = ohlcv
+                    data_open.append(o)
+                    data_high.append(h)
+                    data_low.append(l)
+                    data_close.append(c)
+                    data_vol.append(v)
+                arrays = [
+                    ("Open", rid) for rid in cols
+                ] + [
+                    ("High", rid) for rid in cols
+                ] + [
+                    ("Low", rid) for rid in cols
+                ] + [
+                    ("Close", rid) for rid in cols
+                ] + [
+                    ("Volume", rid) for rid in cols
+                ]
+                values = data_open + data_high + data_low + data_close + data_vol
+                df = pd.DataFrame([values], index=[self.current_minute])
+                df.columns = pd.MultiIndex.from_tuples(arrays)
+                self.frames.append(df)
+            # reset for new minute
+            self.state = {}
+            self.current_minute = ts_min
+
+    def on_quote(self, msg: Dict[str, Any]):
+        ref, price, ts_min = self._extract_price(msg)
+        if ref is None or price is None:
+            return
+        self._ensure_minute(ts_min)
+        bar = self.state.get(ref)
+        if bar is None:
+            self.state[ref] = [price, price, price, price, 1.0]
+        else:
+            # update OHLCV
+            bar[1] = max(bar[1], price)
+            bar[2] = min(bar[2], price)
+            bar[3] = price
+            bar[4] += 1.0
+
+    def finalize_minute(self) -> pd.DataFrame:
+        if not self.frames:
+            return pd.DataFrame()
+        df = pd.concat(self.frames)
+        self.frames = []
+        return df
