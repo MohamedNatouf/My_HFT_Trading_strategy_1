@@ -1,0 +1,41 @@
+{
+  "mode": "live",
+  "strategy": {
+    "name": "CS-Momentum-Minute"
+  },
+  "alpaca": {
+    "apiKeyId": "YOUR_KEY",
+    "apiSecretKey": "YOUR_SECRET",
+    "paper": true
+  },
+  "live": {
+    "stream": {
+      "mode": "poll", 
+      "feed": "iex", 
+      "pollSeconds": 10
+    }
+  },
+  "data": {
+    "timeframe": "1Min" 
+  },
+  "backtest": {
+    "source": "alpaca",
+    "interval": "1Min",
+    "feed": "iex",
+    "start": null,
+    "end": null
+  },
+  "data_sources": {
+    "yahoo": {
+      "interval": "1Day"
+    },
+    "alphaVantage": {
+      "interval": "1Min",
+      "apiKey": ""
+    }
+  },
+  "universe": {
+    "models": []
+  },
+  "instruments": []
+}

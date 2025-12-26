@@ -1,1 +1,0 @@
-# Saxo trading system package
