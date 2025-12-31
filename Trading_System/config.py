@@ -2,17 +2,17 @@ from dataclasses import dataclass
 from typing import Optional
 
 @dataclass
-class SaxoConfig:
-    fix_host: str
-    fix_port: int
-    fix_sender_comp_id: str
-    fix_target_comp_id: str
-    fix_username: str
-    fix_password: str
-    websocket_url: str
-    websocket_token: str
+class AlpacaConfig:
+    api_key_id: str
+    api_secret_key: str
+    paper: bool = True
+    oauth_client_id: Optional[str] = None
+    oauth_client_secret: Optional[str] = None
+    # Market data feed selection for live streaming
+    feed: str = "iex"  # or "sip"
+    # Account/monitoring settings
+    account_poll_seconds: int = 30
 
-    venue: str = "SAXO"
-    # Optional RapidAPI Alpha Vantage config for intraday minute data
+    # Optional RapidAPI Alpha Vantage config for intraday minute data (legacy backfill)
     rapidapi_host: str = "alpha-vantage.p.rapidapi.com"
     rapidapi_key: Optional[str] = None

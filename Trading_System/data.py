@@ -52,25 +52,32 @@ class MinuteDataLoader:
         # Define max days per request for 1m
         max_days = 7 if interval == "1m" else 60
         cur_start = start_ts
+        empty_windows = 0
         while cur_start < end_ts:
             cur_end = min(cur_start + pd.Timedelta(days=max_days), end_ts)
             logger.debug("Yahoo window: %s -> %s", cur_start, cur_end)
-            # yfinance accepts datetime objects; avoid string formatting with time that causes parsing issues
-            df = yf.download(
-                tickers=tickers,
-                start=cur_start.to_pydatetime(),
-                end=cur_end.to_pydatetime(),
-                interval=interval,
-                auto_adjust=False,
-                progress=False,
-                group_by='ticker'
-            )
+            try:
+                df = yf.download(
+                    tickers=tickers,
+                    start=cur_start.to_pydatetime(),
+                    end=cur_end.to_pydatetime(),
+                    interval=interval,
+                    auto_adjust=False,
+                    progress=False,
+                    group_by='ticker'
+                )
+            except Exception as e:
+                logger.warning("Yahoo window failed %s -> %s err=%s", cur_start, cur_end, e)
+                df = pd.DataFrame()
             if df is not None and not df.empty:
                 logger.debug("Yahoo window rows=%d cols=%d", len(df), len(df.columns))
                 frames.append(df)
             else:
+                empty_windows += 1
                 logger.warning("Yahoo returned empty frame for window %s -> %s", cur_start, cur_end)
             cur_start = cur_end
+            if empty_windows >= 3:
+                logger.warning("Yahoo multiple empty windows encountered; continuing without retries")
         if not frames:
             logger.warning("Yahoo returned no data across all windows")
             return pd.DataFrame()
@@ -100,9 +107,21 @@ class MinuteDataLoader:
                 except Exception:
                     logger.debug("Price type missing in Yahoo data: %s", price_type)
                     continue
+            if not panels:
+                logger.warning("Yahoo returned no OHLCV panels")
+                return pd.DataFrame()
             # align and build MultiIndex
             all_syms = sorted({s for df in panels.values() for s in df.columns})
-            reindexed = {k: v.reindex(columns=all_syms) for k,v in panels.items()}
+            # Drop symbols with no data across panels
+            sym_nonempty = []
+            for s in all_syms:
+                any_nonempty = any((s in df.columns and df[s].dropna().shape[0] > 0) for df in panels.values())
+                if any_nonempty:
+                    sym_nonempty.append(s)
+            if len(sym_nonempty) < len(all_syms):
+                dropped = sorted(set(all_syms) - set(sym_nonempty))
+                logger.warning("Dropping symbols with no minute data: %s", dropped)
+            reindexed = {k: v.reindex(columns=sym_nonempty) for k,v in panels.items()}
             arrays = []
             frames = []
             for price_type, sub in reindexed.items():
@@ -150,7 +169,6 @@ class MinuteDataLoader:
                 "output_size": cfg.output_size if cfg.output_size in ("compact","full") else "compact",
                 "interval": interval,
             }
-            # Choose function: equities use TIME_SERIES_INTRADAY; FX try FX_INTRADAY first
             base, quote = self._split_fx_symbol(symbol)
             is_fx = symbol.isalpha() and len(symbol.replace("/", "")) >= 6 and base and quote
             if is_fx:
@@ -164,25 +182,20 @@ class MinuteDataLoader:
             url = "https://alpha-vantage.p.rapidapi.com/query"
             r = requests.get(url, headers=headers, params=params, timeout=30)
             j = r.json()
-            # Determine time series key based on interval and function
             series_key = f"Time Series ({interval})" if params["function"] == "TIME_SERIES_INTRADAY" else f"Time Series FX ({interval})"
             if series_key not in j:
                 logger.warning("RapidAPI Alpha Vantage returned no series for %s function=%s", symbol, params["function"])
                 continue
             ts = pd.DataFrame.from_dict(j[series_key], orient='index')
-            # Index to tz-aware UTC. Metadata says US/Eastern; AV returns timestamps in US/Eastern by default.
             idx = pd.to_datetime(ts.index)
-            # localize to US/Eastern then convert to UTC
             idx = idx.tz_localize("US/Eastern", ambiguous='infer').tz_convert("UTC")
             ts.index = idx
-            # Normalize columns
             cols_map = {
                 '1. open': 'Open', '2. high': 'High', '3. low': 'Low', '4. close': 'Close', '5. volume': 'Volume'
             }
             ts = ts.rename(columns=cols_map)
             if 'Volume' not in ts.columns:
                 ts['Volume'] = np.nan
-            # Filter by date range
             if cfg.start:
                 ts = ts[ts.index >= pd.to_datetime(cfg.start).tz_localize("UTC")]
             if cfg.end:
@@ -199,7 +212,6 @@ class MinuteDataLoader:
         return df
 
     def _load_alpha_vantage_fx(self, cfg: BacktestConfig) -> pd.DataFrame:
-        # Minimal FX/EQ intraday loader using Alpha Vantage. If direct fails, fallback to RapidAPI using same key.
         import requests
         api_key = cfg.api_key
         logger.info("Alpha Vantage (direct) loader start interval=%s api_key_present=%s", cfg.interval, bool(api_key))
@@ -210,7 +222,6 @@ class MinuteDataLoader:
             symbol = u['symbol']
             base, quote = self._split_fx_symbol(symbol)
             interval = cfg.interval if cfg.interval in ("1min","5min","15min","30min","60min") else "1min"
-            # Try FX first, then equities
             url = (
                 "https://www.alphavantage.co/query?function=FX_INTRADAY"
                 f"&from_symbol={base}&to_symbol={quote}&interval={interval}&outputsize=full&apikey={api_key}"
@@ -232,7 +243,6 @@ class MinuteDataLoader:
                 if key2 in j2:
                     ts = pd.DataFrame.from_dict(j2[key2], orient='index')
                 else:
-                    # Fallback to RapidAPI: use same key but send via headers
                     try:
                         headers = {
                             "x-rapidapi-host": cfg.rapidapi_host or "alpha-vantage.p.rapidapi.com",
@@ -257,7 +267,6 @@ class MinuteDataLoader:
                     except Exception:
                         logger.warning("Alpha Vantage returned no time series for %s", symbol)
                         continue
-            # Process dataframe
             ts.index = pd.to_datetime(ts.index)
             ts = ts.sort_index()
             cols_map = {
