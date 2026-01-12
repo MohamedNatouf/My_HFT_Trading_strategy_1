@@ -1,23 +1,23 @@
 import logging
 from typing import Optional
 
+IMPORT_ERR = None
+
 try:
     from alpaca.trading.client import TradingClient
-    from alpaca.trading.models import Account
-    from alpaca.trading.requests import GetAssetsRequest
-    from alpaca.trading.enums import AssetClass
-except Exception:
+except Exception as e:
     TradingClient = None
-    Account = None
-    GetAssetsRequest = None
-    AssetClass = None
+    IMPORT_ERR = e
 
 logger = logging.getLogger(__name__)
 
 class AlpacaAccountClient:
     def __init__(self, api_key: Optional[str], api_secret: Optional[str], paper: bool = True):
         if TradingClient is None:
-            logger.warning("alpaca-py not installed; account client unavailable")
+            if IMPORT_ERR is not None:
+                logger.warning("alpaca-py import failed; account client unavailable: %s", IMPORT_ERR)
+            else:
+                logger.warning("alpaca-py not installed; account client unavailable")
             self.client = None
         else:
             try:
@@ -37,14 +37,11 @@ class AlpacaAccountClient:
 
     def is_overnight_tradable(self, symbol: str) -> bool:
         """Check asset flags for overnight trading/halt."""
-        if self.client is None or GetAssetsRequest is None:
+        if self.client is None:
             return False
         try:
-            req = GetAssetsRequest(symbol=symbol, asset_class=AssetClass.US_EQUITY)
-            assets = self.client.get_assets(req)
-            if not assets:
-                return False
-            a = assets[0]
+            # Prefer simple get_asset call to avoid request/enums import brittleness
+            a = self.client.get_asset(symbol)
             return bool(getattr(a, 'overnight_tradable', False)) and not bool(getattr(a, 'overnight_halted', False))
         except Exception as e:
             logger.error("asset check failed: %s", e)

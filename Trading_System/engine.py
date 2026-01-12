@@ -32,6 +32,23 @@ class Allocation:
     positions: List[Position]
     emergency: bool = False
 
+
+def _extract_close_frame(df: pd.DataFrame) -> pd.DataFrame:
+    """Return a close-only DataFrame regardless of column case. If df has MultiIndex
+    columns, look for a top-level named 'close' (case-insensitive) and return that slice.
+    Otherwise assume df already contains close prices only.
+    """
+    if isinstance(df.columns, pd.MultiIndex):
+        lvl0 = df.columns.get_level_values(0)
+        # Map lower->original label to keep exact key
+        lower_map: Dict[str, str] = {}
+        for lbl in lvl0.unique():
+            lower_map[str(lbl).lower()] = lbl
+        if 'close' in lower_map:
+            return df.xs(lower_map['close'], axis=1, level=0)
+    return df
+
+
 class Strategy:
     def __init__(self, name: str, params: Dict):
         self.name = name
@@ -216,16 +233,7 @@ class Strategy:
 
     def _compute_momentum(self, df: pd.DataFrame) -> pd.Series:
         lookback_bars = int(self.params.get("Volatility_Measuring_Lookback_Period", 60))
-        # Accept either a MultiIndex with ('Close', symbol) or a single-level frame of closes
-        close: pd.DataFrame
-        if isinstance(df.columns, pd.MultiIndex):
-            if 'Close' in df.columns.get_level_values(0):
-                close = df.xs('Close', axis=1, level=0)
-            else:
-                # Already a close-only frame with single-level columns
-                close = df
-        else:
-            close = df
+        close = _extract_close_frame(df)
         method = self.params.get("Selected_method_of_Momuntum_Metric", "Metrics Combind")
         logger.debug("compute_momentum lookback_bars=%d method=%s cols=%d", lookback_bars, method, len(close.columns))
         return self.Momentum_MultiFactor_Maximizer(close, lookback_bars, method)
@@ -234,10 +242,7 @@ class Strategy:
         method = self.params.get("Method_Of_Wieghting", "Assets Inverse Volatility")
         lookback_bars = int(self.params.get("Volatility_Measuring_Lookback_Period", 60))
         vol_strength = float(self.params.get("Volatility_Weight_Strength", 1))
-        if isinstance(df.columns, pd.MultiIndex) and 'Close' in df.columns.get_level_values(0):
-            prices = df.xs('Close', axis=1, level=0)[selected_symbols]
-        else:
-            prices = df[selected_symbols]
+        prices = _extract_close_frame(df)[selected_symbols]
         prices = prices.ffill().bfill()
         try:
             vol = prices.pct_change(fill_method=None).tail(lookback_bars).std()
@@ -297,7 +302,7 @@ class Strategy:
         bond_wait_req = int(self.params.get("Bond_Signal_Wait_Period", 1))
         hold_status = bool(self.params.get("Equity_N_Bond_Hold_Period_Status", True))
         hold_period = int(self.params.get("Equity_N_Bond_Hold_Period", 3))
-        close = df["Close"]
+        close = _extract_close_frame(df)
         # Fill before pct_change to avoid warnings
         close = close.ffill().bfill()
         eq_syms = self.emergency_cfg.get("equity_signal", [])
@@ -328,19 +333,15 @@ class Strategy:
 
     def generate_allocation(self, minute_df: pd.DataFrame) -> Allocation:
         self._update_emergency(minute_df)
-        if isinstance(minute_df.columns, pd.MultiIndex) and 'Close' in minute_df.columns.get_level_values(0):
-            available_syms = list(minute_df.xs('Close', axis=1, level=0).columns)
-        else:
-            available_syms = list(minute_df.columns)
+        # Determine available symbols strictly from close prices
+        close_all = _extract_close_frame(minute_df)
+        available_syms = list(close_all.columns)
         if self.emergency_enabled and self.state["emergency"]:
             emerg_syms = [s for s in self.emergency_cfg.get("active", []) if s in available_syms]
             selected_universe = emerg_syms if emerg_syms else self.universe_models
         else:
             selected_universe = [s for s in self.universe_models if s in available_syms] or available_syms
-        if isinstance(minute_df.columns, pd.MultiIndex) and 'Close' in minute_df.columns.get_level_values(0):
-            close_frame = minute_df.xs('Close', axis=1, level=0)[selected_universe]
-        else:
-            close_frame = minute_df[selected_universe]
+        close_frame = close_all[selected_universe]
         scores = self._compute_momentum(close_frame)
         scores = self._apply_special_filter(scores)
         k = int(self.params.get('Number_of_Portfolio_Allocations', 3))
@@ -384,10 +385,7 @@ class Backtester:
             alloc = strategy.generate_allocation(window)
             # Compute simple portfolio stats on the window for logging
             try:
-                if isinstance(window.columns, pd.MultiIndex) and 'Close' in window.columns.get_level_values(0):
-                    close = window.xs('Close', axis=1, level=0)
-                else:
-                    close = window
+                close = _extract_close_frame(window)
                 sel_syms = [p.symbol for p in alloc.positions]
                 w = pd.Series({p.symbol: p.weight for p in alloc.positions})
                 px = close[sel_syms].iloc[-1]

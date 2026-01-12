@@ -13,6 +13,7 @@ from .alpaca_trading import AlpacaTrader
 from .alpaca_sse import AlpacaSSEClient
 from .alpaca_account import AlpacaAccountClient
 from .execution import ExecutionRouter
+from .minute_store import MinuteStore
 
 logger = logging.getLogger(__name__)
 
@@ -26,6 +27,9 @@ class TradingSystem:
             self.config['instruments'] = [{ 'symbol': s, 'assetType': 'equity' } for s in models]
         self.instrument_map = InstrumentMap(self.config['instruments'])
         self.minute_df = pd.DataFrame()
+        # Local minute store
+        store_root = (self.config.get('data', {}) or {}).get('storeRoot', 'data/minute')
+        self.store = MinuteStore(store_root)
         # Merge emergency and universe tickers into strategy params
         strat_params = dict(self.config['strategy'])
         strat_params['emergency'] = self.config.get('emergency', {})
@@ -48,7 +52,8 @@ class TradingSystem:
 
     def _universe_instruments(self) -> List[Dict[str, Any]]:
         """Return instruments to load for data. Include trading universe plus emergency signal/active symbols so
-        emergency logic and emergency allocations can work identically in backtest and live."""
+        emergency logic and emergency allocations can work identically in backtest and live.
+        Exclude non-Alpaca symbols (e.g., caret-prefixed indices like ^IRX)."""
         models_syms = set(self.config.get('universe', {}).get('models', []))
         emergency_cfg = self.config.get('emergency', {}) or {}
         extra_syms = set(sum([
@@ -56,19 +61,22 @@ class TradingSystem:
             emergency_cfg.get('bond_signal', []),
             emergency_cfg.get('active', []),
             emergency_cfg.get('backup', []),
-            emergency_cfg.get('risk_free_reference', []),
+            # DO NOT include risk_free_reference here; symbols like ^IRX are invalid for Alpaca bars
         ], []))
-        combined_syms = models_syms | extra_syms
+        combined_syms = {s for s in (models_syms | extra_syms) if s and not str(s).startswith('^')}
         # Build instruments list from existing instruments merged with any missing emergency symbols
         existing = self.config.get('instruments', []) or []
         existing_syms = {i.get('symbol') for i in existing}
         merged: List[Dict[str, Any]] = []
-        # include all existing entries that are in the combined set
+        # include all existing entries that are in the combined set and not caret-prefixed
         for i in existing:
-            if i.get('symbol') in combined_syms:
+            sym = i.get('symbol')
+            if sym in combined_syms and not str(sym).startswith('^'):
                 merged.append(i)
         # add any missing symbols as equities by default
         for s in sorted(combined_syms - existing_syms):
+            if str(s).startswith('^'):
+                continue
             merged.append({'symbol': s, 'assetType': 'equity'})
         logger.info("Universe resolved count=%d symbols=%s", len(merged), [u['symbol'] for u in merged])
         return merged
@@ -81,6 +89,23 @@ class TradingSystem:
             return {'1min':'1m','5min':'5m','15min':'15m','30min':'30m','60min':'60m'}.get(i, i if i.endswith('m') else '1m')
         # Alpaca expects 1Min, 5Min, 15Min
         return {'1min':'1Min','5min':'5Min','15min':'15Min'}.get(i, interval)
+
+    def _apply_store_update(self, df: pd.DataFrame):
+        """Upsert fetched minute bars to local store."""
+        if df is None or df.empty or not isinstance(df.columns, pd.MultiIndex):
+            return
+        try:
+            symbols = df.columns.get_level_values(1).unique()
+        except Exception:
+            return
+        for sym in symbols:
+            try:
+                sub = df.xs(sym, axis=1, level=1)
+                # Normalize to lowercase columns
+                sub = sub.rename(columns={'Open':'open','High':'high','Low':'low','Close':'close','Volume':'volume'})
+                self.store.upsert_symbol(sym, sub)
+            except Exception as e:
+                logger.debug("Store upsert failed for %s: %s", sym, e)
 
     async def run(self) -> List[Allocation]:
         mode = self.config.get('mode', 'live').lower()
@@ -164,6 +189,8 @@ class TradingSystem:
             while True:
                 df = self.alpaca_data.load_minute_bars(universe, None, None)
                 if df is not None and not df.empty:
+                    # Cache to local store
+                    self._apply_store_update(df)
                     models_syms = set(self.config.get('universe', {}).get('models', []))
                     emergency_cfg = self.config.get('emergency', {}) or {}
                     signals_syms = set(sum([
@@ -175,13 +202,16 @@ class TradingSystem:
                     # Filter to allowed (models + emergency) to align with backtest
                     df = df.loc[:, [c for c in df.columns if c[1] in allowed]]
                     self.minute_df = df.sort_index()
-                    bt = Backtester()
-                    allocs = bt.run(self.strategy, self.minute_df)
-                    logger.info("Alpaca poll rebalancing allocations_count=%d", len(allocs) if allocs else 0)
-                    # translate latest allocation to orders
-                    if allocs:
-                        latest = allocs[-1]
-                        self.execution.rebalance(latest, current_positions={})
+                else:
+                    # Fallback to local store
+                    self.minute_df = self.store.load_universe(universe)
+                bt = Backtester()
+                allocs = bt.run(self.strategy, self.minute_df)
+                logger.info("Alpaca poll rebalancing allocations_count=%d", len(allocs) if allocs else 0)
+                # translate latest allocation to orders
+                if allocs:
+                    latest = allocs[-1]
+                    self.execution.rebalance(latest, current_positions={})
                 await asyncio.sleep(poll_secs)
         except asyncio.CancelledError:
             logger.info("Alpaca polling cancelled")
@@ -226,6 +256,11 @@ class TradingSystem:
                     self.minute_df = pd.concat([self.minute_df, row]).sort_index()
                     # Filter columns to allowed set like backtest
                     self.minute_df = self.minute_df.loc[:, [c for c in self.minute_df.columns if c[1] in allowed]]
+                    # Cache incremental bar to local store
+                    try:
+                        self.store.upsert_symbol(sym, row.xs(sym, axis=1, level=1).rename(columns={'Open':'open','High':'high','Low':'low','Close':'close','Volume':'volume'}))
+                    except Exception:
+                        pass
                     bt = Backtester()
                     allocs = bt.run(self.strategy, self.minute_df)
                     logger.info("Alpaca ws rebalancing allocations_count=%d", len(allocs) if allocs else 0)
@@ -362,6 +397,8 @@ class TradingSystem:
         universe_instruments = self._universe_instruments()
         if src == 'alpaca':
             df = self.alpaca_data.load_minute_bars(universe_instruments, bt_cfg.get('start'), bt_cfg.get('end'))
+            # Cache fetched bars
+            self._apply_store_update(df)
         else:
             loader = MinuteDataLoader(universe_instruments)
             bt_conf = BacktestConfig(
@@ -374,6 +411,11 @@ class TradingSystem:
                 rapidapi_key=None
             )
             df = loader.load(bt_conf)
+            self._apply_store_update(df)
+        # Fallback to local store if empty
+        if df is None or df.empty:
+            logger.warning("Backtest loader returned empty dataframe; falling back to local store")
+            df = self.store.load_universe(universe_instruments)
         models_syms = set(self.config.get('universe', {}).get('models', []))
         emergency_cfg = self.config.get('emergency', {}) or {}
         signals_syms = set(sum([
@@ -383,8 +425,8 @@ class TradingSystem:
         ], []))
         allowed = models_syms | signals_syms
         if df is None or df.empty:
-            logger.warning("Backtest loader returned empty dataframe")
             self.minute_df = pd.DataFrame()
+            logger.warning("Backtest data still empty after store fallback")
         else:
             df = df.loc[:, [c for c in df.columns if c[1] in allowed]]
             logger.info("Backtest dataframe shape=%s columns_count=%d", df.shape, len(df.columns))

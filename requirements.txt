@@ -1,0 +1,16 @@
+# Core runtime
+alpaca-py>=0.43.0
+pandas>=2.0
+numpy>=1.23
+requests>=2.31
+python-dotenv>=1.0
+pyarrow>=14.0
+fastparquet>=2024.2.0
+
+# Efficient Frontier (optional). Install these only if you want EF weighting.
+# If install fails on Windows, ensure you have a compatible NumPy/SciPy pair or use prebuilt wheels.
+PyPortfolioOpt>=1.5.4
+scipy>=1.13
+
+# CLI and scripts (argparse is stdlib; pin only for very old Python)
+argparse; python_version<"3.12"
