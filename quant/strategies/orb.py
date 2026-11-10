@@ -35,6 +35,8 @@ class ORBConfig:
     max_leverage: float = 4.0
     cost_bps: float = 1.0          # per side, on notional
     entry_delay: int = 0
+    intrabar: str = "pessimistic"  # entry bar: 'pessimistic' = stopped if its range touches the stop;
+                                   # 'neutral' = only its close is checked (order of high/low unknown)
 
 
 def simulate_day(first5: pd.DataFrame, minutes: dict[str, pd.DataFrame], feats: pd.DataFrame,
@@ -71,6 +73,11 @@ def simulate_day(first5: pd.DataFrame, minutes: dict[str, pd.DataFrame], feats: 
         stop = entry - side * cfg.stop_atr * atr
         exit_px, how = cl[-1], "close"
         for j in range(start_check, len(m)):
+            if j == i and cfg.entry_delay == 0 and cfg.intrabar == "neutral":
+                if (side > 0 and cl[j] <= stop) or (side < 0 and cl[j] >= stop):
+                    exit_px, how = cl[j], "stop"
+                    break
+                continue
             if (side > 0 and lo_[j] <= stop) or (side < 0 and h[j] >= stop):
                 exit_px = min(stop, o[j]) if side > 0 else max(stop, o[j])
                 if j == i and cfg.entry_delay == 0:

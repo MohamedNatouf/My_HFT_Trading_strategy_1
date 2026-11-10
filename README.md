@@ -42,7 +42,7 @@ The same code runs in backtests and live; `tests/test_causality.py` enforces it.
 ## Commands
 
 ```powershell
-python -m pytest tests -q                                   # 31 tests
+python -m pytest tests -q                                   # 75 tests
 
 # research (Yahoo needs no keys; Alpaca used automatically when .env has keys)
 python scripts/research.py daily --source yahoo --start 2003-01-01
@@ -55,7 +55,28 @@ python scripts/run_quant.py daily --once                    # today's targets + 
 python scripts/run_quant.py daily --execute                 # scheduler: rebalance 20 min before close (MOC)
 python scripts/run_quant.py intraday --execute              # SPY noise-area intraday sleeve
 python scripts/run_quant.py flatten --execute               # cancel orders + close all positions
+python scripts/run_quant.py options [--execute]             # SPY put credit spread sleeve (paper; run ~10:00 ET)
+
+# operations
+python scripts/run_quant.py report                          # paper P&L vs backtest, tracking error, slippage per order
+python scripts/run_quant.py watchdog                        # heartbeat / missed run / HALT (schedule every 15 min)
+python scripts/run_quant.py alert-test                      # test the alert channels configured in .env
+python scripts/run_quant.py spreads                         # measure live half-spreads -> cost model
+
+# research on new strategies (free data: Alpaca SIP > 15 min old, News API, option bars, Yahoo)
+python scripts/fetch_research_data.py sp100|news|orb        # resumable downloads into data/cache/research
+python scripts/research.py costs|reversal|putspread|news|orb
 ```
+
+**Alerts** (all free, configure any subset in `.env`, see `.env.example`): ntfy push, Slack/Discord webhook,
+Telegram bot, SMTP email. Sent for: kill switch, order errors/rejections, stale prices, missed rebalance,
+scheduler crashes, stream reconnects (info). Everything is also logged to `state/alerts.jsonl`.
+
+**Re-sync:** on every TradingStream (re)connect and before every rebalance the runner re-reads positions and open
+orders from Alpaca and backfills any fills/cancels/rejections the websocket missed into `state/journal.jsonl`.
+
+**Execution session:** `execution.session` = `close` (MOC, default) or `open` (opening auction, OPG orders submitted
+~45 min before the open from the previous session's official close).
 
 Portfolio, risk and execution parameters: `config/quant.json`. State and an order/fill journal are written to `state/`
 (`state/HALT` blocks all trading after a kill-switch trip until you delete it).
@@ -76,11 +97,28 @@ Daily, Yahoo adjusted closes, 2004-02 → 2026-11, 5 bp per unit turnover:
 | 60/40 SPY/AGG | 7.8% | 11.2% | 0.73 | −36% |
 
 The core portfolio matches 60/40 on Sharpe with about half the drawdown; it is a risk-control product, not an alpha machine.
-Momentum grid (48 configs): PBO 31%, walk-forward OOS Sharpe 0.46 vs 0.60 median config → use fixed defaults, don't re-optimise.
+Momentum grid (48 configs): PBO 60%, walk-forward OOS Sharpe 0.48 vs 0.57 median config → use fixed defaults, don't re-optimise.
 
 Intraday SPY, Alpaca SIP minute bars 2018 → 2026-11, 1 bp cost:
 * noise_area: Sharpe 0.98 (1x) / 1.12 (4x) before June 2024 but **−0.54 / −0.41 since publication**, and negative over the full sample at 3 bp. **Paper-trade only; do not run live.**
 * last_half_hour (Gao): Sharpe −1.06. Dropped.
+
+Cost model (per-symbol half-spread tier or measured quotes + volatility slippage, 1-7 bp): portfolio Sharpe 0.72,
+cost drag ~0.9%/yr, still positive up to ~9x the modelled costs. Execution timing: close (MOC) 0.75, next close 0.72,
+next open (OPG) 0.77. Group caps / turnover budget are safety nets (do not bind for the current sleeves).
+
+### New strategy candidates (go/no-go)
+
+| # | Strategy | Data | Result | Verdict |
+|---|---|---|---|---|
+| 12 | Sector ETF reversal / S&P 100 industry-adjusted reversal | Yahoo 1999+, Alpaca 2016+ | sector signal ≤ 0 after removing sector beta; stocks −0.27 Sharpe at 10 bp | **NO-GO** |
+| 13 | News sentiment (Alpaca News, 223k headlines, local lexicon) | 2016-2026 | gross Sharpe ~0.6 (open timing), net −2 to −6 at 5-10 bp; 11-38% positive months since 2023 | **NO-GO** (an LLM scorer can be plugged into `score_fn`, not tested: paid) |
+| 14 | Opening-range breakout, stocks in play (5.2k stocks scanned point-in-time) | Alpaca SIP 2022-06+ | Sharpe 1.29 at 1 bp, 0.10 at 3 bp, −1.12 with 1-minute delayed entry | **NO-GO** |
+| 15 | SPY put credit spreads (defined risk) | synthetic, calibrated on real Alpaca option prices 2024+, validated vs CBOE ^PUT | excess Sharpe 0.45-0.54, DD within budget in 2008/2020/2022, but only +0.5-1.3%/yr over T-bills | **GO: paper, small size** |
+
+Put spreads: `config/quant.json` → `options` (short ~15-delta, 10% wide, 3% risk per month, no new entries when
+VIX > 40, closed 2 days before expiry). One contract risks ~$7k, so a <$200k account can only paper-trade it
+(1 contract allowed in paper up to 10% risk). Needs options level 3 on the account.
 
 Caveats: ETF universe chosen with hindsight (mild survivorship bias); Yahoo data; lag-0 MOC results assume a 15:40 snapshot ≈ the close.
 

@@ -565,8 +565,8 @@ def cmd_orb(args, settings):
         cache[d] = (fd, mins, ft)
     rows, rets = {}, {}
     for cost in (1.0, 3.0, 5.0):
-        for delay in (0, 1):
-            cfg = ORBConfig(cost_bps=cost, entry_delay=delay)
+        for delay, intrabar in ((0, "pessimistic"), (0, "neutral"), (1, "pessimistic")):
+            cfg = ORBConfig(cost_bps=cost, entry_delay=delay, intrabar=intrabar)
             out, ntr, wins = {}, 0, 0
             for d, (fd, mins, ft) in cache.items():
                 r, tr = simulate_day(fd, mins, ft, cfg)
@@ -574,17 +574,17 @@ def cmd_orb(args, settings):
                 ntr += len(tr)
                 wins += sum(t["ret"] > 0 for t in tr)
             s = pd.Series(out).sort_index()
-            key = f"cost={cost}bp delay={delay}"
+            key = f"cost={cost}bp delay={delay}" + (" neutral" if intrabar == "neutral" else "")
             rets[key] = s
             rows[key] = {"sharpe": _sr(s), "ann_ret": float(s.mean() * 252), "max_dd": summarize(s)["max_drawdown"],
                          "sharpe_2024+": _sr(s.loc["2024-01-01":]), "trades/day": ntr / max(len(s), 1),
                          "win_rate": wins / max(ntr, 1)}
     tab = pd.DataFrame(rows).T
     print(tab.round(3).to_string())
-    go = tab.loc["cost=3.0bp delay=0", "sharpe"] > 0.5 and tab.loc["cost=3.0bp delay=1", "sharpe"] > 0 and \
-        tab.loc["cost=3.0bp delay=0", "sharpe_2024+"] > 0
-    print(f"GO/NO-GO ORB: Sharpe@3bp={tab.loc['cost=3.0bp delay=0', 'sharpe']:.2f}, "
-          f"delayed@3bp={tab.loc['cost=3.0bp delay=1', 'sharpe']:.2f}, 2024+={tab.loc['cost=3.0bp delay=0', 'sharpe_2024+']:.2f}"
+    k0 = "cost=3.0bp delay=0 neutral"   # judged on the fair fill model; pessimistic shown alongside
+    go = tab.loc[k0, "sharpe"] > 0.5 and tab.loc["cost=3.0bp delay=1", "sharpe"] > 0 and tab.loc[k0, "sharpe_2024+"] > 0
+    print(f"GO/NO-GO ORB: Sharpe@3bp(neutral)={tab.loc[k0, 'sharpe']:.2f}, "
+          f"delayed@3bp={tab.loc['cost=3.0bp delay=1', 'sharpe']:.2f}, 2024+={tab.loc[k0, 'sharpe_2024+']:.2f}"
           f" -> {'GO (paper only)' if go else 'NO-GO'}")
     pd.DataFrame(rets).to_csv(ROOT / "reports" / "orb_returns.csv")
 

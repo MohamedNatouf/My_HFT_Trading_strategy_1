@@ -72,6 +72,9 @@ def bars(data, symbols, timeframe, start, end, thr: Throttle, adjustment="all"):
     from alpaca.data.enums import Adjustment, DataFeed
     from alpaca.data.requests import StockBarsRequest
 
+    end = min(pd.Timestamp(end), pd.Timestamp.now(tz="UTC") - pd.Timedelta(minutes=16))  # free plan: SIP >15 min old
+    if pd.Timestamp(start) >= end:
+        return pd.DataFrame()
     thr.wait()
     req = StockBarsRequest(symbol_or_symbols=symbols, timeframe=timeframe, start=start, end=end,
                            feed=DataFeed.SIP, adjustment=Adjustment(adjustment), limit=None)
