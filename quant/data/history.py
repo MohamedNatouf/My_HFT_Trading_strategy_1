@@ -185,17 +185,20 @@ class YahooHistory:
                 sdf = sdf.rename(columns=str.lower)[["open", "high", "low", "close", "volume"]].dropna(how="all")
                 if sdf.empty:
                     continue
-                sdf.index = pd.to_datetime(sdf.index).tz_localize("UTC") if sdf.index.tz is None else sdf.index.tz_convert("UTC")
+                # yfinance daily dates are exchange-local session dates: localise to New York,
+                # NOT UTC (UTC midnight = previous evening in NY -> every bar one day early)
+                ix = pd.to_datetime(sdf.index)
+                sdf.index = (ix.tz_localize(NY) if ix.tz is None else ix.tz_convert(NY)).tz_convert("UTC")
                 self.cache.save("yahoo", "1Day", s, sdf)
                 out[s] = sdf
         return out
 
 
-def _closes_panel(bars: dict[str, pd.DataFrame], symbols: list[str]) -> pd.DataFrame:
+def _closes_panel(bars: dict[str, pd.DataFrame], symbols: list[str], field: str = "close") -> pd.DataFrame:
     cols = {}
     for s in symbols:
-        if s in bars and not bars[s].empty:
-            c = bars[s]["close"].copy()
+        if s in bars and not bars[s].empty and field in bars[s]:
+            c = bars[s][field].copy()
             # normalise to a date index (daily bars)
             c.index = pd.DatetimeIndex(c.index).tz_convert(NY).normalize().tz_localize(None)
             cols[s] = c[~c.index.duplicated(keep="last")]
@@ -207,10 +210,14 @@ def _closes_panel(bars: dict[str, pd.DataFrame], symbols: list[str]) -> pd.DataF
 
 
 def load_daily_closes(symbols: Iterable[str], start, end=None, source: str = "auto",
-                      settings=None, cache: BarCache | None = None) -> pd.DataFrame:
+                      settings=None, cache: BarCache | None = None, field: str = "close",
+                      refresh: bool = False) -> pd.DataFrame:
     """Daily split/dividend-adjusted closes, columns=symbols, index=naive dates.
 
     ``source``: 'alpaca', 'yahoo' or 'auto' (alpaca if credentials exist, else yahoo).
+    ``field``: 'close' (default), 'open', 'high', 'low' or 'volume'.
+    ``refresh``: ignore the cache freshness window (live trading must see yesterday's bar;
+    the cache only guarantees data within 3 days of ``end``).
     """
     symbols = list(dict.fromkeys(symbols))
     creds = getattr(settings, "alpaca", None) if settings is not None else None
@@ -220,10 +227,10 @@ def load_daily_closes(symbols: Iterable[str], start, end=None, source: str = "au
         if creds is None or not creds.available:
             raise RuntimeError("Alpaca credentials not configured (.env)")
         hist = AlpacaHistory(creds.key_id, creds.secret, feed="sip", cache=cache)
-        bars = hist.daily(symbols, start, end)
+        bars = hist.daily(symbols, start, end, use_cache=not refresh)
     else:
-        bars = YahooHistory(cache=cache).daily(symbols, start, end)
-    return _closes_panel(bars, symbols)
+        bars = YahooHistory(cache=cache).daily(symbols, start, end, use_cache=not refresh)
+    return _closes_panel(bars, symbols, field)
 
 
 def load_minute_bars(symbol: str, start, end=None, settings=None, cache: BarCache | None = None) -> pd.DataFrame:
