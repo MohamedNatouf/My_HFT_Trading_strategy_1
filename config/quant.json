@@ -1,0 +1,36 @@
+{
+  "book": "core",
+  "sleeves": [
+    {"strategy": "trend_following",      "weight": 0.25, "params": {}},
+    {"strategy": "dual_momentum",        "weight": 0.25, "params": {}},
+    {"strategy": "multifactor_momentum", "weight": 0.25, "params": {"top_k": 4, "rebalance": "W"}},
+    {"strategy": "rsi2",                 "weight": 0.25, "params": {"assets": ["SPY", "QQQ"]}}
+  ],
+  "risk": {
+    "max_position_weight": 0.35,
+    "max_gross_leverage": 1.0,
+    "target_vol": 0.10,
+    "vol_lookback": 63
+  },
+  "risk_controls": {
+    "max_daily_loss": 0.03
+  },
+  "execution": {
+    "allocation_fraction": 1.0,
+    "order_style": "moc",
+    "min_trade_notional": 25.0,
+    "drift_band": 0.01,
+    "limit_slippage_bps": 10.0,
+    "run_minutes_before_close": 20
+  },
+  "backtest": {
+    "cost_bps": 5.0,
+    "lag": 1,
+    "start": "2007-01-01"
+  },
+  "intraday": {
+    "symbol": "SPY",
+    "allocation_fraction": 0.5,
+    "params": {"lookback_days": 14, "target_daily_vol": 0.02, "max_leverage": 1.0, "allow_short": true}
+  }
+}
