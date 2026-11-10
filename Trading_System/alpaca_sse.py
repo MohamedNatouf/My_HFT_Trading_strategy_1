@@ -8,6 +8,12 @@ logger = logging.getLogger(__name__)
 
 class AlpacaSSEClient:
     """
+    BROKER-API ONLY -- NOT USED by TradingSystem.
+
+    These endpoints (broker-api.alpaca.markets/v1/events/*) require Alpaca Broker
+    API credentials; normal Trading API keys are rejected. Live order/fill events
+    are streamed with alpaca-py ``TradingStream`` (see system.TradingSystem).
+
     Minimal SSE client for Alpaca Broker API event streams.
     Supports optional OAuth2 client-credentials to auth against authx and use Bearer token.
     If no client_id/client_secret are provided, falls back to Basic auth using api_key:api_secret.

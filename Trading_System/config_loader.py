@@ -27,13 +27,16 @@ class ConfigLoader:
         alp = cfg.setdefault("alpaca", {})
         alp_env_key = os.getenv("ALPACA_API_KEY_ID")
         alp_env_secret = os.getenv("ALPACA_API_SECRET_KEY")
-        alp_env_mode = os.getenv("ALPACA_ENV", "paper").lower()
+        alp_env_mode = os.getenv("ALPACA_ENV")
         if alp_env_key:
             alp["apiKeyId"] = alp_env_key
         if alp_env_secret:
             alp["apiSecretKey"] = alp_env_secret
-        if alp_env_mode in ("paper", "live"):
-            alp["paper"] = (alp_env_mode == "paper")
+        # Only override paper/live mode if ALPACA_ENV is explicitly set
+        if alp_env_mode is not None:
+            m = alp_env_mode.lower()
+            if m in ("paper", "live"):
+                alp["paper"] = (m == "paper")
         # Data store toggles
         data = cfg.setdefault("data", {})
         env_store_enabled = os.getenv("MINUTE_STORE_ENABLED")

@@ -10,6 +10,7 @@ if repo_root not in sys.path:
     sys.path.insert(0, repo_root)
 
 from Trading_System.system import TradingSystem
+from logging_conf import setup_logging
 
 # Initialize structured logging
 logging.basicConfig(
@@ -29,9 +30,22 @@ async def main():
     parser.add_argument('--end', help='Backtest end date/time ISO8601')
     parser.add_argument('--feed', help='Market data feed for live/ws or backtest metadata (iex/sip)')
     parser.add_argument('--output_size', help='Output size for AV historical (compact/full)')
+    parser.add_argument('--log-level', default='INFO', choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'],
+                        help='Logging level for this run (default: INFO)')
     args = parser.parse_args()
 
-    logger.info("Starting backtest script with config=%s", args.config)
+    # Configure structured logging: per-run file under logs/ and console output
+    # Run id includes mode and backtest window for easy identification
+    run_id_parts = [args.mode.lower()]
+    if args.start:
+        run_id_parts.append(args.start.replace(":", "").replace("-", "").replace("T", "_"))
+    if args.end:
+        run_id_parts.append(args.end.replace(":", "").replace("-", "").replace("T", "_"))
+    run_id = "_".join(run_id_parts) if run_id_parts else "backtest"
+    level = getattr(logging, args.log_level.upper(), logging.INFO)
+    setup_logging(run_id=run_id, level=level)
+
+    logger.info("Starting backtest script with config=%s run_id=%s log_level=%s", args.config, run_id, args.log_level.upper())
     ts = TradingSystem(args.config)
     # Apply mode
     ts.config['mode'] = args.mode.lower()

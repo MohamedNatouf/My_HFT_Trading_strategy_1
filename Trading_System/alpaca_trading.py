@@ -67,8 +67,12 @@ class AlpacaTrader:
             logger.error("Symbol %s not eligible or halted for overnight; reject extended-hours order", symbol)
         return ok
 
-    def submit_market_order(self, symbol: str, qty: Optional[float] = None, side: str = 'buy', tif: str = 'day', notional: Optional[float] = None, extended_hours: bool = False):
-        """Submit market order. Enforces Alpaca constraints: buy min $1 notional, qty<=9dp, notional<=2dp, fractional day-only."""
+    def submit_market_order(self, symbol: str, qty: Optional[float] = None, side: str = 'buy', tif: str = 'day', notional: Optional[float] = None, extended_hours: bool = False, client_order_id: Optional[str] = None):
+        """Submit market order. Enforces Alpaca constraints: buy min $1 notional, qty<=9dp, notional<=2dp, fractional day-only.
+
+        ``client_order_id`` (<=128 chars) makes the order idempotent: Alpaca rejects a
+        second order with the same id, so a re-submitted allocation cannot double-trade.
+        """
         if self.client is None or MarketOrderRequest is None:
             return None
         if not self._validate_overnight(symbol, extended_hours):
@@ -95,6 +99,8 @@ class AlpacaTrader:
         # extended hours flag when outside RTH
         if extended_hours:
             order_kwargs['extended_hours'] = True
+        if client_order_id:
+            order_kwargs['client_order_id'] = str(client_order_id)[:128]
         try:
             order = MarketOrderRequest(**order_kwargs)
             return self.client.submit_order(order)

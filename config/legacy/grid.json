@@ -1,0 +1,53 @@
+{
+  "minutes_per_day": [390],
+  "rebalance_minutes": [1, 5, 15, 30, 60],
+  "Volatility_Measuring_Lookback_Period": [30, 60, 120],
+  "Selected_method_of_Momuntum_Metric": ["Metrics Combind", "Metrics Count"],
+  "Number_of_Portfolio_Allocations": [3, 4, 5, 6],
+  "Volatility_Weight_Strength": [0.5, 0.75, 1.0],
+
+  "log_timezone": ["America/New_York"],
+  "carry_forward_stats": [true, false],
+
+  "weighting.method": [
+    "inverse_vol", "ewma_inverse_vol", "blend_inv_vol",
+    "erc", "hrp", "robust_mv", "max_diversification", "risk_parity_buckets",
+    "Efficient Frontier Optimization"
+  ],
+  "weighting.cov_estimator": ["sample", "ewma", "ogk", "ledoit_wolf"],
+  "weighting.ewma_lambda": [0.90, 0.94],
+  "weighting.w_min": [0.0, 0.01],
+  "weighting.w_max": [0.2, 0.3, 0.5],
+  "weighting.turnover_penalty": [0.0, 0.05],
+  "weighting.l1_penalty": [0.0, 0.05],
+  "weighting.l2_penalty": [0.0, 0.1],
+  "weighting.vol_strength": [0.5, 0.75, 1.0],
+  "weighting.robust_mean": ["none", "huber"],
+  "weighting.expected_gamma_turnover": [0.0, 0.02, 0.05, 0.1],
+  "weighting.expected_gamma_var": [0.0, 0.2, 0.5, 1.0],
+  "weighting.buckets": [
+    {},
+    {"equity": ["SPY", "VOO", "IVV"], "bond": ["IEF", "BND", "GBF"], "alt": ["GLD", "DBC"]}
+  ],
+  "regime.regime_detector": ["none"],
+  "regime.vol_threshold": [0.010, 0.012, 0.016, 0.020],
+  "regime.vol_low": [0.008, 0.010],
+  "regime.vol_high": [0.014, 0.016, 0.018],
+  "regime.dispersion_threshold": [null, 0.001, 0.002, 0.003],
+
+  "costs.c0": [0.0, 0.00001],
+  "costs.c1": [0.0, 0.0002, 0.0005],
+  "costs.c2": [0.0, 0.0005, 0.001],
+  "rebalance_trigger": ["time"],
+  "expected_improvement_threshold": [0.0],
+  "drift_band": [0.0, 0.01],
+
+  "Emergency_System_Enabled": [false],
+  "Equity_Lookback_Period": [30, 55, 90],
+  "Bond_Lookback_Period": [60, 110, 180],
+  "Equity_Signal_Wait_Period": [1, 2],
+  "Bond_Signal_Wait_Period": [0, 1],
+  "Equity_N_Bond_Hold_Period_Status": [false],
+  "Equity_N_Bond_Hold_Period": [0],
+  "Rebalancing_Method": ["active"]
+}

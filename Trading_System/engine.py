@@ -1,6 +1,6 @@
 # Strategy engine implementing cross-sectional momentum on minute bars with parameter-driven logic
 from dataclasses import dataclass
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Tuple
 import pandas as pd
 import numpy as np
 import logging
@@ -25,6 +25,9 @@ logger = logging.getLogger(__name__)
 class Position:
     symbol: str
     weight: float
+    # Last observed (non-NaN) close of the symbol at allocation time. Used by
+    # the execution router to convert weights into share quantities.
+    last_close: Optional[float] = None
 
 @dataclass
 class Allocation:
@@ -88,14 +91,21 @@ class Strategy:
                 continue
             sub = series.iloc[-p:]
             cur = sub.iloc[-1]
+            if not np.isfinite(cur) or cur == 0:
+                continue
             mx = sub.max()
             mn = sub.min()
-            std = sub.std()
-            if std == 0:
-                std = 1.0
-            high_diff = (mx/cur)/std if cur != 0 else 0
-            low_diff = (cur/mn)/std if mn != 0 else 0
-            value = (low_diff - high_diff) * 100
+            # Dispersion of prices normalised by the current price so the
+            # score is dimensionless (scale-invariant). Using the raw price
+            # std made a 10x higher-priced asset score 10x lower.
+            std = (sub / cur).std()
+            if not np.isfinite(std) or std == 0:
+                # Flat window: mx == mn == cur, so the signal is zero.
+                value = 0.0
+            else:
+                high_diff = (mx/cur)/std
+                low_diff = (cur/mn)/std if mn != 0 else 0
+                value = (low_diff - high_diff) * 100
             max_signal = max(max_signal, value)
         return 1.0 if max_signal == -1000.0 else max_signal
 
@@ -195,13 +205,33 @@ class Strategy:
         return 1.0
 
     def Momentum_MultiFactor_Maximizer(self, close: pd.DataFrame, lookback: int, method: str) -> pd.Series:
-        scores = {}
+        """Return momentum scores ordered best-first (``.head(k)`` = top k).
+
+        Symbols with insufficient history (< lookback+2 non-NaN bars) are
+        excluded entirely, for both methods.
+        """
         lookback_minutes = int(lookback)  # raw minute bars count
-        for symbol in close.columns:
+        eligible = [sym for sym in close.columns if close[sym].dropna().shape[0] >= lookback_minutes + 2]
+        if method == "Metrics Count":
+            if not eligible:
+                return pd.Series(dtype=float)
+            sub_close = close[eligible]
+            arr_hl = sub_close.apply(lambda col: self._high_low_diff_ratio(col.dropna()))
+            arr_lr = sub_close.apply(lambda col: self._linear_regression_ratio(col.dropna()))
+            arr_pr = sub_close.apply(lambda col: self._price_percent_rank_metric(col.dropna()))
+            arr_rsi = sub_close.apply(lambda col: self._rsi_index(col.dropna()))
+            arr_sma = sub_close.apply(lambda col: self._sma_instantaneous_slope(col.dropna(), lookback_minutes))
+            arr_stoch = sub_close.apply(lambda col: self._stochastic_oscillator(col.dropna()))
+            arrays = [arr_hl, arr_lr, arr_pr, arr_rsi, arr_sma, arr_stoch]
+            rank_sum = pd.Series(0.0, index=sub_close.columns)
+            for ser_arr in arrays:
+                # rank 1 = highest metric value (best)
+                rank_sum += ser_arr.astype(float).rank(ascending=False)
+            # Lowest rank sum = best overall -> ascending sort puts best first
+            return rank_sum.sort_values(ascending=True, kind="mergesort")
+        scores = {}
+        for symbol in eligible:
             s = close[symbol].dropna()
-            if len(s) < lookback_minutes+2:
-                scores[symbol] = -np.inf
-                continue
             hl = self._high_low_diff_ratio(s)
             lr = self._linear_regression_ratio(s)
             pr = self._price_percent_rank_metric(s)
@@ -210,20 +240,8 @@ class Strategy:
             stoch = self._stochastic_oscillator(s)
             value = hl * abs(lr) * pr * rsi * abs(sma) * abs(stoch)
             scores[symbol] = value
-        ser = pd.Series(scores)
-        if method == "Metrics Count":
-            arrays = []
-            arr_hl = close.apply(lambda col: self._high_low_diff_ratio(col.dropna()))
-            arr_lr = close.apply(lambda col: self._linear_regression_ratio(col.dropna()))
-            arr_pr = close.apply(lambda col: self._price_percent_rank_metric(col.dropna()))
-            arr_rsi = close.apply(lambda col: self._rsi_index(col.dropna()))
-            arr_sma = close.apply(lambda col: self._sma_instantaneous_slope(col.dropna(), lookback_minutes))
-            arr_stoch = close.apply(lambda col: self._stochastic_oscillator(col.dropna()))
-            arrays = [arr_hl, arr_lr, arr_pr, arr_rsi, arr_sma, arr_stoch]
-            rank_sum = pd.Series(0.0, index=close.columns)
-            for ser_arr in arrays:
-                rank_sum += ser_arr.rank(ascending=False)
-            return rank_sum.sort_values(ascending=False)
+        ser = pd.Series(scores, dtype=float)
+        ser = ser[np.isfinite(ser)]
         return ser.sort_values(ascending=False)
 
     def _apply_special_filter(self, rets: pd.Series, symbols_meta: Optional[Dict[str, Dict]] = None) -> pd.Series:
@@ -243,7 +261,8 @@ class Strategy:
         lookback_bars = int(self.params.get("Volatility_Measuring_Lookback_Period", 60))
         vol_strength = float(self.params.get("Volatility_Weight_Strength", 1))
         prices = _extract_close_frame(df)[selected_symbols]
-        prices = prices.ffill().bfill()
+        # Forward-fill only: back-filling would leak future prices into the past.
+        prices = prices.ffill()
         try:
             vol = prices.pct_change(fill_method=None).tail(lookback_bars).std()
         except Exception:
@@ -303,8 +322,8 @@ class Strategy:
         hold_status = bool(self.params.get("Equity_N_Bond_Hold_Period_Status", True))
         hold_period = int(self.params.get("Equity_N_Bond_Hold_Period", 3))
         close = _extract_close_frame(df)
-        # Fill before pct_change to avoid warnings
-        close = close.ffill().bfill()
+        # Forward-fill only (no bfill: that would leak future prices backwards)
+        close = close.ffill()
         eq_syms = self.emergency_cfg.get("equity_signal", [])
         bond_syms = self.emergency_cfg.get("bond_signal", [])
         risk_off = False
@@ -331,6 +350,30 @@ class Strategy:
                 self.state["emergency"] = False
         logger.debug("emergency state=%s eq_wait=%d bond_wait=%d hold_days=%d", self.state["emergency"], self.state["equity_wait"], self.state["bond_wait"], self.state["hold_days"])
 
+    def required_window(self) -> int:
+        """Number of trailing bars needed to reproduce a full-history allocation.
+
+        max of: indicator lookbacks (132 bars + 2), volatility lookback + 2,
+        emergency equity/bond lookbacks + 1. Doubled (+10) to leave head-room
+        for symbols with sparse (NaN) bars inside the window.
+        """
+        vol_lb = int(self.params.get("Volatility_Measuring_Lookback_Period", 60))
+        eq_lb = int(self.params.get("Equity_Lookback_Period", 55))
+        bond_lb = int(self.params.get("Bond_Lookback_Period", 110))
+        need = max(132 + 2, vol_lb + 2, eq_lb + 1, bond_lb + 1)
+        return int(self.params.get("max_window", 2 * need + 10))
+
+    def latest_allocation(self, minute_df: pd.DataFrame) -> Optional[Allocation]:
+        """Compute ONLY the allocation for the latest bar (live mode).
+
+        Uses just the trailing ``required_window()`` bars, so the cost does not
+        grow with the amount of history loaded.
+        """
+        if minute_df is None or minute_df.empty:
+            return None
+        window = minute_df.iloc[-self.required_window():]
+        return self.generate_allocation(window)
+
     def generate_allocation(self, minute_df: pd.DataFrame) -> Allocation:
         self._update_emergency(minute_df)
         # Determine available symbols strictly from close prices
@@ -338,7 +381,7 @@ class Strategy:
         available_syms = list(close_all.columns)
         if self.emergency_enabled and self.state["emergency"]:
             emerg_syms = [s for s in self.emergency_cfg.get("active", []) if s in available_syms]
-            selected_universe = emerg_syms if emerg_syms else self.universe_models
+            selected_universe = emerg_syms if emerg_syms else [s for s in self.universe_models if s in available_syms]
         else:
             selected_universe = [s for s in self.universe_models if s in available_syms] or available_syms
         close_frame = close_all[selected_universe]
@@ -346,29 +389,60 @@ class Strategy:
         scores = self._apply_special_filter(scores)
         k = int(self.params.get('Number_of_Portfolio_Allocations', 3))
         selected = list(scores.head(k).index)
+        if not selected:
+            logger.warning("allocation ts=%s: no eligible symbols (insufficient history); returning empty allocation", minute_df.index[-1])
+            return Allocation(date=minute_df.index[-1], positions=[], emergency=(self.emergency_enabled and self.state["emergency"]))
         weights = self._weights(close_frame, selected)
-        positions = [Position(symbol=s, weight=float(weights[s])) for s in selected]
+        positions = []
+        for s in selected:
+            last_valid = close_frame[s].dropna()
+            last_close = float(last_valid.iloc[-1]) if len(last_valid) else None
+            positions.append(Position(symbol=s, weight=float(weights[s]), last_close=last_close))
         # Format weights as percentages for tidy logging
         weights_pct = {s: f"{float(weights[s])*100.0:.2f}%" for s in selected}
         logger.info("allocation ts=%s emergency=%s selected=%s weights=%s", minute_df.index[-1], self.emergency_enabled and self.state["emergency"], selected, weights_pct)
         return Allocation(date=minute_df.index[-1], positions=positions, emergency=(self.emergency_enabled and self.state["emergency"]))
 
 class Backtester:
+    """Walk-forward backtest over minute bars.
+
+    P&L is realised WITHOUT look-ahead: at each rebalance bar t the previous
+    allocation's weights earn (px_t / px_prev_rebalance - 1); only then are the
+    new weights (chosen with data up to and including bar t) put on. An
+    optional linear cost ``params['costs']['c2'] * turnover`` is charged at each
+    rebalance, where turnover = sum |w_new - w_prev|.
+    """
+
+    def __init__(self):
+        self.rebalance_returns: List[float] = []
+        self.equity_curve: List[Tuple[pd.Timestamp, float]] = []
+
     def run(self, strategy: Strategy, minute_df: pd.DataFrame, rebalancing: Optional[str] = None) -> List[Allocation]:
         allocs: List[Allocation] = []
+        self.rebalance_returns = []
+        self.equity_curve = []
+        if minute_df is None or minute_df.empty:
+            logger.warning("backtest: empty minute_df; nothing to do")
+            return allocs
         method = rebalancing or strategy.params.get("Rebalancing_Method", "active")
-        step = int(strategy.params.get('rebalance_minutes', strategy.rebalance_minutes))
+        step = max(1, int(strategy.params.get('rebalance_minutes', strategy.rebalance_minutes)))
         # Minimum bars required equals the volatility lookback (bars), not days
         min_bars = int(strategy.params.get("Volatility_Measuring_Lookback_Period", 60))
-        logger.info("backtest start rows=%d cols=%d method=%s step=%d min_bars=%d", len(minute_df), len(minute_df.columns), method, step, min_bars)
-        # Initialize starting equity at $100 for logging
+        max_window = strategy.required_window()
+        c2 = float(((strategy.params.get('costs') or {}).get('c2', 0.0)) or 0.0)
+        logger.info("backtest start rows=%d cols=%d method=%s step=%d min_bars=%d max_window=%d c2=%g",
+                    len(minute_df), len(minute_df.columns), method, step, min_bars, max_window, c2)
+        # Last-known price per symbol at every bar (ffill only; computed once, O(N)).
+        close_ff = _extract_close_frame(minute_df).ffill()
+        index = minute_df.index
         equity = 100.0
         max_equity = 100.0
+        prev_w = pd.Series(dtype=float)
+        prev_px = pd.Series(dtype=float)
         for i in range(len(minute_df)):
-            window = minute_df.iloc[:i+1]
-            if len(window) < max(3, min_bars):
+            if i + 1 < max(3, min_bars):
                 continue
-            ts = window.index[-1]
+            ts = index[i]
             do_rebalance = False
             if method == '1':
                 do_rebalance = ts.isoweekday() == 5 and ts.hour == 16 and ts.minute == 0
@@ -378,42 +452,50 @@ class Backtester:
             elif method == 'active' or method == '3':
                 do_rebalance = (i % step) == 0
             if not do_rebalance:
-                if i % 1000 == 0:
-                    logger.debug("skip rebalance ts=%s i=%d", ts, i)
                 continue
-            logger.debug("do rebalance ts=%s i=%d", ts, i)
+            # Only the trailing window is needed by the strategy (avoids O(N^2)).
+            window = minute_df.iloc[max(0, i + 1 - max_window):i + 1]
             alloc = strategy.generate_allocation(window)
-            # Compute simple portfolio stats on the window for logging
             try:
-                close = _extract_close_frame(window)
-                sel_syms = [p.symbol for p in alloc.positions]
-                w = pd.Series({p.symbol: p.weight for p in alloc.positions})
-                px = close[sel_syms].iloc[-1]
-                prev_px = close[sel_syms].iloc[-2] if len(close) > 1 else px
-                ret_vec = (px / prev_px) - 1
-                port_ret = float((w * ret_vec).sum()) if len(w) > 0 else 0.0
-                # Update equity in dollars
-                equity *= (1.0 + port_ret)
+                px_now = close_ff.iloc[i]
+                # 1) realise P&L of the PREVIOUS weights over (prev rebalance, t]
+                if len(prev_w) > 0:
+                    rets = (px_now.reindex(prev_w.index) / prev_px.reindex(prev_w.index)) - 1.0
+                    rets = rets.replace([np.inf, -np.inf], np.nan).fillna(0.0)
+                    port_ret = float((prev_w * rets).sum())
+                else:
+                    port_ret = 0.0
+                # 2) switch to the new weights, paying costs on turnover
+                new_w = pd.Series({p.symbol: float(p.weight) for p in alloc.positions}, dtype=float)
+                all_syms = prev_w.index.union(new_w.index)
+                turnover = float((new_w.reindex(all_syms, fill_value=0.0) - prev_w.reindex(all_syms, fill_value=0.0)).abs().sum())
+                cost = c2 * turnover
+                net_ret = port_ret - cost
+                equity *= (1.0 + net_ret)
                 max_equity = max(max_equity, equity)
                 dd = (equity / max_equity) - 1.0
                 cum = (equity / 100.0) - 1.0
-                # Tidy logging: separate sections with formatted values
+                self.rebalance_returns.append(net_ret)
+                self.equity_curve.append((ts, equity))
+                prev_w = new_w
+                prev_px = px_now.reindex(new_w.index)
                 logger.info(
-                    "ALLOCATION | ts=%s | emergency=%s\n  positions=%s\nSTATS      | ret=%+.4f%% | cum=%+.2f%% | equity=$%.2f | max_eq=$%.2f | drawdown=%+.4f%%",
+                    "ALLOCATION | ts=%s | emergency=%s\n  positions=%s\nSTATS      | ret(prev alloc)=%+.4f%% | cost=%.4f%% | turnover=%.4f | cum=%+.2f%% | equity=$%.2f | max_eq=$%.2f | drawdown=%+.4f%%",
                     ts,
                     strategy.emergency_enabled and strategy.state.get("emergency"),
                     [(p.symbol, f"{p.weight*100.0:.2f}%") for p in alloc.positions],
                     port_ret * 100.0,
+                    cost * 100.0,
+                    turnover,
                     cum * 100.0,
                     equity,
                     max_equity,
                     dd * 100.0,
                 )
             except Exception as e:
-                logger.debug("stats error ts=%s err=%s", ts, e)
+                logger.warning("stats error ts=%s err=%s", ts, e)
             allocs.append(alloc)
         logger.info("backtest done allocations=%d", len(allocs))
-        # Persist ending equity/max equity for visibility
         logger.info("final equity=$%.2f max_equity=$%.2f", equity, max_equity)
         return allocs
 

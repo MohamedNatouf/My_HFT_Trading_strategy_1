@@ -3,19 +3,35 @@ import asyncio
 import pandas as pd
 import numpy as np
 import logging
-from typing import Dict, Any, List, Tuple
+from typing import Dict, Any, List, Tuple, Optional
 from .config_loader import ConfigLoader
 from .instrument_map import InstrumentMap
-from .engine import Strategy, Backtester, Allocation
+from .engine import Strategy, Backtester, Allocation, _extract_close_frame
 from .data import MinuteDataLoader, BacktestConfig
 from .alpaca_data import AlpacaMinuteDataLoader
 from .alpaca_trading import AlpacaTrader
-from .alpaca_sse import AlpacaSSEClient
 from .alpaca_account import AlpacaAccountClient
 from .execution import ExecutionRouter
-from .minute_store import MinuteStore
+from .minute_store import MinuteStore, filter_rth
+
+try:
+    from alpaca.trading.stream import TradingStream
+except Exception:
+    TradingStream = None
 
 logger = logging.getLogger(__name__)
+
+
+def _merge_bars(old: pd.DataFrame, new: pd.DataFrame) -> pd.DataFrame:
+    """Merge two (field, symbol) MultiIndex bar frames by timestamp; ``new`` wins on overlap.
+    Never produces duplicate index rows."""
+    if old is None or old.empty:
+        return new.sort_index() if new is not None else pd.DataFrame()
+    if new is None or new.empty:
+        return old
+    out = new.combine_first(old)
+    out = out[~out.index.duplicated(keep='last')]
+    return out.sort_index()
 
 class TradingSystem:
     def __init__(self, config_path: str = "config/config.json"):
@@ -36,15 +52,21 @@ class TradingSystem:
         strat_params['universe_models'] = (self.config.get('universe', {}) or {}).get('models', [])
         self.strategy = Strategy("CS-Momentum-Minute", strat_params)
         alpaca_cfg = self.config.get('alpaca', {})
-        self.alpaca_data = AlpacaMinuteDataLoader(alpaca_cfg.get('apiKeyId'), alpaca_cfg.get('apiSecretKey'), alpaca_cfg.get('paper', True))
-        self.alpaca_trader = AlpacaTrader(alpaca_cfg.get('apiKeyId'), alpaca_cfg.get('apiSecretKey'), alpaca_cfg.get('paper', True))
-        self.alpaca_sse = AlpacaSSEClient(
-            api_key=alpaca_cfg.get('apiKeyId'),
-            api_secret=alpaca_cfg.get('apiSecretKey'),
-            sandbox=alpaca_cfg.get('paper', True),
-            oauth_client_id=alpaca_cfg.get('oauthClientId'),
-            oauth_client_secret=alpaca_cfg.get('oauthClientSecret'),
+        # Regular-trading-hours filter for all bar sources (config data.marketHoursOnly, default True)
+        self.rth_only = bool((self.config.get('data', {}) or {}).get('marketHoursOnly', True))
+        bt_cfg0 = self.config.get('backtest', {}) or {}
+        self.alpaca_data = AlpacaMinuteDataLoader(
+            alpaca_cfg.get('apiKeyId'), alpaca_cfg.get('apiSecretKey'), alpaca_cfg.get('paper', True),
+            feed=bt_cfg0.get('feed'), adjustment=bt_cfg0.get('adjustment'), rth_only=self.rth_only,
         )
+        self.alpaca_trader = AlpacaTrader(alpaca_cfg.get('apiKeyId'), alpaca_cfg.get('apiSecretKey'), alpaca_cfg.get('paper', True))
+        # NOTE: alpaca_sse.AlpacaSSEClient targets the Broker API and is NOT used;
+        # order/fill events come from alpaca-py TradingStream (see _run_trade_updates).
+        self._trading_stream = None
+        # Live-mode bookkeeping: never re-execute the same allocation timestamp.
+        self._last_executed_alloc_ts: Optional[pd.Timestamp] = None
+        self._last_computed_bar_ts: Optional[pd.Timestamp] = None
+        self._last_cycle_empty = False
         self.alpaca_account = AlpacaAccountClient(alpaca_cfg.get('apiKeyId'), alpaca_cfg.get('apiSecretKey'), alpaca_cfg.get('paper', True))
         # Execution router for translating allocations to orders
         self.execution = ExecutionRouter(self.alpaca_trader, self.alpaca_account, self.config.get('live', {}))
@@ -123,30 +145,8 @@ class TradingSystem:
         if not use_alpaca:
             logger.error("Alpaca credentials missing. Provide 'alpaca.apiKeyId' and 'alpaca.apiSecretKey' in config.")
             return
-        # Launch SSE listeners concurrently with data stream
-        async def _orders_evt(evt: Dict[str, Any]):
-            logger.info("SSE order evt: %s", evt)
-        async def _journals_evt(evt: Dict[str, Any]):
-            logger.info("SSE journal evt: %s", evt)
-        async def _transfers_evt(evt: Dict[str, Any]):
-            logger.info("SSE transfer evt: %s", evt)
-        async def _nta_evt(evt: Dict[str, Any]):
-            logger.info("SSE nta evt: %s", evt)
-        def orders_cb(evt: Dict[str, Any]):
-            asyncio.create_task(_orders_evt(evt))
-        def journals_cb(evt: Dict[str, Any]):
-            asyncio.create_task(_journals_evt(evt))
-        def transfers_cb(evt: Dict[str, Any]):
-            asyncio.create_task(_transfers_evt(evt))
-        def nta_cb(evt: Dict[str, Any]):
-            asyncio.create_task(_nta_evt(evt))
-        sse_tasks = [
-            asyncio.create_task(self.alpaca_sse.subscribe_orders(orders_cb)),
-            asyncio.create_task(self.alpaca_sse.subscribe_journals(journals_cb)),
-            asyncio.create_task(self.alpaca_sse.subscribe_transfers(transfers_cb)),
-            asyncio.create_task(self.alpaca_sse.subscribe_nta(nta_cb)),
-        ]
-        # Start account monitor task
+        # Order/fill events via the Trading API websocket (TradingStream).
+        trade_updates_task = self._start_trade_updates()
         acct_task = asyncio.create_task(self._monitor_account())
         stream_cfg = (self.config.get('live', {}) or {}).get('stream', {})
         mode = stream_cfg.get('mode', 'poll').lower()
@@ -157,16 +157,69 @@ class TradingSystem:
                 poll_secs = int(stream_cfg.get('pollSeconds', 10))
                 await self._run_stream_alpaca_poll(poll_secs)
         finally:
-            for t in sse_tasks:
-                t.cancel()
             acct_task.cancel()
+            await self._stop_trade_updates(trade_updates_task)
+
+    # ------------------------------------------------------------------ trade updates
+    def _start_trade_updates(self) -> Optional[asyncio.Task]:
+        """Start alpaca-py TradingStream (trade_updates) in a worker thread."""
+        if TradingStream is None:
+            logger.warning("alpaca-py TradingStream unavailable; order/fill events will not be streamed")
+            return None
+        alpaca_cfg = self.config.get('alpaca', {})
+        try:
+            stream = TradingStream(alpaca_cfg.get('apiKeyId'), alpaca_cfg.get('apiSecretKey'), paper=bool(alpaca_cfg.get('paper', True)))
+        except Exception as e:
+            logger.error("Failed to create TradingStream: %s", e)
+            return None
+
+        async def _on_trade_update(data):
+            try:
+                event = str(getattr(data, 'event', '') or '')
+                event = getattr(getattr(data, 'event', None), 'value', event)
+                order = getattr(data, 'order', None)
+                sym = getattr(order, 'symbol', None)
+                side = getattr(getattr(order, 'side', None), 'value', getattr(order, 'side', None))
+                coid = getattr(order, 'client_order_id', None)
+                msg = ("TRADE_UPDATE event=%s symbol=%s side=%s qty=%s filled_qty=%s filled_avg_price=%s "
+                       "price=%s position_qty=%s client_order_id=%s")
+                args = (event, sym, side, getattr(order, 'qty', None), getattr(order, 'filled_qty', None),
+                        getattr(order, 'filled_avg_price', None), getattr(data, 'price', None),
+                        getattr(data, 'position_qty', None), coid)
+                if event in ('rejected', 'canceled', 'expired'):
+                    logger.warning(msg, *args)
+                elif event in ('fill', 'partial_fill'):
+                    logger.info(msg, *args)
+                else:
+                    logger.debug(msg, *args)
+            except Exception as e:
+                logger.debug("trade update logging failed: %s", e)
+
+        stream.subscribe_trade_updates(_on_trade_update)
+        self._trading_stream = stream
+        logger.info("TradingStream trade_updates started (paper=%s)", bool(alpaca_cfg.get('paper', True)))
+        return asyncio.create_task(asyncio.to_thread(stream.run))
+
+    async def _stop_trade_updates(self, task: Optional[asyncio.Task]) -> None:
+        stream = self._trading_stream
+        if stream is not None:
+            try:
+                stream.stop()
+            except Exception as e:
+                logger.debug("TradingStream.stop failed: %s", e)
+        if task is not None:
+            try:
+                await asyncio.wait_for(asyncio.shield(task), timeout=5)
+            except Exception:
+                pass
+        self._trading_stream = None
 
     async def _monitor_account(self):
         """Periodically read account fields and log settlement-aware state."""
         interval = int((self.config.get('live', {}) or {}).get('accountPollSeconds', 30))
         try:
             while True:
-                acc = self.alpaca_account.get_account()
+                acc = await asyncio.to_thread(self.alpaca_account.get_account)
                 if acc:
                     logger.info(
                         "Account bp=%s regt_bp=%s dtbp=%s cash=%s cash_wdr=%s memoposts=%s eq=%s",
@@ -182,52 +235,8 @@ class TradingSystem:
         except asyncio.CancelledError:
             logger.info("Account monitor cancelled")
 
-    async def _run_stream_alpaca_poll(self, poll_secs: int):
-        logger.info("Using Alpaca polling for live data")
-        universe = self._universe_instruments()
-        try:
-            while True:
-                df = self.alpaca_data.load_minute_bars(universe, None, None)
-                if df is not None and not df.empty:
-                    # Cache to local store
-                    self._apply_store_update(df)
-                    models_syms = set(self.config.get('universe', {}).get('models', []))
-                    emergency_cfg = self.config.get('emergency', {}) or {}
-                    signals_syms = set(sum([
-                        emergency_cfg.get('equity_signal', []),
-                        emergency_cfg.get('bond_signal', []),
-                        emergency_cfg.get('active', []),
-                    ], []))
-                    allowed = models_syms | signals_syms
-                    # Filter to allowed (models + emergency) to align with backtest
-                    df = df.loc[:, [c for c in df.columns if c[1] in allowed]]
-                    self.minute_df = df.sort_index()
-                else:
-                    # Fallback to local store
-                    self.minute_df = self.store.load_universe(universe)
-                bt = Backtester()
-                allocs = bt.run(self.strategy, self.minute_df)
-                logger.info("Alpaca poll rebalancing allocations_count=%d", len(allocs) if allocs else 0)
-                # translate latest allocation to orders
-                if allocs:
-                    latest = allocs[-1]
-                    self.execution.rebalance(latest, current_positions={})
-                await asyncio.sleep(poll_secs)
-        except asyncio.CancelledError:
-            logger.info("Alpaca polling cancelled")
-        except Exception as e:
-            logger.error("Alpaca poll failed: %s", e)
-
-    async def _run_stream_alpaca_ws(self):
-        """WebSocket streaming via alpaca-py StockDataStream to get bars in real time with feed selection and reconnect."""
-        try:
-            from alpaca.data.live import StockDataStream
-        except Exception as e:
-            logger.error("alpaca-py live streaming unavailable: %s", e)
-            return
-        alpaca_cfg = self.config.get('alpaca', {})
-        feed = (self.config.get('live', {}).get('stream', {}).get('feed', 'iex')).lower()
-        # Align symbols with backtest: models + emergency (equity/bond/active)
+    # ------------------------------------------------------------------ live helpers
+    def _allowed_symbols(self) -> set:
         models_syms = set(self.config.get('universe', {}).get('models', []))
         emergency_cfg = self.config.get('emergency', {}) or {}
         signals_syms = set(sum([
@@ -235,59 +244,224 @@ class TradingSystem:
             emergency_cfg.get('bond_signal', []),
             emergency_cfg.get('active', []),
         ], []))
-        allowed = sorted(models_syms | signals_syms)
+        return models_syms | signals_syms
+
+    def _live_feed(self) -> str:
+        return str(((self.config.get('live', {}) or {}).get('stream', {}) or {}).get('feed', 'iex')).lower()
+
+    def _live_adjustment(self) -> Optional[str]:
+        stream_cfg = (self.config.get('live', {}) or {}).get('stream', {}) or {}
+        return stream_cfg.get('adjustment') or (self.config.get('backtest', {}) or {}).get('adjustment')
+
+    def _fetch_live_positions(self) -> Optional[Dict[str, float]]:
+        """Return broker positions {symbol: signed qty}, or None if they cannot be fetched
+        (callers must then NOT trade)."""
+        client = getattr(self.alpaca_trader, 'client', None)
+        if client is None:
+            logger.error("Trading client unavailable; cannot fetch live positions")
+            return None
+        try:
+            out: Dict[str, float] = {}
+            for p in client.get_all_positions() or []:
+                sym = getattr(p, 'symbol', None)
+                if not sym:
+                    continue
+                qty = float(getattr(p, 'qty', 0) or 0)
+                side = str(getattr(getattr(p, 'side', None), 'value', getattr(p, 'side', '')) or '').lower()
+                if side == 'short' and qty > 0:
+                    qty = -qty
+                out[sym] = qty
+            return out
+        except Exception as e:
+            logger.error("get_all_positions failed: %s", e)
+            return None
+
+    def _trim_live_df(self, df: pd.DataFrame) -> pd.DataFrame:
+        keep = max(2 * self.strategy.required_window(), 2000)
+        return df.iloc[-keep:] if len(df) > keep else df
+
+    async def _maybe_rebalance_live(self, minute_df: pd.DataFrame, source: str) -> None:
+        """Compute the latest allocation (off the event loop) and execute it ONLY if it
+        is a new allocation timestamp, at least rebalance_minutes after the last one."""
+        if minute_df is None or minute_df.empty:
+            return
+        last_ts = minute_df.index[-1]
+        if self._last_computed_bar_ts is not None and last_ts <= self._last_computed_bar_ts:
+            return  # no new bar since last evaluation
+        step = int(self.strategy.params.get('rebalance_minutes', self.strategy.rebalance_minutes))
+        if self._last_executed_alloc_ts is not None and (last_ts - self._last_executed_alloc_ts) < pd.Timedelta(minutes=step):
+            return
+        self._last_computed_bar_ts = last_ts
+        max_age = float((self.config.get('live', {}) or {}).get('maxBarAgeMinutes', 5))
+        now = pd.Timestamp.now(tz='UTC')
+        ts_utc = last_ts if last_ts.tzinfo is not None else last_ts.tz_localize('UTC')
+        if (now - ts_utc) > pd.Timedelta(minutes=max_age):
+            logger.info("%s: latest bar %s is older than %.0f min; not trading on stale data", source, last_ts, max_age)
+            return
+        alloc = await asyncio.to_thread(self.strategy.latest_allocation, minute_df)
+        if alloc is None:
+            return
+        if self._last_executed_alloc_ts is not None and alloc.date <= self._last_executed_alloc_ts:
+            logger.debug("%s: allocation ts=%s already executed; skipping", source, alloc.date)
+            return
+        positions = await asyncio.to_thread(self._fetch_live_positions)
+        if positions is None:
+            logger.warning("%s: live positions unavailable; skipping this rebalance", source)
+            return
+        logger.info("%s: executing NEW allocation ts=%s live_positions=%s", source, alloc.date, positions)
+        # Mark before executing: an allocation is never re-submitted, even if execution partially fails.
+        self._last_executed_alloc_ts = alloc.date
+        await asyncio.to_thread(self.execution.rebalance, alloc, positions)
+
+    async def _run_stream_alpaca_poll(self, poll_secs: int):
+        logger.info("Using Alpaca polling for live data feed=%s rth_only=%s", self._live_feed(), self.rth_only)
+        universe = self._universe_instruments()
+        allowed = self._allowed_symbols()
+        warmup_days = int(((self.config.get('live', {}) or {}).get('stream', {}) or {}).get('warmupDays', 5))
+        try:
+            while True:
+                try:
+                    if self.minute_df is None or self.minute_df.empty:
+                        start = pd.Timestamp.now(tz='UTC') - pd.Timedelta(days=warmup_days)
+                    else:
+                        start = self.minute_df.index[-1] - pd.Timedelta(minutes=5)
+                    df = await asyncio.to_thread(
+                        self.alpaca_data.load_minute_bars, universe, start, None,
+                        self._live_feed(), self._live_adjustment(), self.rth_only)
+                    if df is None or df.empty:
+                        # Do NOT fall back to the (possibly stale) local store for live trading.
+                        if not self._last_cycle_empty:
+                            logger.warning("Live data fetch returned no bars (feed=%s); skipping cycle, not trading on stale store data", self._live_feed())
+                        self._last_cycle_empty = True
+                    else:
+                        self._last_cycle_empty = False
+                        await asyncio.to_thread(self._apply_store_update, df)
+                        df = df.loc[:, [c for c in df.columns if c[1] in allowed]]
+                        self.minute_df = self._trim_live_df(_merge_bars(self.minute_df, df))
+                        await self._maybe_rebalance_live(self.minute_df, "poll")
+                except asyncio.CancelledError:
+                    raise
+                except Exception as e:
+                    logger.error("Alpaca poll cycle failed: %s", e, exc_info=True)
+                await asyncio.sleep(poll_secs)
+        except asyncio.CancelledError:
+            logger.info("Alpaca polling cancelled")
+
+    async def _run_stream_alpaca_ws(self):
+        """WebSocket streaming via alpaca-py StockDataStream. The stream runs in a worker
+        thread; bars are handed to the main loop through an asyncio.Queue."""
+        try:
+            from alpaca.data.live import StockDataStream
+        except Exception as e:
+            logger.error("alpaca-py live streaming unavailable: %s", e)
+            return
+        try:
+            from alpaca.data.enums import DataFeed
+            feed = DataFeed(self._live_feed())
+        except Exception:
+            feed = self._live_feed()
+        alpaca_cfg = self.config.get('alpaca', {})
+        allowed = sorted(self._allowed_symbols())
+        universe = self._universe_instruments()
+        # Warm up history so the strategy has enough bars immediately.
+        if self.minute_df is None or self.minute_df.empty:
+            warmup_days = int(((self.config.get('live', {}) or {}).get('stream', {}) or {}).get('warmupDays', 5))
+            start = pd.Timestamp.now(tz='UTC') - pd.Timedelta(days=warmup_days)
+            seed = await asyncio.to_thread(self.alpaca_data.load_minute_bars, universe, start, None,
+                                           self._live_feed(), self._live_adjustment(), self.rth_only)
+            if seed is not None and not seed.empty:
+                self.minute_df = self._trim_live_df(seed.loc[:, [c for c in seed.columns if c[1] in allowed]].sort_index())
+            else:
+                logger.warning("WebSocket warm-up returned no bars; strategy will wait for enough live bars")
+        loop = asyncio.get_running_loop()
         backoff = 1
         while True:
+            stream = None
+            stream_task = None
             try:
                 stream = StockDataStream(alpaca_cfg.get('apiKeyId'), alpaca_cfg.get('apiSecretKey'), feed=feed)
+                queue: asyncio.Queue = asyncio.Queue()
+
                 async def on_bar(bar):
-                    ts = pd.to_datetime(bar.timestamp, utc=True).floor('T')
+                    loop.call_soon_threadsafe(queue.put_nowait, bar)
+
+                stream.subscribe_bars(on_bar, *allowed)
+                stream_task = asyncio.create_task(asyncio.to_thread(stream.run))
+                while True:
+                    get_task = asyncio.create_task(queue.get())
+                    done, _ = await asyncio.wait({get_task, stream_task}, return_when=asyncio.FIRST_COMPLETED)
+                    if get_task not in done:
+                        get_task.cancel()
+                        raise RuntimeError("StockDataStream stopped")
+                    bar = get_task.result()
+                    backoff = 1
+                    ts = pd.to_datetime(bar.timestamp, utc=True).floor('min')
                     sym = bar.symbol
                     if sym not in allowed:
-                        return
+                        continue
+                    if self.rth_only and filter_rth(pd.DataFrame(index=pd.DatetimeIndex([ts]), data={'x': [0]})).empty:
+                        continue
                     row = pd.DataFrame({
                         ('open', sym): [bar.open],
                         ('high', sym): [bar.high],
                         ('low', sym): [bar.low],
                         ('close', sym): [bar.close],
                         ('volume', sym): [bar.volume]
-                    }, index=[ts])
+                    }, index=pd.DatetimeIndex([ts]))
                     row.columns = pd.MultiIndex.from_tuples(row.columns)
-                    self.minute_df = pd.concat([self.minute_df, row]).sort_index()
-                    # Filter columns to allowed set like backtest
-                    self.minute_df = self.minute_df.loc[:, [c for c in self.minute_df.columns if c[1] in allowed]]
-                    # Cache incremental bar to local store
+                    prev_last = self.minute_df.index[-1] if (self.minute_df is not None and not self.minute_df.empty) else None
+                    self.minute_df = self._trim_live_df(_merge_bars(self.minute_df, row))
                     try:
-                        self.store.upsert_symbol(sym, row.xs(sym, axis=1, level=1).rename(columns={'Open':'open','High':'high','Low':'low','Close':'close','Volume':'volume'}))
+                        await asyncio.to_thread(self.store.upsert_symbol, sym, row.xs(sym, axis=1, level=1))
                     except Exception:
                         pass
-                    bt = Backtester()
-                    allocs = bt.run(self.strategy, self.minute_df)
-                    logger.info("Alpaca ws rebalancing allocations_count=%d", len(allocs) if allocs else 0)
-                    if allocs:
-                        latest = allocs[-1]
-                        self.execution.rebalance(latest, current_positions={})
-                # Subscribe only to allowed symbols
-                stream.subscribe_bars(on_bar, *allowed)
-                await stream.run()
-                backoff = 1
+                    # When the first bar of a NEW minute arrives, the previous minute is
+                    # complete for all symbols: evaluate on bars strictly before ts.
+                    if prev_last is not None and ts > prev_last:
+                        complete = self.minute_df[self.minute_df.index < ts]
+                        await self._maybe_rebalance_live(complete, "ws")
             except asyncio.CancelledError:
                 logger.info("Alpaca websocket cancelled")
+                if stream is not None:
+                    stream.stop()
                 return
             except Exception as e:
                 logger.warning("WebSocket error: %s; reconnecting in %ss", e, backoff)
+                if stream is not None:
+                    try:
+                        stream.stop()
+                    except Exception:
+                        pass
                 await asyncio.sleep(backoff)
                 backoff = min(backoff * 2, 30)
+
+    async def flatten_and_exit(self) -> List[Any]:
+        """Cancel all open orders and close all positions at the broker; log per-symbol results."""
+        client = getattr(self.alpaca_trader, 'client', None)
+        if client is None:
+            logger.error("flatten_and_exit: trading client unavailable; nothing done")
+            return []
+        try:
+            cancelled = await asyncio.to_thread(client.cancel_orders)
+            logger.info("flatten_and_exit: cancel_orders responses=%d", len(cancelled or []))
+        except Exception as e:
+            logger.error("flatten_and_exit: cancel_orders failed: %s", e)
+        try:
+            results = await asyncio.to_thread(client.close_all_positions, True)
+        except Exception as e:
+            logger.error("flatten_and_exit: close_all_positions failed: %s", e)
+            return []
+        for r in results or []:
+            logger.info("flatten_and_exit: symbol=%s status=%s order_id=%s body=%s",
+                        getattr(r, 'symbol', None), getattr(r, 'status', None),
+                        getattr(r, 'order_id', None), getattr(r, 'body', None))
+        return list(results or [])
 
     def _compute_report(self, allocs: List[Allocation]) -> Dict[str, Any]:
         if self.minute_df is None or self.minute_df.empty or not allocs:
             return {}
-        # Close frame extraction
-        if isinstance(self.minute_df.columns, pd.MultiIndex) and 'Close' in self.minute_df.columns.get_level_values(0):
-            close = self.minute_df.xs('Close', axis=1, level=0)
-        else:
-            close = self.minute_df
-        close = close.ffill().bfill()
+        # Close frame extraction (data uses lowercase 'close'); ffill only, no bfill.
+        close = _extract_close_frame(self.minute_df).ffill()
         # Build weight time series from allocations (step-wise hold until next rebalance)
         w_ts = pd.DataFrame(0.0, index=close.index, columns=close.columns)
         alloc_times: List[pd.Timestamp] = []
@@ -396,7 +570,11 @@ class TradingSystem:
         bt = Backtester()
         universe_instruments = self._universe_instruments()
         if src == 'alpaca':
-            df = self.alpaca_data.load_minute_bars(universe_instruments, bt_cfg.get('start'), bt_cfg.get('end'))
+            # feed/adjustment read at call time so CLI overrides (scripts/backtest.py --feed) apply
+            df = self.alpaca_data.load_minute_bars(
+                universe_instruments, bt_cfg.get('start'), bt_cfg.get('end'),
+                feed=bt_cfg.get('feed'), adjustment=bt_cfg.get('adjustment'), rth_only=self.rth_only,
+            )
             # Cache fetched bars
             self._apply_store_update(df)
         else:
@@ -411,11 +589,13 @@ class TradingSystem:
                 rapidapi_key=None
             )
             df = loader.load(bt_conf)
+            if self.rth_only:
+                df = filter_rth(df)
             self._apply_store_update(df)
         # Fallback to local store if empty
         if df is None or df.empty:
             logger.warning("Backtest loader returned empty dataframe; falling back to local store")
-            df = self.store.load_universe(universe_instruments)
+            df = self.store.load_universe(universe_instruments, rth_only=self.rth_only)
         models_syms = set(self.config.get('universe', {}).get('models', []))
         emergency_cfg = self.config.get('emergency', {}) or {}
         signals_syms = set(sum([

@@ -6,6 +6,23 @@ import pandas as pd
 
 logger = logging.getLogger(__name__)
 
+
+def filter_rth(df: pd.DataFrame) -> pd.DataFrame:
+    """Keep only regular-trading-hours bars: weekdays, 09:30 <= t < 16:00 America/New_York.
+
+    Naive indexes are assumed to be UTC. Exchange holidays are not special-cased
+    (there are no bars on them anyway).
+    """
+    if df is None or df.empty or not isinstance(df.index, pd.DatetimeIndex):
+        return df
+    idx = df.index
+    if idx.tz is None:
+        idx = idx.tz_localize('UTC')
+    ny = idx.tz_convert('America/New_York')
+    mins = ny.hour * 60 + ny.minute
+    mask = (mins >= 9 * 60 + 30) & (mins < 16 * 60) & (ny.day_of_week < 5)
+    return df[mask]
+
 class MinuteStore:
     """
     Local minute-bar storage using Parquet per symbol.
@@ -78,7 +95,19 @@ class MinuteStore:
             logger.error("Failed to write parquet for %s: %s", symbol, e)
         return max(0, len(merged) - before)
 
-    def load_universe(self, instruments: List[Dict[str, Any]]) -> pd.DataFrame:
+    def clear_all(self) -> int:
+        """Delete every *.parquet file under the store root. Returns files removed."""
+        removed = 0
+        for f in self.root.glob('*.parquet'):
+            try:
+                f.unlink()
+                removed += 1
+            except Exception as e:
+                logger.error("Failed to delete %s: %s", f, e)
+        logger.info("MinuteStore.clear_all removed=%d root=%s", removed, self.root)
+        return removed
+
+    def load_universe(self, instruments: List[Dict[str, Any]], rth_only: bool = True) -> pd.DataFrame:
         frames = []
         for inst in instruments:
             sym = inst.get('symbol')
@@ -96,8 +125,10 @@ class MinuteStore:
             frames.append(sub)
         if not frames:
             return pd.DataFrame()
-        out = pd.concat(frames, axis=1).sort_index()
+        out = pd.concat(frames, axis=1, sort=True).sort_index()
         out.columns = pd.MultiIndex.from_tuples(out.columns)
+        if rth_only:
+            out = filter_rth(out)
         return out
 
     def latest_timestamp(self, symbol: str) -> Optional[pd.Timestamp]:
