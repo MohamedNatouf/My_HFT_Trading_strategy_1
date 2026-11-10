@@ -32,7 +32,7 @@ class RebalanceConfig:
     allocation_fraction: float = 1.0     # share of account equity this book may use
     min_trade_notional: float = 25.0
     drift_band: float = 0.01             # skip if |delta| < drift_band * book equity
-    order_style: str = "limit"           # 'market' | 'limit' | 'moc'
+    order_style: str = "limit"           # 'market' | 'limit' | 'moc' (close auction) | 'moo' (open auction)
     limit_slippage_bps: float = 10.0     # marketable-limit offset through the quote
     max_order_notional: float | None = None
     whole_shares_only: bool = False
@@ -63,7 +63,8 @@ class Rebalancer:
         if missing:
             px.update(self.broker.latest_prices(missing))
         plan = RebalancePlan(book_equity=book)
-        whole = cfg.whole_shares_only or cfg.order_style == "moc"
+        auction = cfg.order_style in ("moc", "moo")
+        whole = cfg.whole_shares_only or auction
         for s in symbols:
             price = px.get(s)
             if not price or not math.isfinite(price) or price <= 0:
@@ -86,7 +87,7 @@ class Rebalancer:
             frac_ok = (not whole) and self.broker.fractionable(s)
             if not frac_ok and not full_exit:
                 qty = math.floor(qty)
-            if full_exit and not frac_ok and abs(cur_qty) != int(abs(cur_qty)) and cfg.order_style == "moc":
+            if full_exit and not frac_ok and abs(cur_qty) != int(abs(cur_qty)) and auction:
                 qty = math.floor(qty)  # fractional remainder must go via a day order later
             if qty <= 0:
                 plan.skipped.append((s, "rounds to zero shares"))
@@ -95,9 +96,10 @@ class Rebalancer:
             plan.orders.append(OrderSpec(
                 symbol=s, side=side, qty=round(qty, 9),
                 client_order_id=make_client_order_id(self.tag, day, s, side),
-                tif="cls" if cfg.order_style == "moc" else "day",
+                tif={"moc": "cls", "moo": "opg"}.get(cfg.order_style, "day"),
                 order_type="limit" if cfg.order_style == "limit" else "market",
                 est_notional=qty * price,
+                ref_price=price,
                 reason="exit" if full_exit else f"target {w:.2%}",
             ))
         plan.orders.sort(key=lambda o: 0 if o.side == "sell" else 1)
@@ -130,7 +132,7 @@ class Rebalancer:
         bp = None
         for o in plan.orders:
             rec = {"symbol": o.symbol, "side": o.side, "qty": o.qty, "type": o.order_type, "tif": o.tif,
-                   "limit": o.limit_price, "est_notional": round(o.est_notional, 2),
+                   "limit": o.limit_price, "est_notional": round(o.est_notional, 2), "ref_price": o.ref_price,
                    "client_order_id": o.client_order_id, "reason": o.reason}
             if dry_run:
                 rec["status"] = "dry_run"

@@ -43,6 +43,7 @@ class OrderSpec:
     limit_price: float | None = None
     est_notional: float = 0.0
     reason: str = ""
+    ref_price: float = 0.0       # price used for sizing (decision price) -> slippage reports
 
 
 class Broker(Protocol):
@@ -54,6 +55,8 @@ class Broker(Protocol):
     def latest_prices(self, symbols: list[str]) -> dict[str, float]: ...
     def fractionable(self, symbol: str) -> bool: ...
     def open_orders(self) -> list: ...
+    def recent_orders(self, after=None, limit: int = 500) -> list: ...
+    def latest_trades(self, symbols: list[str]) -> dict: ...
     def cancel_order(self, order_id: str) -> None: ...
     def order_exists(self, client_order_id: str) -> bool: ...
     def submit(self, spec: OrderSpec): ...
@@ -125,14 +128,18 @@ class AlpacaBroker:
         q = self.data.get_stock_latest_quote(StockLatestQuoteRequest(symbol_or_symbols=symbols, feed=DataFeed(self.data_feed)))
         return {s: Quote(float(v.bid_price or 0), float(v.ask_price or 0)) for s, v in q.items()}
 
-    def latest_prices(self, symbols: list[str]) -> dict[str, float]:
+    def latest_trades(self, symbols: list[str]) -> dict[str, tuple[float, "object"]]:
+        """symbol -> (price, timestamp UTC) of the latest trade on the configured feed."""
         from alpaca.data.enums import DataFeed
         from alpaca.data.requests import StockLatestTradeRequest
 
         if not symbols:
             return {}
         t = self.data.get_stock_latest_trade(StockLatestTradeRequest(symbol_or_symbols=symbols, feed=DataFeed(self.data_feed)))
-        return {s: float(v.price) for s, v in t.items()}
+        return {s: (float(v.price), v.timestamp) for s, v in t.items()}
+
+    def latest_prices(self, symbols: list[str]) -> dict[str, float]:
+        return {s: p for s, (p, _) in self.latest_trades(symbols).items()}
 
     # --- orders ----------------------------------------------------------------
     def open_orders(self) -> list:
@@ -140,6 +147,25 @@ class AlpacaBroker:
         from alpaca.trading.requests import GetOrdersRequest
 
         return list(self.trading.get_orders(filter=GetOrdersRequest(status=QueryOrderStatus.OPEN, limit=500)))
+
+    def recent_orders(self, after=None, limit: int = 500) -> list:
+        """Closed (filled / canceled / rejected / expired) orders, newest first."""
+        from alpaca.trading.enums import QueryOrderStatus
+        from alpaca.trading.requests import GetOrdersRequest
+
+        return list(self.trading.get_orders(filter=GetOrdersRequest(status=QueryOrderStatus.CLOSED, after=after,
+                                                                    limit=limit, direction="desc")))
+
+    def portfolio_history(self, start=None, end=None, period: str | None = None):
+        """Daily equity / P&L history (``profit_loss`` excludes deposits and withdrawals)."""
+        from alpaca.trading.requests import GetPortfolioHistoryRequest
+
+        if start is not None and end is None:
+            from datetime import datetime, timezone
+
+            end = datetime.now(timezone.utc)   # without an end Alpaca returns only 1 month from start
+        req = GetPortfolioHistoryRequest(timeframe="1D", start=start, end=end, period=period if start is None else None)
+        return self.trading.get_portfolio_history(req)
 
     def cancel_order(self, order_id: str) -> None:
         self.trading.cancel_order_by_id(order_id)

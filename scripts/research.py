@@ -5,6 +5,8 @@ Examples (repo root):
     python scripts/research.py daily --source yahoo --start 2005-01-01 --cost-bps 5
     python scripts/research.py overfit                     # PBO / DSR / walk-forward on momentum grid
     python scripts/research.py intraday --symbol SPY --start 2019-01-01   # needs Alpaca keys
+    python scripts/research.py costs                       # per-symbol cost model, cost sensitivity,
+                                                           # risk-layer variants, close vs open execution
 
 Every number is net of ``--cost-bps`` per unit of one-way turnover, with next-close
 execution (lag=1) unless stated otherwise.
@@ -24,7 +26,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from quant.backtest import (deflated_sharpe_ratio, probability_of_backtest_overfitting,  # noqa: E402
+from quant.backtest import (cost_model_bps, cost_sensitivity, deflated_sharpe_ratio, probability_of_backtest_overfitting,  # noqa: E402
                             run_backtest, sharpe, summarize, walk_forward)
 from quant.config import load_settings  # noqa: E402
 from quant.data import load_daily_closes  # noqa: E402
@@ -155,9 +157,65 @@ def cmd_intraday(args, settings):
     print(df[["start", "end", "cagr", "vol", "sharpe", "max_drawdown"] + (["trades_per_day"] if "trades_per_day" in df else [])].to_string())
 
 
+def cmd_costs(args, settings):
+    cfg = settings.raw
+    sleeves = [(build_daily(s["strategy"], **(s.get("params") or {})), float(s["weight"])) for s in cfg["sleeves"]]
+    strategies = {name: build_daily(name) for name in DAILY_STRATEGIES}
+    symbols = sorted({s for st in strategies.values() for s in st.symbols} | {s for st, _ in sleeves for s in st.symbols})
+    prices = load_daily_closes(symbols, args.start, args.end, source=args.source, settings=settings)
+    opens = load_daily_closes(symbols, args.start, args.end, source=args.source, settings=settings, field="open")
+    costs = cost_model_bps(prices)
+    print("=== cost model: median one-way cost per symbol (bps) ===")
+    print(costs.median().round(2).sort_values().to_string())
+
+    print("\n=== cost sensitivity (cost model x multiplier), next-close execution ===")
+    summary = {}
+    port_syms = sorted({s for st, _ in sleeves for s in st.symbols})
+    risk = RiskLimits(**cfg.get("risk", {}))
+    pt = apply_risk(prices[port_syms], combine_sleeves(prices[port_syms], sleeves), risk)
+    items = {name: (st.symbols, st.target_weights(prices[st.symbols])) for name, st in strategies.items()}
+    items["PORTFOLIO (config)"] = (port_syms, pt)
+    for name, (syms, t) in items.items():
+        sens = cost_sensitivity(prices[syms], t, costs[syms], multipliers=(0, 1, 2, 3, 5, 10), lag=1)
+        summary[name] = {"sharpe@0": sens.loc[0, "sharpe"], "sharpe@1x": sens.loc[1, "sharpe"],
+                         "sharpe@3x": sens.loc[3, "sharpe"], "sharpe@10x": sens.loc[10, "sharpe"],
+                         "avg_cost_bps": sens.loc[1, "avg_cost_bps_per_trade"],
+                         "cost_drag/yr": sens.loc[1, "cost_drag_per_year"],
+                         "breakeven_x": sens.attrs["breakeven_multiplier"]}
+    print(pd.DataFrame(summary).T.round(3).to_string())
+
+    print("\n=== risk-layer variants (portfolio, cost model, next close) ===")
+    base = {k: v for k, v in cfg.get("risk", {}).items() if k not in ("group_caps", "max_turnover")}
+    gc = cfg.get("risk", {}).get("group_caps") or {"us_equity": 0.6, "intl_equity": 0.35, "bonds": 0.6,
+                                                   "commodities": 0.25, "real_estate": 0.15}
+    variants = {
+        "caps + vol target": RiskLimits(**base),
+        "+ group caps": RiskLimits(**base, group_caps=gc),
+        "+ turnover 0.5": RiskLimits(**base, max_turnover=0.5),
+        "+ turnover 0.3": RiskLimits(**base, max_turnover=0.3),
+        "+ group caps + turnover 0.5": RiskLimits(**base, group_caps=gc, max_turnover=0.5),
+    }
+    raw = combine_sleeves(prices[port_syms], sleeves)
+    rows = {}
+    for name, lim in variants.items():
+        res = run_backtest(prices[port_syms], apply_risk(prices[port_syms], raw, lim), cost_bps=costs[port_syms], lag=1)
+        rows[name] = res.stats
+    band = float(cfg.get("execution", {}).get("drift_band", 0.01))
+    res = run_backtest(prices[port_syms], pt, cost_bps=costs[port_syms], lag=1, trade_band=band)
+    rows[f"config risk + live drift band {band:.0%}"] = res.stats
+    print(fmt_table(rows))
+
+    print("\n=== execution timing (portfolio, config risk, cost model) ===")
+    rows = {}
+    for name, kw in (("close t (MOC, lag0)", dict(lag=0)), ("next close (lag1)", dict(lag=1)),
+                     ("next open (OPG)", dict(lag=1, open_prices=opens[port_syms]))):
+        rows[name] = run_backtest(prices[port_syms], pt, cost_bps=costs[port_syms], **kw).stats
+    print(fmt_table(rows))
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["daily", "overfit", "intraday"])
+    ap.add_argument("cmd", choices=["daily", "overfit", "intraday", "costs"])
     ap.add_argument("--config", default="config/quant.json")
     ap.add_argument("--source", default="auto", choices=["auto", "alpaca", "yahoo"])
     ap.add_argument("--start", default="2005-01-01")
@@ -167,7 +225,7 @@ def main():
     args = ap.parse_args()
     logging.basicConfig(level=logging.WARNING, format="%(levelname)s %(name)s %(message)s")
     settings = load_settings(args.config)
-    {"daily": cmd_daily, "overfit": cmd_overfit, "intraday": cmd_intraday}[args.cmd](args, settings)
+    {"daily": cmd_daily, "overfit": cmd_overfit, "intraday": cmd_intraday, "costs": cmd_costs}[args.cmd](args, settings)
 
 
 if __name__ == "__main__":

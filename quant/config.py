@@ -69,7 +69,7 @@ def credentials_from_env() -> AlpacaCredentials:
     )
 
 
-_SECRET_HINTS = ("apikeyid", "apisecretkey", "secret", "password", "apikey")
+_SECRET_HINTS = ("apikeyid", "apisecretkey", "secret", "password", "apikey", "token", "webhook")
 
 
 def _assert_no_secrets(obj: Any, trail: str = "") -> None:
