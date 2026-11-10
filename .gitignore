@@ -3,3 +3,24 @@
 ################################################################################
 
 /.vs
+/My_HFT_Trading_strategy_1_recoved/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+logs/
+
+# --- added during overhaul ---
+venv/
+.venv*/
+.env
+*.env.local
+tmp_config.json
+data/minute/
+data/cache/
+reports/
+sweeps*.csv
+.pytest_cache/
+state/
+Alpaca_Full_Docs.txt
+config/saxo_fix.cfg

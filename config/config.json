@@ -20,8 +20,8 @@
     "Emergency_System_Enabled": false
   },
   "alpaca": {
-    "apiKeyId": "AKYJ3EMFAI5ZMVAOD4KV7PAAJJ",
-    "apiSecretKey": "2ASkd3b1H9Z7QvbT7jcrD3cTjMVZD8TN6b7zhM1qGvfR",
+    "apiKeyId": "",
+    "apiSecretKey": "",
     "paper": true,
     "oauthClientId": null,
     "oauthClientSecret": null
@@ -61,7 +61,7 @@
     },
     "alphaVantage": {
       "interval": "1Min",
-      "apiKey": "d1c907c6efmsh002f422951e45bdp1a7256jsn89a3074ab0b4"
+      "apiKey": ""
     }
   },
   "universe": {
