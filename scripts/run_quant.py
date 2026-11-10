@@ -9,6 +9,7 @@
     python scripts/run_quant.py report --start 2026-11-01   # paper P&L vs backtest + slippage per order
     python scripts/run_quant.py watchdog                 # heartbeat / missed-run / HALT check (schedule every 15 min)
     python scripts/run_quant.py alert-test               # send a test alert to every configured channel
+    python scripts/run_quant.py options [--execute]      # SPY put credit spread sleeve (paper; run daily ~10:00 ET)
     python scripts/run_quant.py spreads                  # measure live half-spreads -> data/cache/spreads.json
 
 Paper vs live is decided ONLY by ALPACA_ENV in .env (live also needs LIVE_TRADING_CONFIRM=yes).
@@ -17,6 +18,7 @@ Without --execute nothing is ever sent to the broker.
 from __future__ import annotations
 
 import argparse
+import json
 import logging
 import sys
 from pathlib import Path
@@ -139,7 +141,7 @@ def cmd_spreads(settings, args):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=["check", "daily", "intraday", "flatten", "report", "watchdog", "alert-test",
-                                    "spreads"])
+                                    "spreads", "options"])
     ap.add_argument("--config", default="config/quant.json")
     ap.add_argument("--execute", action="store_true", help="actually send orders (default: dry run)")
     ap.add_argument("--once", action="store_true", help="daily: run one rebalance now instead of scheduling")
@@ -167,6 +169,12 @@ def main():
         NoiseAreaRunner(settings, symbol=icfg.get("symbol", "SPY"), dry_run=not args.execute,
                         allocation_fraction=float(icfg.get("allocation_fraction", 0.5)),
                         **(icfg.get("params") or {})).run()
+    elif args.cmd == "options":
+        from quant.live.options import PutSpreadRunner
+        from quant.ops.alerts import Alerter
+
+        r = PutSpreadRunner(settings, dry_run=not args.execute, state_dir=args.state_dir, alerter=Alerter(args.state_dir))
+        print(json.dumps(r.run_once(), indent=2, default=str))
     elif args.cmd == "report":
         cmd_report(settings, args)
     elif args.cmd == "spreads":

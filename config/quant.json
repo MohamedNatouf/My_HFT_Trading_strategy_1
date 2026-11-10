@@ -76,5 +76,19 @@
       "max_leverage": 1.0,
       "allow_short": true
     }
+  },
+  "options": {
+    "underlying": "SPY",
+    "short_delta": -0.15,
+    "width": 0.1,
+    "risk_per_trade": 0.03,
+    "vix_stop": 40,
+    "min_dte": 25,
+    "max_dte": 45,
+    "close_dte": 2,
+    "allocation_fraction": 1.0,
+    "limit_buffer": 0.02,
+    "min_credit": 0.05,
+    "paper_one_contract_max_risk": 0.1
   }
 }

@@ -4,11 +4,13 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from quant.strategies import DAILY_STRATEGIES, build_daily
+from quant.strategies import CANDIDATE_STRATEGIES, DAILY_STRATEGIES, build_daily
+
+ALL = sorted({**DAILY_STRATEGIES, **CANDIDATE_STRATEGIES})
 from quant.strategies.base import rebalance_mask
 
 
-@pytest.mark.parametrize("name", sorted(DAILY_STRATEGIES))
+@pytest.mark.parametrize("name", ALL)
 def test_strategy_is_causal(name, rw):
     st = build_daily(name)
     prices = rw(st.symbols, n=700, seed=11, drift=0.0003)
@@ -19,15 +21,19 @@ def test_strategy_is_causal(name, rw):
         assert np.allclose(a.fillna(-9).to_numpy(), b.fillna(-9).to_numpy()), f"{name} not causal at row {k}"
 
 
-@pytest.mark.parametrize("name", sorted(DAILY_STRATEGIES))
+@pytest.mark.parametrize("name", ALL)
 def test_targets_valid(name, rw):
     st = build_daily(name)
     prices = rw(st.symbols, n=700, seed=12, drift=0.0003)
     t = st.target_weights(prices)
     rows = t.dropna(how="all")
     assert len(rows) > 0
-    assert (rows.fillna(0) >= -1e-12).all().all(), "long-only strategies"
-    assert (rows.fillna(0).sum(axis=1) <= 1 + 1e-9).all()
+    if getattr(st, "long_short", False):
+        assert (rows.fillna(0).abs().sum(axis=1) <= 1 + 1e-9).all(), "gross <= 1"
+        assert (rows.fillna(0).sum(axis=1).abs() <= 1e-9).all(), "dollar neutral"
+    else:
+        assert (rows.fillna(0) >= -1e-12).all().all(), "long-only strategies"
+        assert (rows.fillna(0).sum(axis=1) <= 1 + 1e-9).all()
     assert t.iloc[: st.warmup_days].isna().all().all(), "no targets during warm-up"
 
 
